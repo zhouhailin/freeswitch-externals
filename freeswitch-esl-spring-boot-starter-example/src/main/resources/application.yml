@@ -1,0 +1,20 @@
+link:
+  thingscloud:
+    freeswitch:
+      esl:
+        inbound:
+          defaultPassword: NewVois001
+          performance: false
+          performanceCostTime: 200
+          servers:
+            - host: 172.16.2.124
+              password: NewVois001
+              port: 8014
+              timeoutSeconds: 5
+            - host: 172.16.2.253
+              port: 8014
+          events:
+            - all
+#logging:
+#  level:
+#    link: DEBUG
