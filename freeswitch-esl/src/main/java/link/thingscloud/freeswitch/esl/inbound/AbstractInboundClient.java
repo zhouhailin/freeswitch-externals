@@ -39,6 +39,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * <p>
  * |------------------------------------|
  * |                                    |
  * \|            |---> CONNECTED  ---> CLOSED  ---> SHUTDOWN
@@ -46,6 +47,7 @@ import java.util.concurrent.TimeUnit;
  * /|            |---> FAILED
  * |                     |
  * ----------------------|
+ * </p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
  */

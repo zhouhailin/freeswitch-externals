@@ -46,7 +46,7 @@ public interface InboundClient extends InboundClientService {
     /**
      * Sends a FreeSWITCH API command to the server and blocks, waiting for an immediate response from the
      * server.
-     * <p/>
+     *
      * The outcome of the command from the server is retured in an {@link EslMessage} object.
      *
      * @param addr Esl server address
@@ -59,7 +59,7 @@ public interface InboundClient extends InboundClientService {
     /**
      * Aync callback Sends a FreeSWITCH API command to the server and blocks, waiting for an immediate response from the
      * server.
-     * <p/>
+     *
      * The outcome of the command from the server is retured in an {@link EslMessage} object.
      *
      * @param addr Esl server address
@@ -69,9 +69,11 @@ public interface InboundClient extends InboundClientService {
     void sendSyncApiCommand(String addr, String command, String arg, Consumer<EslMessage> consumer);
 
     /**
+     * <p>
      * Submit a FreeSWITCH API command to the server to be executed in background mode. A synchronous
      * response from the server provides a UUID to identify the job execution results. When the server
-     * has completed the job execution it fires a BACKGROUND_JOB Event with the execution results.<p/>
+     * has completed the job execution it fires a BACKGROUND_JOB Event with the execution results.
+     * <p/>
      * Note that this Client must be subscribed in the normal way to BACKGOUND_JOB Events, in order to
      * receive this event.
      *
@@ -83,9 +85,11 @@ public interface InboundClient extends InboundClientService {
     String sendAsyncApiCommand(String addr, String command, String arg);
 
     /**
+     * <p>
      * Aync callback Submit a FreeSWITCH API command to the server to be executed in background mode. A synchronous
      * response from the server provides a UUID to identify the job execution results. When the server
-     * has completed the job execution it fires a BACKGROUND_JOB Event with the execution results.<p/>
+     * has completed the job execution it fires a BACKGROUND_JOB Event with the execution results.
+     * <p/>
      * Note that this Client must be subscribed in the normal way to BACKGOUND_JOB Events, in order to
      * receive this event.
      *
@@ -104,6 +108,7 @@ public interface InboundClient extends InboundClientService {
      *   CUSTOM conference::maintenance
      *   CHANNEL_CREATE CHANNEL_DESTROY CUSTOM conference::maintenance sofia::register sofia::expire
      * </pre>
+     * <p>
      * Subsequent calls to this method replaces any previous subscriptions that were set.
      * </p>
      * Note: current implementation can only process 'plain' events.
@@ -118,14 +123,17 @@ public interface InboundClient extends InboundClientService {
     /**
      * Cancel any existing event subscription.
      *
+     * @param addr Esl server address
      * @return a {@link CommandResponse} with the server's response.
      */
     CommandResponse cancelEventSubscriptions(String addr);
 
     /**
+     * <p>
      * Add an event filter to the current set of event filters on this connection. Any of the event headers
      * can be used as a filter.
      * </p>
+     * <p>
      * Note that event filters follow 'filter-in' semantics. That is, when a filter is applied
      * only the filtered values will be received. Multiple filters can be added to the current
      * connection.

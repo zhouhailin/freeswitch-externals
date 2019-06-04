@@ -171,7 +171,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
     /**
      * Returns the Job UUID of that the response event will have.
      *
-     * @param command
+     * @param command cmd
      * @return Job-UUID as a string
      */
     public String sendAsyncCommand(final String command) {
