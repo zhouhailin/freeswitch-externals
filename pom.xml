@@ -208,6 +208,20 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>rdc-releases</id>
+            <url>https://repo.rdc.aliyun.com/repository/11638-release-5tgSEa/</url>
+        </repository>
+        <repository>
+            <id>rdc-snapshots</id>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <url>https://repo.rdc.aliyun.com/repository/11638-snapshot-R4RpeG/</url>
+        </repository>
+    </repositories>
+
     <distributionManagement>
         <repository>
             <id>rdc-releases</id>

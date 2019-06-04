@@ -49,6 +49,7 @@ public interface InboundClient extends InboundClientService {
      * <p/>
      * The outcome of the command from the server is retured in an {@link EslMessage} object.
      *
+     * @param addr Esl server address
      * @param command API command to send
      * @param arg     command arguments
      * @return an {@link EslMessage} containing command results
@@ -61,6 +62,7 @@ public interface InboundClient extends InboundClientService {
      * <p/>
      * The outcome of the command from the server is retured in an {@link EslMessage} object.
      *
+     * @param addr Esl server address
      * @param command API command to send
      * @param arg     command arguments
      */
@@ -73,6 +75,7 @@ public interface InboundClient extends InboundClientService {
      * Note that this Client must be subscribed in the normal way to BACKGOUND_JOB Events, in order to
      * receive this event.
      *
+     * @param addr Esl server address
      * @param command API command to send
      * @param arg     command arguments
      * @return String Job-UUID that the server will tag result event with.
@@ -86,6 +89,7 @@ public interface InboundClient extends InboundClientService {
      * Note that this Client must be subscribed in the normal way to BACKGOUND_JOB Events, in order to
      * receive this event.
      *
+     * @param addr Esl server address
      * @param command API command to send
      * @param arg     command arguments
      */
@@ -104,6 +108,7 @@ public interface InboundClient extends InboundClientService {
      * </p>
      * Note: current implementation can only process 'plain' events.
      *
+     * @param addr Esl server address
      * @param format can be { plain | xml }
      * @param events { all | space separated list of events }
      * @return a {@link CommandResponse} with the server's response.
@@ -133,6 +138,7 @@ public interface InboundClient extends InboundClientService {
      *    Channel-State      CS_NEW
      * </pre>
      *
+     * @param addr Esl server address
      * @param eventHeader   to filter on
      * @param valueToFilter the value to match
      * @return a {@link CommandResponse} with the server's response.
@@ -141,8 +147,9 @@ public interface InboundClient extends InboundClientService {
 
     /**
      * Delete an event filter from the current set of event filters on this connection.  See
-     * {@link InboundClient.addEventFilter}
+     * {@link InboundClient#addEventFilter}
      *
+     * @param addr Esl server address
      * @param eventHeader   to remove
      * @param valueToFilter to remove
      * @return a {@link CommandResponse} with the server's response.
@@ -153,6 +160,7 @@ public interface InboundClient extends InboundClientService {
      * Send a {@link SendMsg} command to FreeSWITCH.  This client requires that the {@link SendMsg}
      * has a call UUID parameter.
      *
+     * @param addr Esl server address
      * @param sendMsg a {@link SendMsg} with call UUID
      * @return a {@link CommandResponse} with the server's response.
      */
@@ -161,6 +169,7 @@ public interface InboundClient extends InboundClientService {
     /**
      * Enable log output.
      *
+     * @param addr Esl server address
      * @param level using the same values as in console.conf
      * @return a {@link CommandResponse} with the server's response.
      */
@@ -169,6 +178,7 @@ public interface InboundClient extends InboundClientService {
     /**
      * Disable any logging previously enabled with setLogLevel().
      *
+     * @param addr Esl server address
      * @return a {@link CommandResponse} with the server's response.
      */
     CommandResponse cancelLogging(String addr);
@@ -176,6 +186,7 @@ public interface InboundClient extends InboundClientService {
     /**
      * Close the socket connection
      *
+     * @param addr Esl server address
      * @return a {@link CommandResponse} with the server's response.
      */
     CommandResponse close(String addr);
