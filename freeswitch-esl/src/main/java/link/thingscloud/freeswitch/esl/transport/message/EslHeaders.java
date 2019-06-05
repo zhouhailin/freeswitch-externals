@@ -66,10 +66,6 @@ public class EslHeaders {
             this.literal = literal;
         }
 
-        public String literal() {
-            return literal;
-        }
-
         public static Name fromLiteral(String literal) {
             for (Name name : values()) {
                 if (name.literal.equalsIgnoreCase(literal)) {
@@ -78,6 +74,10 @@ public class EslHeaders {
             }
 
             return null;
+        }
+
+        public String literal() {
+            return literal;
         }
     }
 

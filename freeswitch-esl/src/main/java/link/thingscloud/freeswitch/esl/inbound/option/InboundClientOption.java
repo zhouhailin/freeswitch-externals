@@ -47,6 +47,7 @@ public class InboundClientOption {
 
     private ServerOptionListener serverOptionListener = null;
     private List<ServerOption> serverOptions = new ArrayList<>();
+    private ServerAddrOption serverAddrOption = new ServerAddrOption(serverOptions);
 
     private List<IEslEventListener> listeners = new ArrayList<>();
 
@@ -141,6 +142,10 @@ public class InboundClientOption {
     public InboundClientOption serverOptionListener(ServerOptionListener serverOptionListener) {
         this.serverOptionListener = serverOptionListener;
         return this;
+    }
+
+    public ServerAddrOption serverAddrOption() {
+        return serverAddrOption;
     }
 
     public List<ServerOption> serverOptions() {

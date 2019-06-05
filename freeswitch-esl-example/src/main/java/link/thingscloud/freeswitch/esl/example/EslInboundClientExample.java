@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package link.thingscloud.freeswitch.esl;
+package link.thingscloud.freeswitch.esl.example;
 
+import link.thingscloud.freeswitch.esl.IEslEventListener;
+import link.thingscloud.freeswitch.esl.InboundClient;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.inbound.option.ServerOption;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
@@ -49,6 +51,11 @@ public class EslInboundClientExample {
         InboundClient inboundClient = InboundClient.newInstance(option);
 
         inboundClient.start();
+
+
+        System.out.println(option.serverAddrOption().first());
+        System.out.println(option.serverAddrOption().last());
+        System.out.println(option.serverAddrOption().random());
 
 
     }

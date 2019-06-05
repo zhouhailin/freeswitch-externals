@@ -28,5 +28,4 @@ HELP.md
 ### VS Code ###
 .vscode/
 
-.idea/*
-*.iml
+pom.xml.versionsBackup

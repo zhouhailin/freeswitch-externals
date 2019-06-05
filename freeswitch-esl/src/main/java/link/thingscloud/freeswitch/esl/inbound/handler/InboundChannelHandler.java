@@ -47,12 +47,10 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
 
     private final Lock syncLock = new ReentrantLock();
     private final Queue<SyncCallback> syncCallbacks = new ConcurrentLinkedQueue<>();
-
-    private Channel channel;
-    private String remoteAddr;
-
     private final ChannelEventListener listener;
     private final ExecutorService publicExecutor;
+    private Channel channel;
+    private String remoteAddr;
 
     public InboundChannelHandler(ChannelEventListener listener, ExecutorService publicExecutor) {
         this.listener = listener;

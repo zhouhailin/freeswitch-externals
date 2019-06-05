@@ -35,19 +35,6 @@ public class EslFrameDecoder extends ReplayingDecoder<EslFrameDecoder.State> {
      * Line feed character
      */
     private static final byte LF = 10;
-
-
-    protected enum State {
-        /**
-         * 包头
-         */
-        READ_HEADER,
-        /**
-         * 包体
-         */
-        READ_BODY,
-    }
-
     private final int maxHeaderSize;
     private EslMessage currentMessage;
     private boolean treatUnknownHeadersAsBody = false;
@@ -181,5 +168,16 @@ public class EslFrameDecoder extends ReplayingDecoder<EslFrameDecoder.State> {
         }
 
         return sb.toString();
+    }
+
+    protected enum State {
+        /**
+         * 包头
+         */
+        READ_HEADER,
+        /**
+         * 包体
+         */
+        READ_BODY,
     }
 }

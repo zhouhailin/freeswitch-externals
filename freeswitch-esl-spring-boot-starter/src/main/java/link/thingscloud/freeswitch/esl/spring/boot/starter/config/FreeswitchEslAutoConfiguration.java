@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties({InboundClientProperties.class})
-@ConditionalOnClass(link.thingscloud.freeswitch.esl.InboundClient.class)
+@ConditionalOnClass(InboundClient.class)
 public class FreeswitchEslAutoConfiguration {
 
     @Autowired

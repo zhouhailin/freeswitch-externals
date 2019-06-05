@@ -29,10 +29,6 @@ class InboundClientFactory {
 
     private InboundClient inboundClient = null;
 
-    private static class InboundClientFactoryInstance {
-        private static final InboundClientFactory instance = new InboundClientFactory();
-    }
-
     private InboundClientFactory() {
     }
 
@@ -53,6 +49,10 @@ class InboundClientFactory {
             throw new InboundClientException("InboundClient is null, you must be create it first.");
         }
         return inboundClient;
+    }
+
+    private static class InboundClientFactoryInstance {
+        private static final InboundClientFactory instance = new InboundClientFactory();
     }
 
 }
