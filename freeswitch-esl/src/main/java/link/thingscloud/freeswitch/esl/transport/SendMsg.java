@@ -20,11 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * <p>SendMsg class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 public class SendMsg {
 
-    private final List<String> msgLines = new ArrayList<String>();
+    private final List<String> msgLines = new ArrayList<>();
     private final boolean hasUuid;
 
     /**
@@ -160,6 +163,9 @@ public class SendMsg {
         return hasUuid;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("SendMsg: ");

@@ -27,7 +27,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 /**
+ * <p>EslFrameDecoder class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 @Slf4j
 public class EslFrameDecoder extends ReplayingDecoder<EslFrameDecoder.State> {
@@ -39,6 +42,11 @@ public class EslFrameDecoder extends ReplayingDecoder<EslFrameDecoder.State> {
     private EslMessage currentMessage;
     private boolean treatUnknownHeadersAsBody = false;
 
+    /**
+     * <p>Constructor for EslFrameDecoder.</p>
+     *
+     * @param maxHeaderSize a int.
+     */
     public EslFrameDecoder(int maxHeaderSize) {
         super(State.READ_HEADER);
         if (maxHeaderSize <= 0) {
@@ -49,13 +57,22 @@ public class EslFrameDecoder extends ReplayingDecoder<EslFrameDecoder.State> {
         this.maxHeaderSize = maxHeaderSize;
     }
 
+    /**
+     * <p>Constructor for EslFrameDecoder.</p>
+     *
+     * @param maxHeaderSize             a int.
+     * @param treatUnknownHeadersAsBody a boolean.
+     */
     public EslFrameDecoder(int maxHeaderSize, boolean treatUnknownHeadersAsBody) {
         this(maxHeaderSize);
         this.treatUnknownHeadersAsBody = treatUnknownHeadersAsBody;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf buffer, List<Object> out) throws Exception {
+    protected void decode(ChannelHandlerContext ctx, ByteBuf buffer, List<Object> out) {
         log.trace("decode() : state [{}]", state());
         switch (state()) {
             case READ_HEADER:

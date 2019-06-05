@@ -27,7 +27,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
+ * <p>ReScheduleEslEventHandler class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 @Slf4j
 @EslEventName("RE_SCHEDULE")
@@ -37,6 +40,9 @@ public class ReScheduleEslEventHandler implements EslEventHandler {
     @Autowired
     private InboundClient inboundClient;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handle(String addr, EslEvent event) {
         log.info("ReScheduleEslEventHandler handle addr[{}] EslEvent[{}].", addr, event);

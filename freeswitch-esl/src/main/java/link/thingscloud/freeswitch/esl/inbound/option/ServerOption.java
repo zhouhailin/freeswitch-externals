@@ -20,7 +20,10 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>ServerOption class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 
 @Data
@@ -35,10 +38,18 @@ public class ServerOption {
 
     private int connectTimes = 0;
 
+    /**
+     * <p>addr.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String addr() {
         return host + ":" + port;
     }
 
+    /**
+     * <p>addConnectTimes.</p>
+     */
     public void addConnectTimes() {
         connectTimes++;
     }

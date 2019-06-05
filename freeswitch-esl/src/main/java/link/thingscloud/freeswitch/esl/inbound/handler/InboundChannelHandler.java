@@ -37,7 +37,10 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
+ * <p>InboundChannelHandler class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 @Slf4j
 public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessage> {
@@ -52,11 +55,20 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
     private Channel channel;
     private String remoteAddr;
 
+    /**
+     * <p>Constructor for InboundChannelHandler.</p>
+     *
+     * @param listener       a {@link link.thingscloud.freeswitch.esl.inbound.listener.ChannelEventListener} object.
+     * @param publicExecutor a {@link java.util.concurrent.ExecutorService} object.
+     */
     public InboundChannelHandler(ChannelEventListener listener, ExecutorService publicExecutor) {
         this.listener = listener;
         this.publicExecutor = publicExecutor;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);
@@ -65,12 +77,14 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         listener.onChannelActive(remoteAddr, this);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         super.channelInactive(ctx);
         listener.onChannelClosed(remoteAddr);
     }
 
+    /** {@inheritDoc} */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, EslMessage msg) {
         String contentType = msg.getContentType();
@@ -116,11 +130,11 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
 
     /**
      * Synthesise a synchronous command/response by creating a callback object which is placed in
-     * queue and blocks waiting for another IO thread to process an incoming {@link EslMessage} and
+     * queue and blocks waiting for another IO thread to process an incoming {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} and
      * attach it to the callback.
      *
      * @param command single string to send
-     * @return the {@link EslMessage} attached to this command's callback
+     * @return the {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} attached to this command's callback
      */
     public EslMessage sendSyncSingleLineCommand(final String command) {
         SyncCallback callback = new SyncCallback();
@@ -138,11 +152,11 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
 
     /**
      * Synthesise a synchronous command/response by creating a callback object which is placed in
-     * queue and blocks waiting for another IO thread to process an incoming {@link EslMessage} and
+     * queue and blocks waiting for another IO thread to process an incoming {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} and
      * attach it to the callback.
      *
      * @param commandLines List of command lines to send
-     * @return the {@link EslMessage} attached to this command's callback
+     * @return the {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} attached to this command's callback
      */
     public EslMessage sendSyncMultiLineCommand(final List<String> commandLines) {
         SyncCallback callback = new SyncCallback();
@@ -185,6 +199,11 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         }
     }
 
+    /**
+     * <p>close.</p>
+     *
+     * @return a {@link io.netty.channel.ChannelFuture} object.
+     */
     public ChannelFuture close() {
         return channel.close();
     }
@@ -197,7 +216,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
          * Block waiting for the countdown latch to be released, then return the
          * associated response object.
          *
-         * @return
+         * @return msg
          */
         EslMessage get() {
             try {
@@ -214,7 +233,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         /**
          * Attach this response to the callback and release the countdown latch.
          *
-         * @param response
+         * @param response res
          */
         void handle(EslMessage response) {
             this.response = response;

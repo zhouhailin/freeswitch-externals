@@ -19,7 +19,10 @@ package link.thingscloud.freeswitch.esl;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
 
 /**
+ * <p>IEslEventListener interface.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 public interface IEslEventListener {
 
@@ -27,7 +30,7 @@ public interface IEslEventListener {
      * Signal of a server initiated event.
      *
      * @param addr  addr
-     * @param event as an {@link EslEvent}
+     * @param event as an {@link link.thingscloud.freeswitch.esl.transport.event.EslEvent}
      */
     void eventReceived(String addr, EslEvent event);
 
@@ -36,7 +39,7 @@ public interface IEslEventListener {
      * be available as an event header of that name.
      *
      * @param addr  addr
-     * @param event as an {@link EslEvent}
+     * @param event as an {@link link.thingscloud.freeswitch.esl.transport.event.EslEvent}
      */
     void backgroundJobResultReceived(String addr, EslEvent event);
 

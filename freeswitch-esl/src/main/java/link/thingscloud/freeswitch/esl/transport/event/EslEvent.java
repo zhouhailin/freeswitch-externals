@@ -33,18 +33,19 @@ import java.util.Map;
  * <p>
  * An ESL event is modelled as a collection of text lines. An event always has several eventHeader
  * lines, and optionally may have some eventBody lines.  In addition the messageHeaders of the
- * original containing {@link EslMessage} which carried the event are also available.
+ * original containing {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} which carried the event are also available.
  * <p>
  * The eventHeader lines are parsed and cached in a map keyed by the eventHeader name string. An event
  * is always expected to have an "Event-Name" eventHeader. Commonly used eventHeader names are coded
- * in {@link EslEventHeaderNames}
+ * in {@link link.thingscloud.freeswitch.esl.transport.event.EslEventHeaderNames}
  * <p>
  * Any eventBody lines are cached in a list.
  * <p>
- * The messageHeader lines from the original message are cached in a map keyed by {@link EslHeaders.Name}.
+ * The messageHeader lines from the original message are cached in a map keyed by {@link link.thingscloud.freeswitch.esl.transport.message.EslHeaders.Name}.
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
  * @see EslEventHeaderNames
+ * @version $Id: $Id
  */
 @Slf4j
 public class EslEvent {
@@ -54,10 +55,21 @@ public class EslEvent {
     private final List<String> eventBody;
     private boolean decodeEventHeaders = true;
 
+    /**
+     * <p>Constructor for EslEvent.</p>
+     *
+     * @param rawMessage a {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} object.
+     */
     public EslEvent(EslMessage rawMessage) {
         this(rawMessage, false);
     }
 
+    /**
+     * <p>Constructor for EslEvent.</p>
+     *
+     * @param rawMessage        a {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} object.
+     * @param parseCommandReply a boolean.
+     */
     public EslEvent(EslMessage rawMessage, boolean parseCommandReply) {
         messageHeaders = rawMessage.getHeaders();
         eventHeaders = new HashMap<>(rawMessage.getBodyLines().size());
@@ -77,7 +89,7 @@ public class EslEvent {
 
     /**
      * The message headers of the original ESL message from which this event was decoded.
-     * The message headers are stored in a map keyed by {@link EslHeaders.Name}. The string mapped value
+     * The message headers are stored in a map keyed by {@link link.thingscloud.freeswitch.esl.transport.message.EslHeaders.Name}. The string mapped value
      * is the parsed content of the header line (ie, it does not include the header name).
      *
      * @return map of header values
@@ -184,6 +196,9 @@ public class EslEvent {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("EslEvent: name=[");
@@ -195,7 +210,6 @@ public class EslEvent {
         sb.append(", eventBody=");
         sb.append(eventBody.size());
         sb.append(" lines.");
-
         return sb.toString();
     }
 }

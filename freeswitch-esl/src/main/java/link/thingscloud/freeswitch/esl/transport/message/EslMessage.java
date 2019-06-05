@@ -29,13 +29,14 @@ import java.util.Map;
  * An ESL message is modelled as text lines.  A message always has one or more header lines, and
  * optionally may have some body lines.
  * <p>
- * Header lines are parsed and cached in a map keyed by the {@link EslHeaders.Name} enum.  A message
+ * Header lines are parsed and cached in a map keyed by the {@link link.thingscloud.freeswitch.esl.transport.message.EslHeaders.Name} enum.  A message
  * is always expected to have a "Content-Type" header
  * <p>
  * Any Body lines are cached in a list.
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
  * @see EslHeaders.Name
+ * @version $Id: $Id
  */
 @Slf4j
 public class EslMessage {
@@ -46,7 +47,7 @@ public class EslMessage {
     private Integer contentLength = null;
 
     /**
-     * All the received message headers in a map keyed by {@link EslHeaders.Name}. The string mapped value
+     * All the received message headers in a map keyed by {@link link.thingscloud.freeswitch.esl.transport.message.EslHeaders.Name}. The string mapped value
      * is the parsed content of the header line (ie, it does not include the header name).
      *
      * @return map of header values
@@ -58,7 +59,7 @@ public class EslMessage {
     /**
      * Convenience method
      *
-     * @param headerName as a {@link EslHeaders.Name}
+     * @param headerName as a {@link link.thingscloud.freeswitch.esl.transport.message.EslHeaders.Name}
      * @return true if an only if there is a header entry with the supplied header name
      */
     public boolean hasHeader(EslHeaders.Name headerName) {
@@ -68,7 +69,7 @@ public class EslMessage {
     /**
      * Convenience method
      *
-     * @param headerName as a {@link EslHeaders.Name}
+     * @param headerName as a {@link link.thingscloud.freeswitch.esl.transport.message.EslHeaders.Name}
      * @return same as getHeaders().get( headerName )
      */
     public String getHeaderValue(EslHeaders.Name headerName) {
@@ -140,6 +141,9 @@ public class EslMessage {
         body.add(line);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("EslMessage: contentType=[");

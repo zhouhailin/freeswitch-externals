@@ -21,7 +21,10 @@ import link.thingscloud.freeswitch.esl.transport.message.EslHeaders;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
 
 /**
+ * <p>CommandResponse class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 public class CommandResponse {
 
@@ -30,6 +33,12 @@ public class CommandResponse {
     private final EslMessage response;
     private final boolean success;
 
+    /**
+     * <p>Constructor for CommandResponse.</p>
+     *
+     * @param command  a {@link java.lang.String} object.
+     * @param response a {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} object.
+     */
     public CommandResponse(String command, EslMessage response) {
         this.command = command;
         this.response = response;
@@ -38,6 +47,8 @@ public class CommandResponse {
     }
 
     /**
+     * <p>Getter for the field <code>command</code>.</p>
+     *
      * @return the original command sent to the server
      */
     public String getCommand() {
@@ -45,6 +56,8 @@ public class CommandResponse {
     }
 
     /**
+     * <p>isOk.</p>
+     *
      * @return true if and only if the response Reply-Text line starts with "+OK"
      */
     public boolean isOk() {
@@ -52,6 +65,8 @@ public class CommandResponse {
     }
 
     /**
+     * <p>Getter for the field <code>replyText</code>.</p>
+     *
      * @return the full response Reply-Text line.
      */
     public String getReplyText() {
@@ -59,7 +74,9 @@ public class CommandResponse {
     }
 
     /**
-     * @return {@link EslMessage} the full response from the server
+     * <p>Getter for the field <code>response</code>.</p>
+     *
+     * @return {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} the full response from the server
      */
     public EslMessage getResponse() {
         return response;

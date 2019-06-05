@@ -24,14 +24,28 @@ import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
 import java.util.function.Consumer;
 
 /**
+ * <p>InboundClient interface.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 public interface InboundClient extends InboundClientService {
 
+    /**
+     * <p>newInstance.</p>
+     *
+     * @param option a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
+     * @return a {@link link.thingscloud.freeswitch.esl.InboundClient} object.
+     */
     static InboundClient newInstance(InboundClientOption option) {
         return InboundClientFactory.getInstance().newInboundClient(option);
     }
 
+    /**
+     * <p>getInstance.</p>
+     *
+     * @return a {@link link.thingscloud.freeswitch.esl.InboundClient} object.
+     */
     static InboundClient getInstance() {
         return InboundClientFactory.getInstance().getInboundClient();
     }
@@ -47,12 +61,12 @@ public interface InboundClient extends InboundClientService {
      * Sends a FreeSWITCH API command to the server and blocks, waiting for an immediate response from the
      * server.
      * <p>
-     * The outcome of the command from the server is retured in an {@link EslMessage} object.
+     * The outcome of the command from the server is retured in an {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} object.
      *
      * @param addr    Esl server address
      * @param command API command to send
      * @param arg     command arguments
-     * @return an {@link EslMessage} containing command results
+     * @return an {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} containing command results
      */
     EslMessage sendSyncApiCommand(String addr, String command, String arg);
 
@@ -60,11 +74,12 @@ public interface InboundClient extends InboundClientService {
      * Aync callback Sends a FreeSWITCH API command to the server and blocks, waiting for an immediate response from the
      * server.
      * <p>
-     * The outcome of the command from the server is retured in an {@link EslMessage} object.
+     * The outcome of the command from the server is retured in an {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} object.
      *
      * @param addr    Esl server address
      * @param command API command to send
      * @param arg     command arguments
+     * @param consumer a {@link java.util.function.Consumer} object.
      */
     void sendSyncApiCommand(String addr, String command, String arg, Consumer<EslMessage> consumer);
 
@@ -96,6 +111,7 @@ public interface InboundClient extends InboundClientService {
      * @param addr    Esl server address
      * @param command API command to send
      * @param arg     command arguments
+     * @param consumer a {@link java.util.function.Consumer} object.
      */
     void sendAsyncApiCommand(String addr, String command, String arg, Consumer<String> consumer);
 
@@ -116,7 +132,7 @@ public interface InboundClient extends InboundClientService {
      * @param addr   Esl server address
      * @param format can be { plain | xml }
      * @param events { all | space separated list of events }
-     * @return a {@link CommandResponse} with the server's response.
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
      */
     CommandResponse setEventSubscriptions(String addr, String format, String events);
 
@@ -124,7 +140,7 @@ public interface InboundClient extends InboundClientService {
      * Cancel any existing event subscription.
      *
      * @param addr Esl server address
-     * @return a {@link CommandResponse} with the server's response.
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
      */
     CommandResponse cancelEventSubscriptions(String addr);
 
@@ -149,28 +165,28 @@ public interface InboundClient extends InboundClientService {
      * @param addr          Esl server address
      * @param eventHeader   to filter on
      * @param valueToFilter the value to match
-     * @return a {@link CommandResponse} with the server's response.
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
      */
     CommandResponse addEventFilter(String addr, String eventHeader, String valueToFilter);
 
     /**
      * Delete an event filter from the current set of event filters on this connection.  See
-     * {@link InboundClient#addEventFilter}
+     * {@link link.thingscloud.freeswitch.esl.InboundClient#addEventFilter}
      *
      * @param addr          Esl server address
      * @param eventHeader   to remove
      * @param valueToFilter to remove
-     * @return a {@link CommandResponse} with the server's response.
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
      */
     CommandResponse deleteEventFilter(String addr, String eventHeader, String valueToFilter);
 
     /**
-     * Send a {@link SendMsg} command to FreeSWITCH.  This client requires that the {@link SendMsg}
+     * Send a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} command to FreeSWITCH.  This client requires that the {@link link.thingscloud.freeswitch.esl.transport.SendMsg}
      * has a call UUID parameter.
      *
      * @param addr    Esl server address
-     * @param sendMsg a {@link SendMsg} with call UUID
-     * @return a {@link CommandResponse} with the server's response.
+     * @param sendMsg a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} with call UUID
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
      */
     CommandResponse sendMessage(String addr, SendMsg sendMsg);
 
@@ -179,7 +195,7 @@ public interface InboundClient extends InboundClientService {
      *
      * @param addr  Esl server address
      * @param level using the same values as in console.conf
-     * @return a {@link CommandResponse} with the server's response.
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
      */
     CommandResponse setLoggingLevel(String addr, String level);
 
@@ -187,7 +203,7 @@ public interface InboundClient extends InboundClientService {
      * Disable any logging previously enabled with setLogLevel().
      *
      * @param addr Esl server address
-     * @return a {@link CommandResponse} with the server's response.
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
      */
     CommandResponse cancelLogging(String addr);
 
@@ -195,7 +211,7 @@ public interface InboundClient extends InboundClientService {
      * Close the socket connection
      *
      * @param addr Esl server address
-     * @return a {@link CommandResponse} with the server's response.
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
      */
     CommandResponse close(String addr);
 

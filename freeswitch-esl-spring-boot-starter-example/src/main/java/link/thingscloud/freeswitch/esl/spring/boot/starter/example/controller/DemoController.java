@@ -21,12 +21,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * <p>DemoController class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 @RestController
 @RequestMapping("/demo")
 public class DemoController {
 
+    /**
+     * <p>demo.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @GetMapping("/demo")
     public String demo() {
         return "demo";

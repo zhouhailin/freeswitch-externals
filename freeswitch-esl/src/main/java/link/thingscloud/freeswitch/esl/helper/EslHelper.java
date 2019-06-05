@@ -24,11 +24,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>EslHelper class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 public class EslHelper {
 
 
+    /**
+     * <p>formatEslEvent.</p>
+     *
+     * @param event a {@link link.thingscloud.freeswitch.esl.transport.event.EslEvent} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String formatEslEvent(EslEvent event) {
 
         StringBuilder sb = new StringBuilder();
@@ -60,6 +69,12 @@ public class EslHelper {
     }
 
 
+    /**
+     * <p>formatEslMessage.</p>
+     *
+     * @param message a {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String formatEslMessage(EslMessage message) {
         StringBuilder sb = new StringBuilder();
 

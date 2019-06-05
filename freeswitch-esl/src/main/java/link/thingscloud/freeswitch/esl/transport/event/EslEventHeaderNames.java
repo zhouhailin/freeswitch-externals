@@ -17,7 +17,10 @@
 package link.thingscloud.freeswitch.esl.transport.event;
 
 /**
+ * <p>EslEventHeaderNames class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 public class EslEventHeaderNames {
     /**

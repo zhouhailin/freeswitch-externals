@@ -22,12 +22,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
+ * <p>Abstract AbstractEslEventHandler class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 public abstract class AbstractEslEventHandler implements EslEventHandler {
 
-    protected final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     protected InboundClient inboundClient;
+
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
 }

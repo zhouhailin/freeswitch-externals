@@ -23,10 +23,18 @@ import link.thingscloud.freeswitch.esl.inbound.option.ServerOption;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
 
 /**
+ * <p>EslInboundClientExample class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 public class EslInboundClientExample {
 
+    /**
+     * <p>main.</p>
+     *
+     * @param args an array of {@link java.lang.String} objects.
+     */
     public static void main(String[] args) {
         InboundClientOption option = new InboundClientOption();
 

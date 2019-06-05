@@ -19,7 +19,10 @@ package link.thingscloud.freeswitch.esl.spring.boot.starter.annotation;
 import java.lang.annotation.*;
 
 /**
+ * <p>EslEventName class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

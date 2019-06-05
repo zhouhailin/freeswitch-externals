@@ -36,7 +36,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>IEslEventListenerTemplate class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 @Slf4j
 @Component
@@ -46,11 +49,17 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
     private Map<String, List<EslEventHandler>> handlerTable = new HashMap<>(16);
     private EslEventHandler defaultEventHandler = new DefaultEslEventHandler();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void eventReceived(String addr, EslEvent event) {
         handleEslEvent(addr, event);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void backgroundJobResultReceived(String addr, EslEvent event) {
         handleEslEvent(addr, event);
@@ -67,6 +76,7 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public void afterPropertiesSet() {
         log.info("IEslEventListener init ...");
@@ -89,6 +99,7 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;

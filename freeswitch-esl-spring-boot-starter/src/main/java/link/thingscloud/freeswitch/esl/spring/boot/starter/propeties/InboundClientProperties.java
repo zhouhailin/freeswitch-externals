@@ -23,7 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * <p>InboundClientProperties class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 @Data
 @ConfigurationProperties(prefix = "link.thingscloud.freeswitch.esl.inbound")

@@ -62,12 +62,18 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         super(option);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public InboundClientOption option() {
         return option;
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         log.info("inbound client will start ...");
@@ -85,6 +91,7 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public void shutdown() {
         log.info("inbound client will shutdown ...");
@@ -104,11 +111,13 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         workerGroup.shutdownGracefully();
     }
 
+    /** {@inheritDoc} */
     @Override
     public void onChannelActive(String remoteAddr, InboundChannelHandler inboundChannelHandler) {
         handlerTable.put(remoteAddr, inboundChannelHandler);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void onChannelClosed(String remoteAddr) {
         handlerTable.remove(remoteAddr);
@@ -122,6 +131,7 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         });
     }
 
+    /** {@inheritDoc} */
     @Override
     public void handleAuthRequest(String addr, InboundChannelHandler inboundChannelHandler) {
         log.info("Auth requested[{}], sending [auth {}]", addr, "*****");
@@ -154,6 +164,7 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void handleEslEvent(String addr, EslEvent event) {
         option().listeners().forEach(listener -> {
@@ -191,6 +202,7 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         });
     }
 
+    /** {@inheritDoc} */
     @Override
     public void handleDisconnectNotice(String addr) {
         log.info("Disconnected[{}] ...", addr);
@@ -240,16 +252,12 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
                 for (String event : list) {
                     sb.append(event).append(" ");
                 }
-                option().serverOptions().forEach(serverOption -> {
-                    publicExecutor.execute(() -> setEventSubscriptions(serverOption.addr(), "plain", sb.toString()));
-                });
+                option().serverOptions().forEach(serverOption -> publicExecutor.execute(() -> setEventSubscriptions(serverOption.addr(), "plain", sb.toString())));
             }
 
             @Override
             public void cancelEvents() {
-                option().serverOptions().forEach(serverOption -> {
-                    publicExecutor.execute(() -> cancelEventSubscriptions(serverOption.addr()));
-                });
+                option().serverOptions().forEach(serverOption -> publicExecutor.execute(() -> cancelEventSubscriptions(serverOption.addr())));
 
             }
         });

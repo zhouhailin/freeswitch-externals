@@ -33,7 +33,10 @@ import org.springframework.context.annotation.Configuration;
 
 
 /**
+ * <p>FreeswitchEslAutoConfiguration class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 @Slf4j
 @Configuration
@@ -44,12 +47,23 @@ public class FreeswitchEslAutoConfiguration {
     @Autowired
     private InboundClientProperties properties;
 
+    /**
+     * <p>listener.</p>
+     *
+     * @return a {@link link.thingscloud.freeswitch.esl.IEslEventListener} object.
+     */
     @Bean
     @ConditionalOnMissingBean(IEslEventListener.class)
     public IEslEventListener listener() {
         return new IEslEventListenerTemplate();
     }
 
+    /**
+     * <p>inboundClient.</p>
+     *
+     * @param listener a {@link link.thingscloud.freeswitch.esl.IEslEventListener} object.
+     * @return a {@link link.thingscloud.freeswitch.esl.InboundClient} object.
+     */
     @Bean(initMethod = "start", destroyMethod = "shutdown")
     @ConditionalOnMissingBean(InboundClient.class)
     public InboundClient inboundClient(@Autowired IEslEventListener listener) {

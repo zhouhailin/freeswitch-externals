@@ -20,9 +20,21 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 //@EnableFreeswitchEslAutoConfiguration
+
+/**
+ * <p>FreeswitchEslSpringBootStarterExampleApplication class.</p>
+ *
+ * @author zhouhl
+ * @version $Id: $Id
+ */
 @SpringBootApplication
 public class FreeswitchEslSpringBootStarterExampleApplication {
 
+    /**
+     * <p>main.</p>
+     *
+     * @param args an array of {@link java.lang.String} objects.
+     */
     public static void main(String[] args) {
         SpringApplication.run(FreeswitchEslSpringBootStarterExampleApplication.class, args);
     }

@@ -19,7 +19,10 @@ package link.thingscloud.freeswitch.esl.spring.boot.starter.propeties;
 import lombok.Data;
 
 /**
+ * <p>ServerProperties class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 @Data
 public class ServerProperties {

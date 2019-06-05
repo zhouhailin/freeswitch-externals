@@ -22,11 +22,17 @@ import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * <p>HeartbeatEslEventHandler class.</p>
+ *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
+ * @version $Id: $Id
  */
 @Slf4j
 @EslEventName("HEARTBEAT")
 public class HeartbeatEslEventHandler implements EslEventHandler {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handle(String addr, EslEvent event) {
         log.info("HeartbeatEslEventHandler handle addr[{}] EslEvent[{}].", addr, event);
