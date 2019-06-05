@@ -15,30 +15,13 @@
  * limitations under the License.
  */
 
-package link.thingscloud.freeswitch.esl.spring.boot.starter.handler;
-
-
-import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
+package link.thingscloud.freeswitch.esl.constant;
 
 /**
- * <p>EslEventHandler interface.</p>
- *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
  */
-public interface EslEventHandler {
+public class EslConstant {
 
-    /**
-     * Constant <code>DEFAULT_ESL_EVENT_HANDLER="DEFAULT_ESL_EVENT_HANDLER"</code>
-     */
-    String DEFAULT_ESL_EVENT_HANDLER = "DEFAULT_ESL_EVENT_HANDLER";
-
-    /**
-     * <p>handle.</p>
-     *
-     * @param addr  a {@link java.lang.String} object.
-     * @param event a {@link link.thingscloud.freeswitch.esl.transport.event.EslEvent} object.
-     */
-    void handle(String addr, EslEvent event);
-
+    public static final String BACKGROUND_JOB = "BACKGROUND_JOB";
+    public static final String PLAIN = "plain";
 }

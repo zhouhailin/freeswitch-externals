@@ -1,11 +1,12 @@
 /*
- * Copyright 2019 ThingsCloud Link.
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,6 +19,7 @@ package link.thingscloud.freeswitch.esl.inbound;
 
 import io.netty.channel.ChannelFutureListener;
 import link.thingscloud.freeswitch.esl.InboundClient;
+import link.thingscloud.freeswitch.esl.constant.EslConstant;
 import link.thingscloud.freeswitch.esl.exception.InboundClientException;
 import link.thingscloud.freeswitch.esl.inbound.handler.InboundChannelHandler;
 import link.thingscloud.freeswitch.esl.inbound.listener.EventListener;
@@ -91,7 +93,9 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
     }
 
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void shutdown() {
         log.info("inbound client will shutdown ...");
@@ -111,13 +115,17 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         workerGroup.shutdownGracefully();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onChannelActive(String remoteAddr, InboundChannelHandler inboundChannelHandler) {
         handlerTable.put(remoteAddr, inboundChannelHandler);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onChannelClosed(String remoteAddr) {
         handlerTable.remove(remoteAddr);
@@ -131,7 +139,9 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         });
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleAuthRequest(String addr, InboundChannelHandler inboundChannelHandler) {
         log.info("Auth requested[{}], sending [auth {}]", addr, "*****");
@@ -164,7 +174,9 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleEslEvent(String addr, EslEvent event) {
         option().listeners().forEach(listener -> {
@@ -180,7 +192,7 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
              *  Use a different worker thread pool for async job results than for event driven
              *  events to keep the latency as low as possible.
              */
-            if (event.getEventName().equals("BACKGROUND_JOB")) {
+            if (StringUtils.equals(event.getEventName(), EslConstant.BACKGROUND_JOB)) {
                 try {
                     listener.backgroundJobResultReceived(addr, event);
                 } catch (Throwable t) {
@@ -202,7 +214,9 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         });
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleDisconnectNotice(String addr) {
         log.info("Disconnected[{}] ...", addr);

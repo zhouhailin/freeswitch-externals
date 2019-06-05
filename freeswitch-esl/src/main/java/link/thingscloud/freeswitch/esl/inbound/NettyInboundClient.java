@@ -1,11 +1,12 @@
 /*
- * Copyright 2019 ThingsCloud Link.
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,11 +17,13 @@
 
 package link.thingscloud.freeswitch.esl.inbound;
 
+import link.thingscloud.freeswitch.esl.constant.EslConstant;
 import link.thingscloud.freeswitch.esl.inbound.handler.InboundChannelHandler;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.transport.CommandResponse;
 import link.thingscloud.freeswitch.esl.transport.SendMsg;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.function.Consumer;
 
@@ -73,7 +76,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         });
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String sendAsyncApiCommand(String addr, String command, String arg) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -91,7 +96,9 @@ public class NettyInboundClient extends AbstractInboundClient {
 
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void sendAsyncApiCommand(String addr, String command, String arg, Consumer<String> consumer) {
         publicExecutor.execute(() -> {
@@ -103,10 +110,12 @@ public class NettyInboundClient extends AbstractInboundClient {
 
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse setEventSubscriptions(String addr, String format, String events) {
-        if (!format.equals("plain")) {
+        if (!StringUtils.equals(format, EslConstant.PLAIN)) {
             throw new IllegalStateException("Only 'plain' event format is supported at present");
         }
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -122,7 +131,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sb.toString(), response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse cancelEventSubscriptions(String addr) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -130,7 +141,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse("noevents", response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse addEventFilter(String addr, String eventHeader, String valueToFilter) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -148,7 +161,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sb.toString(), response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse deleteEventFilter(String addr, String eventHeader, String valueToFilter) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -166,7 +181,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sb.toString(), response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse sendMessage(String addr, SendMsg sendMsg) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -174,7 +191,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sendMsg.toString(), response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse setLoggingLevel(String addr, String level) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -187,7 +206,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sb.toString(), response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse cancelLogging(String addr) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -195,7 +216,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse("nolog", response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse close(String addr) {
         InboundChannelHandler handler = getAuthedHandler(addr);
