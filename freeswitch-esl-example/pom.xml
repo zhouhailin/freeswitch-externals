@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2019 ThingsCloud Link.
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to You under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
   ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~     http://www.apache.org/licenses/LICENSE-2.0
   ~
   ~ Unless required by applicable law or agreed to in writing, software
   ~ distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,12 +22,12 @@
     <parent>
         <artifactId>freeswitch-esl-all</artifactId>
         <groupId>link.thingscloud</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0-BETA</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>freeswithc-esl-example</artifactId>
-    <name>freeswithc-esl-example-${project.version}</name>
+    <artifactId>freeswith-esl-example</artifactId>
+    <name>freeswitch-esl-example-${project.version}</name>
     <description>Example project for Freeswitch Esl</description>
 
     <dependencies>
