@@ -54,7 +54,7 @@ import java.util.concurrent.TimeUnit;
 abstract class AbstractInboundClient extends AbstractNettyInboundClient implements InboundClient {
 
     private final ScheduledThreadPoolExecutor scheduledPoolExecutor = new ScheduledThreadPoolExecutor(1,
-            new BasicThreadFactory.Builder().namingPattern("").daemon(true).build());
+            new BasicThreadFactory.Builder().namingPattern("scheduled-pool-%d").daemon(true).build());
 
     private final Map<String, InboundChannelHandler> handlerTable = new HashMap<>(32);
 
