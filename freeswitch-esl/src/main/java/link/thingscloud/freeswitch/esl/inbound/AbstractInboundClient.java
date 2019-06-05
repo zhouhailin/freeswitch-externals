@@ -41,15 +41,14 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * <p>
+ * <p>flow :</p>
  * |------------------------------------|
  * |                                    |
- * \|            |---> CONNECTED  ---> CLOSED  ---> SHUTDOWN
- * INIT ----> CONNECTING -----|
- * /|            |---> FAILED
+ * \|            |---» CONNECTED  ---» CLOSED  ---» SHUTDOWN
+ * INIT ----» CONNECTING -----|
+ * /|            |---» FAILED
  * |                     |
  * ----------------------|
- * </p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
  */
