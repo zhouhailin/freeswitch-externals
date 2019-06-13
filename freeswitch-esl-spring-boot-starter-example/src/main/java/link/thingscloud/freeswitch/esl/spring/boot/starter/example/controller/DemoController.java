@@ -17,9 +17,15 @@
 
 package link.thingscloud.freeswitch.esl.spring.boot.starter.example.controller;
 
+import link.thingscloud.freeswitch.esl.InboundClient;
+import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
+import link.thingscloud.freeswitch.esl.inbound.option.ServerOption;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>DemoController class.</p>
@@ -40,4 +46,48 @@ public class DemoController {
     public String demo() {
         return "demo";
     }
+
+    /**
+     * <p>addServer1.</p>
+     *
+     * @param host a {@link java.lang.String} object.
+     * @param port a int.
+     */
+    @GetMapping("/addServer1")
+    public void addServer1(String host, int port) {
+        InboundClient.getInstance().option().addServerOption(new ServerOption(host, port));
+    }
+
+    @Autowired
+    private InboundClient inboundClient;
+
+    /**
+     * <p>addServer2.</p>
+     *
+     * @param host a {@link java.lang.String} object.
+     * @param port a int.
+     */
+    @GetMapping("/addServer2")
+    public void addServer2(String host, int port) {
+        inboundClient.option().addServerOption(new ServerOption(host, port));
+    }
+
+    /**
+     * <p>removeServer1.</p>
+     */
+    @GetMapping("/removeServer1")
+    public void removeServer1() {
+        ServerOption serverOption = inboundClient.option().serverOptions().get(0);
+        inboundClient.option().removeServerOption(serverOption);
+    }
+    /**
+     * <p>serverOptions.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @GetMapping("/serverOptions")
+    public String serverOptions() {
+        return inboundClient.option().serverOptions().toString();
+    }
+
 }

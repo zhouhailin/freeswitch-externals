@@ -47,8 +47,8 @@ public class ReScheduleEslEventHandler implements EslEventHandler {
     @Override
     public void handle(String addr, EslEvent event) {
         log.info("ReScheduleEslEventHandler handle addr[{}] EslEvent[{}].", addr, event);
-        System.out.println(inboundClient);
+        log.info("{}", inboundClient);
         EslMessage eslMessage = inboundClient.sendSyncApiCommand(addr, "version", null);
-        System.out.println(EslHelper.formatEslMessage(eslMessage));
+        log.info("{}", EslHelper.formatEslMessage(eslMessage));
     }
 }

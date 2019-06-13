@@ -17,27 +17,17 @@
 
 package link.thingscloud.freeswitch.esl.spring.boot.starter.example;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-//@EnableFreeswitchEslAutoConfiguration
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class ExampleApplicationTests {
 
-/**
- * <p>FreeswitchEslSpringBootStarterExampleApplication class.</p>
- *
- * @author zhouhl
- * @version $Id: $Id
- */
-@SpringBootApplication
-public class FreeswitchEslSpringBootStarterExampleApplication {
-
-    /**
-     * <p>main.</p>
-     *
-     * @param args an array of {@link java.lang.String} objects.
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(FreeswitchEslSpringBootStarterExampleApplication.class, args);
+    @Test
+    public void contextLoads() {
     }
 
 }

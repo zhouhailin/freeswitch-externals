@@ -45,9 +45,7 @@ public class NettyInboundClient extends AbstractInboundClient {
         super(option);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public EslMessage sendSyncApiCommand(String addr, String command, String arg) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -63,9 +61,7 @@ public class NettyInboundClient extends AbstractInboundClient {
         return handler.sendSyncSingleLineCommand(sb.toString());
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void sendSyncApiCommand(String addr, String command, String arg, Consumer<EslMessage> consumer) {
         publicExecutor.execute(() -> {
@@ -76,9 +72,7 @@ public class NettyInboundClient extends AbstractInboundClient {
         });
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String sendAsyncApiCommand(String addr, String command, String arg) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -96,9 +90,7 @@ public class NettyInboundClient extends AbstractInboundClient {
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void sendAsyncApiCommand(String addr, String command, String arg, Consumer<String> consumer) {
         publicExecutor.execute(() -> {
@@ -110,9 +102,7 @@ public class NettyInboundClient extends AbstractInboundClient {
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public CommandResponse setEventSubscriptions(String addr, String format, String events) {
         if (!StringUtils.equals(format, EslConstant.PLAIN)) {
@@ -131,9 +121,7 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sb.toString(), response);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public CommandResponse cancelEventSubscriptions(String addr) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -141,9 +129,7 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse("noevents", response);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public CommandResponse addEventFilter(String addr, String eventHeader, String valueToFilter) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -161,9 +147,7 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sb.toString(), response);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public CommandResponse deleteEventFilter(String addr, String eventHeader, String valueToFilter) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -181,9 +165,7 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sb.toString(), response);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public CommandResponse sendMessage(String addr, SendMsg sendMsg) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -191,9 +173,7 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sendMsg.toString(), response);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public CommandResponse setLoggingLevel(String addr, String level) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -206,9 +186,7 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sb.toString(), response);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public CommandResponse cancelLogging(String addr) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -216,9 +194,7 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse("nolog", response);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public CommandResponse close(String addr) {
         InboundChannelHandler handler = getAuthedHandler(addr);

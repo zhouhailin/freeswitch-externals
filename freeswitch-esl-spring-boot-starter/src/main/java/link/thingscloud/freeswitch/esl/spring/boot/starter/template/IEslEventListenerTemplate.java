@@ -50,17 +50,13 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
     private Map<String, List<EslEventHandler>> handlerTable = new HashMap<>(16);
     private EslEventHandler defaultEventHandler = new DefaultEslEventHandler();
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void eventReceived(String addr, EslEvent event) {
         handleEslEvent(addr, event);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void backgroundJobResultReceived(String addr, EslEvent event) {
         handleEslEvent(addr, event);

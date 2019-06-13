@@ -27,9 +27,7 @@ import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
  * @version $Id: $Id
  */
 public class DefaultEslEventHandler extends AbstractEslEventHandler {
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void handle(String addr, EslEvent event) {
         log.warn("Default esl event handler handle addr[{}], event[{}]", addr, EslHelper.formatEslEvent(event));

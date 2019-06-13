@@ -67,9 +67,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         this.publicExecutor = publicExecutor;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);

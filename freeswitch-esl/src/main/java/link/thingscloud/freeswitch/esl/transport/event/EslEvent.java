@@ -197,9 +197,7 @@ public class EslEvent {
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("EslEvent: name=[");

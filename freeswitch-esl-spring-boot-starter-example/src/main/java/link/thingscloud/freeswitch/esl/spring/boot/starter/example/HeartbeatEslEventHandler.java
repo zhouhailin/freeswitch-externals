@@ -31,9 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @EslEventName("HEARTBEAT")
 public class HeartbeatEslEventHandler implements EslEventHandler {
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void handle(String addr, EslEvent event) {
         log.info("HeartbeatEslEventHandler handle addr[{}] EslEvent[{}].", addr, event);

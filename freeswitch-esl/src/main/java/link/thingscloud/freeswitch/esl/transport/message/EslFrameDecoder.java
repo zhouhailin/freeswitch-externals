@@ -69,9 +69,7 @@ public class EslFrameDecoder extends ReplayingDecoder<EslFrameDecoder.State> {
         this.treatUnknownHeadersAsBody = treatUnknownHeadersAsBody;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buffer, List<Object> out) {
         log.trace("decode() : state [{}]", state());

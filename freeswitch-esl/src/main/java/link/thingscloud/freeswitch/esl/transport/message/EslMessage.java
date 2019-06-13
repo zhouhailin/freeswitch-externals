@@ -142,9 +142,7 @@ public class EslMessage {
         body.add(line);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("EslMessage: contentType=[");

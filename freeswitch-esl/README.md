@@ -10,6 +10,8 @@
 
     inboundClient : 单例对象
     
+    可以动态添加服务端或删除服务端，InboundClient感知，进行连接或者断开连接
+    
 ## 目标
 
     目标：支持单个InboundClient实例连接10000台以上的FreeSWITCH
