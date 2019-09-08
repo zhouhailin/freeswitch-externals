@@ -46,10 +46,6 @@
             
             a、inboundClient.option().removeServerOption(serverOption);
             b、InboundClient.getInstance().option().removeServerOption(serverOption);
-
-## TODO
-
-    回调事件后，调用命令时 省略addr参数，构建 ThreadLocal AddrContext 上下文获取addr
     
 ## License
 
