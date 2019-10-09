@@ -28,7 +28,7 @@
 
     <name>freeswitch-esl-all-${project.version}</name>
     <description>freeswitch event socket library on netty 4.1</description>
-
+    <url>https://github.com/zhouhailin/freeswitch-esl-all</url>
     <inceptionYear>2019</inceptionYear>
 
     <modules>
@@ -51,6 +51,25 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <scm>
+        <url>git@github.com:zhouhailin/freeswitch-esl-all.git</url>
+        <connection>scm:git:git@github.com:zhouhailin/freeswitch-esl-all.git</connection>
+        <developerConnection>scm:git:git@github.com:zhouhailin/freeswitch-esl-all.git</developerConnection>
+        <tag>1.0.0-BETA2</tag>
+    </scm>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>zhouhailin</name>
+            <email>ant.zhou@aliyun.com</email>
+        </developer>
+    </developers>
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -234,15 +253,60 @@
         </plugins>
     </build>
 
-    <distributionManagement>
-        <repository>
+    <profiles>
+        <profile>
+            <id>sonatype-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <repository>
+                    <id>sonatype-release</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>sonatype-snapshot</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>sonatype-snapshot</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+        <!-- ali rdc -->
+        <profile>
             <id>rdc-releases</id>
-            <url>https://repo.rdc.aliyun.com/repository/11638-release-5tgSEa/</url>
-        </repository>
-        <snapshotRepository>
+            <distributionManagement>
+                <repository>
+                    <id>rdc-releases</id>
+                    <url>https://repo.rdc.aliyun.com/repository/11638-release-5tgSEa/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
             <id>rdc-snapshots</id>
-            <url>https://repo.rdc.aliyun.com/repository/11638-snapshot-R4RpeG/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>rdc-snapshots</id>
+                    <url>https://repo.rdc.aliyun.com/repository/11638-snapshot-R4RpeG/</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>
