@@ -53,6 +53,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
     private final Queue<SyncCallback> syncCallbacks = new ConcurrentLinkedQueue<>();
     private final ChannelEventListener listener;
     private final ExecutorService publicExecutor;
+    private final boolean disablePublicExecutor;
     private Channel channel;
     private String remoteAddr;
 
@@ -61,10 +62,12 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
      *
      * @param listener       a {@link link.thingscloud.freeswitch.esl.inbound.listener.ChannelEventListener} object.
      * @param publicExecutor a {@link java.util.concurrent.ExecutorService} object.
+     * @param disablePublicExecutor a boolean.
      */
-    public InboundChannelHandler(ChannelEventListener listener, ExecutorService publicExecutor) {
+    public InboundChannelHandler(ChannelEventListener listener, ExecutorService publicExecutor, boolean disablePublicExecutor) {
         this.listener = listener;
         this.publicExecutor = publicExecutor;
+        this.disablePublicExecutor = disablePublicExecutor;
     }
 
     /** {@inheritDoc} */
@@ -124,7 +127,11 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
     }
 
     private void handleEslEvent(EslEvent event) {
-        publicExecutor.execute(() -> listener.handleEslEvent(remoteAddr, event));
+        if (disablePublicExecutor) {
+            listener.handleEslEvent(remoteAddr, event);
+        } else {
+            publicExecutor.execute(() -> listener.handleEslEvent(remoteAddr, event));
+        }
     }
 
     /**

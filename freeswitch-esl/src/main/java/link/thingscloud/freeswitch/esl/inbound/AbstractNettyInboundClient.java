@@ -73,7 +73,7 @@ abstract class AbstractNettyInboundClient implements ChannelEventListener, Inbou
                         pipeline.addLast("encoder", new StringEncoder());
                         pipeline.addLast("decoder", new EslFrameDecoder(8192));
                         // now the inbound client logic
-                        pipeline.addLast("clientHandler", new InboundChannelHandler(AbstractNettyInboundClient.this, publicExecutor));
+                        pipeline.addLast("clientHandler", new InboundChannelHandler(AbstractNettyInboundClient.this, publicExecutor, option.disablePublicExecutor()));
                     }
                 });
     }

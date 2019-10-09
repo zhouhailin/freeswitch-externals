@@ -45,7 +45,7 @@ public class InboundClientOption {
     private int defaultTimeoutSeconds = 5;
     private String defaultPassword = "ClueCon";
 
-
+    private boolean disablePublicExecutor = false;
     private boolean performance = false;
     private long performanceCostTime = 200;
 
@@ -195,6 +195,33 @@ public class InboundClientOption {
      */
     public InboundClientOption defaultPassword(String defaultPassword) {
         this.defaultPassword = defaultPassword;
+        return this;
+    }
+
+
+    /**
+     * <p>
+     * disable public executor thread pool then message thread safety.
+     * 处理事件消息时不使用独立线程池，可以使得消息线程安全
+     * </p>
+     *
+     * @return a boolean.
+     */
+    public boolean disablePublicExecutor() {
+        return disablePublicExecutor;
+    }
+
+    /**
+     * <p>
+     * disable public executor thread pool then message thread safety.
+     * 处理事件消息时不使用独立线程池，可以使得消息线程安全
+     * </p>
+     *
+     * @param disablePublicExecutor a boolean.
+     * @return a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
+     */
+    public InboundClientOption disablePublicExecutor(boolean disablePublicExecutor) {
+        this.disablePublicExecutor = disablePublicExecutor;
         return this;
     }
 

@@ -24,7 +24,7 @@
     <groupId>link.thingscloud</groupId>
     <artifactId>freeswitch-esl-all</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-BETA1</version>
+    <version>1.0.0-BETA2</version>
 
     <name>freeswitch-esl-all-${project.version}</name>
     <description>freeswitch event socket library on netty 4.1</description>
@@ -84,7 +84,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.26</version>
+                <version>1.7.28</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
@@ -100,13 +100,13 @@
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
-                <version>4.1.33.Final</version>
+                <version>4.1.42.Final</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.8.1</version>
+                <version>3.9</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

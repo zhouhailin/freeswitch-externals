@@ -22,7 +22,7 @@
     <parent>
         <artifactId>freeswitch-esl-all</artifactId>
         <groupId>link.thingscloud</groupId>
-        <version>1.0.0-BETA1</version>
+        <version>1.0.0-BETA2</version>
     </parent>
 
     <artifactId>freeswitch-esl-spring-boot-starter-example</artifactId>

@@ -41,9 +41,7 @@ public class ReScheduleEslEventHandler implements EslEventHandler {
     @Autowired
     private InboundClient inboundClient;
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void handle(String addr, EslEvent event) {
         log.info("ReScheduleEslEventHandler handle addr[{}] EslEvent[{}].", addr, event);
