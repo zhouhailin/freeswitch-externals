@@ -51,7 +51,8 @@
 
     高可用架构
     
-    ![高可用](https://github.com/zhouhailin/freeswitch-esl-all/docs/img/route.png)
+![高可用](docs/img/router.png)
+    
     
     应用端连接1个以上的路由端服务器，以获取相关事件消息，route端故障自动切换
     
