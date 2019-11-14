@@ -17,6 +17,7 @@
 
 package link.thingscloud.freeswitch.esl.spring.boot.starter.example;
 
+import link.thingscloud.freeswitch.esl.constant.EventNames;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.annotation.EslEventName;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.EslEventHandler;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
@@ -29,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
  * @version $Id: $Id
  */
 @Slf4j
-@EslEventName("HEARTBEAT")
+@EslEventName(EventNames.HEARTBEAT)
 public class HeartbeatEslEventHandler implements EslEventHandler {
     /** {@inheritDoc} */
     @Override

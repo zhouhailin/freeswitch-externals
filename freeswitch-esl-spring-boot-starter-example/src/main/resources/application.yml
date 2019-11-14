@@ -7,7 +7,7 @@ link:
           performance: false
           performanceCostTime: 200
           servers:
-            - host: 172.16.2.124
+            - host: 172.16.2.123
               password: NewVois001
               port: 8014
               timeoutSeconds: 5

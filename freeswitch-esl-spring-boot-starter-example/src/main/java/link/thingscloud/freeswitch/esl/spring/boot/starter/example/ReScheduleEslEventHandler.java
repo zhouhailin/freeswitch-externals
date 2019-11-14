@@ -18,6 +18,7 @@
 package link.thingscloud.freeswitch.esl.spring.boot.starter.example;
 
 import link.thingscloud.freeswitch.esl.InboundClient;
+import link.thingscloud.freeswitch.esl.constant.EventNames;
 import link.thingscloud.freeswitch.esl.helper.EslHelper;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.annotation.EslEventName;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.EslEventHandler;
@@ -34,14 +35,16 @@ import org.springframework.stereotype.Component;
  * @version $Id: $Id
  */
 @Slf4j
-@EslEventName("RE_SCHEDULE")
+@EslEventName(EventNames.RE_SCHEDULE)
 @Component
 public class ReScheduleEslEventHandler implements EslEventHandler {
 
     @Autowired
     private InboundClient inboundClient;
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handle(String addr, EslEvent event) {
         log.info("ReScheduleEslEventHandler handle addr[{}] EslEvent[{}].", addr, event);
