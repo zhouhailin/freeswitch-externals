@@ -31,10 +31,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>IEslEventListenerTemplate class.</p>
@@ -64,6 +61,16 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
 
     private void handleEslEvent(String addr, EslEvent event) {
         String eventName = event.getEventName();
+        String subEventName = event.getEventHeaders().get(EslEventHandler.SUB_EVENT_HEADER_KEY);
+        if (StringUtils.isNotBlank(subEventName)) {
+            subEventName = String.format("%s::%s", eventName, subEventName);
+        }
+
+        List<EslEventHandler> subEventHandlers = handlerTable.get(subEventName);
+        if (!CollectionUtils.isEmpty(subEventHandlers)) {
+            subEventHandlers.forEach(eslEventHandler -> eslEventHandler.handle(addr, event));
+        }
+
         List<EslEventHandler> handlers = handlerTable.get(eventName);
         if (!CollectionUtils.isEmpty(handlers)) {
             handlers.forEach(eventHandler -> eventHandler.handle(addr, event));
@@ -84,14 +91,18 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
             if (eventName == null) {
                 continue;
             }
-            String value = eventName.value();
-            if (StringUtils.isNotBlank(value)) {
-                log.info("IEslEventListener add EventName[{}], EventHandler[{}] to tables ...", value, eventHandler.getClass());
-                if (StringUtils.equals(EslEventHandler.DEFAULT_ESL_EVENT_HANDLER, value)) {
-                    defaultEventHandler = eventHandler;
-                } else {
-                    handlerTable.computeIfAbsent(value, k -> new ArrayList<>(4)).add(eventHandler);
-                }
+            String[] values = eventName.value();
+            if (values != null && values.length > 0) {
+                Arrays.stream(values).distinct().forEach(value -> {
+                    if (StringUtils.isNotBlank(value)) {
+                        log.info("IEslEventListener add EventName[{}], EventHandler[{}] to tables ...", value, eventHandler.getClass());
+                        if (StringUtils.equals(EslEventHandler.DEFAULT_ESL_EVENT_HANDLER, value)) {
+                            defaultEventHandler = eventHandler;
+                        } else {
+                            handlerTable.computeIfAbsent(value, k -> new ArrayList<>(4)).add(eventHandler);
+                        }
+                    }
+                });
             }
         }
     }
