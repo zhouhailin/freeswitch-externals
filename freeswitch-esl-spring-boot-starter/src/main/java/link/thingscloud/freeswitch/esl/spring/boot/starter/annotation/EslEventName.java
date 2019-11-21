@@ -30,5 +30,6 @@ import java.lang.annotation.*;
 @Documented
 public @interface EslEventName {
 
-    String value();
+    String[] value();
+
 }

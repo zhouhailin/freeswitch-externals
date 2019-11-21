@@ -23,6 +23,7 @@ import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.DefaultEslEve
 import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.EslEventHandler;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -84,13 +85,15 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
             if (eventName == null) {
                 continue;
             }
-            String value = eventName.value();
-            if (StringUtils.isNotBlank(value)) {
-                log.info("IEslEventListener add EventName[{}], EventHandler[{}] to tables ...", value, eventHandler.getClass());
-                if (StringUtils.equals(EslEventHandler.DEFAULT_ESL_EVENT_HANDLER, value)) {
-                    defaultEventHandler = eventHandler;
-                } else {
-                    handlerTable.computeIfAbsent(value, k -> new ArrayList<>(4)).add(eventHandler);
+            String[] values = eventName.value();
+            if (ArrayUtils.isNotEmpty(values)) {
+                for (String value : values) {
+                    log.info("IEslEventListener add EventName[{}], EventHandler[{}] to tables ...", value, eventHandler.getClass());
+                    if (StringUtils.equals(EslEventHandler.DEFAULT_ESL_EVENT_HANDLER, value)) {
+                        defaultEventHandler = eventHandler;
+                    } else {
+                        handlerTable.computeIfAbsent(value, k -> new ArrayList<>(4)).add(eventHandler);
+                    }
                 }
             }
         }
