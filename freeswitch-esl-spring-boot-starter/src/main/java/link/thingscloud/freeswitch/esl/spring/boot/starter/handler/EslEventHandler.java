@@ -34,6 +34,11 @@ public interface EslEventHandler {
     String DEFAULT_ESL_EVENT_HANDLER = "DEFAULT_ESL_EVENT_HANDLER";
 
     /**
+     * sub event key
+     */
+    String SUB_EVENT_HEADER_KEY = "Event-Subclass";
+
+    /**
      * <p>handle.</p>
      *
      * @param addr  a {@link java.lang.String} object.

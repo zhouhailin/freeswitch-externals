@@ -31,5 +31,4 @@ import java.lang.annotation.*;
 public @interface EslEventName {
 
     String[] value();
-
 }

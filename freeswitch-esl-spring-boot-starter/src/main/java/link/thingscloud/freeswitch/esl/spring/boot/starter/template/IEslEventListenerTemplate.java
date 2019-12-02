@@ -23,7 +23,6 @@ import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.DefaultEslEve
 import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.EslEventHandler;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -65,6 +64,16 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
 
     private void handleEslEvent(String addr, EslEvent event) {
         String eventName = event.getEventName();
+        String subEventName = event.getEventHeaders().get(EslEventHandler.SUB_EVENT_HEADER_KEY);
+        if (StringUtils.isNotBlank(subEventName)) {
+            subEventName = String.format("%s::%s", eventName, subEventName);
+        }
+
+        List<EslEventHandler> subEventHandlers = handlerTable.get(subEventName);
+        if (!CollectionUtils.isEmpty(subEventHandlers)) {
+            subEventHandlers.forEach(eslEventHandler -> eslEventHandler.handle(addr, event));
+        }
+
         List<EslEventHandler> handlers = handlerTable.get(eventName);
         if (!CollectionUtils.isEmpty(handlers)) {
             handlers.forEach(eventHandler -> eventHandler.handle(addr, event));
@@ -86,15 +95,17 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
                 continue;
             }
             String[] values = eventName.value();
-            if (ArrayUtils.isNotEmpty(values)) {
-                for (String value : values) {
-                    log.info("IEslEventListener add EventName[{}], EventHandler[{}] to tables ...", value, eventHandler.getClass());
-                    if (StringUtils.equals(EslEventHandler.DEFAULT_ESL_EVENT_HANDLER, value)) {
-                        defaultEventHandler = eventHandler;
-                    } else {
-                        handlerTable.computeIfAbsent(value, k -> new ArrayList<>(4)).add(eventHandler);
+            if (values != null && values.length > 0) {
+                Arrays.stream(values).distinct().forEach(value -> {
+                    if (StringUtils.isNotBlank(value)) {
+                        log.info("IEslEventListener add EventName[{}], EventHandler[{}] to tables ...", value, eventHandler.getClass());
+                        if (StringUtils.equals(EslEventHandler.DEFAULT_ESL_EVENT_HANDLER, value)) {
+                            defaultEventHandler = eventHandler;
+                        } else {
+                            handlerTable.computeIfAbsent(value, k -> new ArrayList<>(4)).add(eventHandler);
+                        }
                     }
-                }
+                });
             }
         }
     }
