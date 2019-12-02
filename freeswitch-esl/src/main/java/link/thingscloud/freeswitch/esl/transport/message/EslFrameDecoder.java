@@ -21,6 +21,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ReplayingDecoder;
 import io.netty.handler.codec.TooLongFrameException;
+import io.netty.util.ReferenceCountUtil;
 import link.thingscloud.freeswitch.esl.exception.EslDecoderException;
 import link.thingscloud.freeswitch.esl.transport.util.HeaderParser;
 import lombok.extern.slf4j.Slf4j;
@@ -133,6 +134,10 @@ public class EslFrameDecoder extends ReplayingDecoder<EslFrameDecoder.State> {
                     String bodyLine = readLine(bodyBytes, contentLength);
                     log.trace("read body line [{}]", bodyLine);
                     currentMessage.addBodyLine(bodyLine);
+                }
+                // release bodyBytes
+                if (bodyBytes.refCnt() > 0) {
+                    ReferenceCountUtil.safeRelease(bodyBytes);
                 }
 
                 // end of message
