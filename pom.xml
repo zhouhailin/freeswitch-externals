@@ -24,7 +24,7 @@
     <groupId>link.thingscloud</groupId>
     <artifactId>freeswitch-esl-all</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.4-BETA1</version>
+    <version>1.0.5-BETA</version>
 
     <name>freeswitch-esl-all-${project.version}</name>
     <description>freeswitch event socket library on netty 4.1</description>
@@ -52,10 +52,10 @@
     </properties>
 
     <scm>
-        <url>git@github.com:zhouhailin/freeswitch-esl-all.git</url>
-        <connection>scm:git:git@github.com:zhouhailin/freeswitch-esl-all.git</connection>
-        <developerConnection>scm:git:git@github.com:zhouhailin/freeswitch-esl-all.git</developerConnection>
-        <tag>1.0.2-BETA1</tag>
+        <url>https://github.com/zhouhailin/freeswitch-esl-all</url>
+        <connection>scm:git:https://github.com/zhouhailin/freeswitch-esl-all.git</connection>
+        <developerConnection>scm:git:https://github.com/zhouhailin/freeswitch-esl-all.git</developerConnection>
+        <tag>1.0.5-BETA</tag>
     </scm>
     <licenses>
         <license>
@@ -171,6 +171,14 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-scm-plugin</artifactId>
+                <version>1.11.2</version>
+                <configuration>
+                    <connectionType>connection</connectionType>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
