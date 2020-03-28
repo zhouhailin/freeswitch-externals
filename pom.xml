@@ -24,7 +24,7 @@
     <groupId>link.thingscloud</groupId>
     <artifactId>freeswitch-esl-all</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.5-BETA</version>
+    <version>1.1.0.RELEASE</version>
 
     <name>freeswitch-esl-all-${project.version}</name>
     <description>freeswitch event socket library on netty 4.1</description>
@@ -55,7 +55,7 @@
         <url>https://github.com/zhouhailin/freeswitch-esl-all</url>
         <connection>scm:git:https://github.com/zhouhailin/freeswitch-esl-all.git</connection>
         <developerConnection>scm:git:https://github.com/zhouhailin/freeswitch-esl-all.git</developerConnection>
-        <tag>1.0.5-BETA</tag>
+        <tag>1.1.0.RELEASE</tag>
     </scm>
     <licenses>
         <license>
