@@ -46,6 +46,9 @@ public class InboundClientOption {
     private int defaultTimeoutSeconds = 5;
     private String defaultPassword = "ClueCon";
 
+    private int readTimeoutSeconds = 30;
+    private int readerIdleTimeSeconds = 25;
+
     private boolean disablePublicExecutor = false;
     private boolean performance = false;
     private long performanceCostTime = 200;
@@ -197,6 +200,49 @@ public class InboundClientOption {
      */
     public InboundClientOption defaultPassword(String defaultPassword) {
         this.defaultPassword = defaultPassword;
+        return this;
+    }
+
+
+    /**
+     * <p>readTimeoutSeconds.</p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
+    public int readTimeoutSeconds() {
+        return readTimeoutSeconds;
+    }
+
+    /**
+     * <p>readTimeoutSeconds.</p>
+     *
+     * @param readTimeoutSeconds a {@link java.lang.Integer} object.
+     * @return a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
+     */
+    public InboundClientOption readTimeoutSeconds(int readTimeoutSeconds) {
+        this.readTimeoutSeconds = readTimeoutSeconds;
+        return this;
+    }
+
+    /**
+     * <p>readerIdleTimeSeconds.</p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
+    public int readerIdleTimeSeconds() {
+        return readerIdleTimeSeconds;
+    }
+
+    /**
+     * <p>readerIdleTimeSeconds.</p>
+     * <p>
+     * 读空闲时长
+     *
+     * @param readerIdleTimeSeconds a {@link java.lang.Integer} object.
+     * @return a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
+     */
+    public InboundClientOption readerIdleTimeSeconds(int readerIdleTimeSeconds) {
+        this.readerIdleTimeSeconds = readerIdleTimeSeconds;
         return this;
     }
 

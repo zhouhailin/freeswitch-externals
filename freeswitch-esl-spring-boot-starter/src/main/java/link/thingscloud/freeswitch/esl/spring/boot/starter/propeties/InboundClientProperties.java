@@ -39,6 +39,8 @@ public class InboundClientProperties {
     private int publicExecutorThread = 8;
     private int callbackExecutorThread = 8;
     private int defaultTimeoutSeconds = 5;
+    private int readTimeoutSeconds = 30;
+    private int readerIdleTimeSeconds = 25;
     private String defaultPassword = "ClueCon";
     private boolean performance = false;
     private long performanceCostTime = 200;

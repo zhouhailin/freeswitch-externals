@@ -90,6 +90,8 @@ public class FreeswitchEslAutoConfiguration {
                 .publicExecutorThread(properties.getPublicExecutorThread())
                 .callbackExecutorThread(properties.getCallbackExecutorThread())
                 .defaultTimeoutSeconds(properties.getDefaultTimeoutSeconds())
+                .readTimeoutSeconds(properties.getReadTimeoutSeconds())
+                .readerIdleTimeSeconds(properties.getReaderIdleTimeSeconds())
                 .defaultPassword(properties.getDefaultPassword())
                 .performance(properties.isPerformance())
                 .performanceCostTime(properties.getPerformanceCostTime());

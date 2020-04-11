@@ -26,6 +26,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.handler.timeout.ReadTimeoutHandler;
 import link.thingscloud.freeswitch.esl.InboundClientService;
 import link.thingscloud.freeswitch.esl.inbound.handler.InboundChannelHandler;
 import link.thingscloud.freeswitch.esl.inbound.listener.ChannelEventListener;
@@ -72,6 +74,11 @@ abstract class AbstractNettyInboundClient implements ChannelEventListener, Inbou
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline.addLast("encoder", new StringEncoder());
                         pipeline.addLast("decoder", new EslFrameDecoder(8192));
+                        if (option.readerIdleTimeSeconds() > 0 && option.readTimeoutSeconds() > 0
+                                && option.readerIdleTimeSeconds() < option.readTimeoutSeconds()) {
+                            pipeline.addLast("idleState", new IdleStateHandler(option.readerIdleTimeSeconds(), 0, 0));
+                            pipeline.addLast("readTimeout", new ReadTimeoutHandler(option.readTimeoutSeconds()));
+                        }
                         // now the inbound client logic
                         pipeline.addLast("clientHandler", new InboundChannelHandler(AbstractNettyInboundClient.this, publicExecutor, option.disablePublicExecutor()));
                     }

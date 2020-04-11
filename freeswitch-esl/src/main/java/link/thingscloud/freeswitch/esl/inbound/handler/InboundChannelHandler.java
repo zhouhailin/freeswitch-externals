@@ -17,7 +17,12 @@
 
 package link.thingscloud.freeswitch.esl.inbound.handler;
 
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 import link.thingscloud.freeswitch.esl.helper.EslHelper;
 import link.thingscloud.freeswitch.esl.inbound.listener.ChannelEventListener;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
@@ -70,7 +75,9 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         this.disablePublicExecutor = disablePublicExecutor;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);
@@ -90,10 +97,25 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         listener.onChannelClosed(remoteAddr);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if (evt instanceof IdleStateEvent) {
+            if (((IdleStateEvent) evt).state() == IdleState.READER_IDLE) {
+                log.debug("userEventTriggered remoteAddr : {}, evt state : {} ", remoteAddr, ((IdleStateEvent) evt).state());
+                publicExecutor.execute(() -> sendSyncSingleLineCommand("status"));
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        log.debug("exceptionCaught remoteAddr : {}, cause : ", remoteAddr, cause);
-        ctx.close();
+        log.error("exceptionCaught remoteAddr : {}, cause : ", remoteAddr, cause);
     }
 
     /**
