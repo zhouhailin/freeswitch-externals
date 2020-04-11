@@ -55,7 +55,7 @@
         <url>https://github.com/zhouhailin/freeswitch-esl-all</url>
         <connection>scm:git:https://github.com/zhouhailin/freeswitch-esl-all.git</connection>
         <developerConnection>scm:git:https://github.com/zhouhailin/freeswitch-esl-all.git</developerConnection>
-        <tag>1.1.0.RELEASE</tag>
+        <tag>1.2.0.RELEASE</tag>
     </scm>
     <licenses>
         <license>
