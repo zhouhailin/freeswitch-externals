@@ -17,6 +17,8 @@
 
 package link.thingscloud.freeswitch.esl;
 
+import link.thingscloud.freeswitch.esl.exception.InboundTimeoutExcetion;
+import link.thingscloud.freeswitch.esl.inbound.handler.InboundChannelHandler;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.transport.CommandResponse;
 import link.thingscloud.freeswitch.esl.transport.SendMsg;
@@ -72,14 +74,29 @@ public interface InboundClient extends InboundClientService {
     EslMessage sendSyncApiCommand(String addr, String command, String arg);
 
     /**
+     * Sends a FreeSWITCH API command to the server and blocks, waiting for an immediate response from the
+     * server.
+     * <p>
+     * The outcome of the command from the server is retured in an {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} object.
+     *
+     * @param addr           Esl server address
+     * @param command        API command to send
+     * @param arg            command arguments
+     * @param timeoutSeconds timeout seconds arguments
+     * @return an {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} containing command results
+     * @throws InboundTimeoutExcetion ite execute command timeout
+     */
+    EslMessage sendSyncApiCommand(String addr, String command, String arg, long timeoutSeconds) throws InboundTimeoutExcetion;
+
+    /**
      * Aync callback Sends a FreeSWITCH API command to the server and blocks, waiting for an immediate response from the
      * server.
      * <p>
      * The outcome of the command from the server is retured in an {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} object.
      *
-     * @param addr    Esl server address
-     * @param command API command to send
-     * @param arg     command arguments
+     * @param addr     Esl server address
+     * @param command  API command to send
+     * @param arg      command arguments
      * @param consumer a {@link java.util.function.Consumer} object.
      */
     void sendSyncApiCommand(String addr, String command, String arg, Consumer<EslMessage> consumer);
@@ -88,7 +105,7 @@ public interface InboundClient extends InboundClientService {
      * Submit a FreeSWITCH API command to the server to be executed in background mode. A synchronous
      * response from the server provides a UUID to identify the job execution results. When the server
      * has completed the job execution it fires a BACKGROUND_JOB Event with the execution results.
-     *
+     * <p>
      * Note that this Client must be subscribed in the normal way to BACKGOUND_JOB Events, in order to
      * receive this event.
      *
@@ -103,13 +120,13 @@ public interface InboundClient extends InboundClientService {
      * Aync callback Submit a FreeSWITCH API command to the server to be executed in background mode. A synchronous
      * response from the server provides a UUID to identify the job execution results. When the server
      * has completed the job execution it fires a BACKGROUND_JOB Event with the execution results.
-     *
+     * <p>
      * Note that this Client must be subscribed in the normal way to BACKGOUND_JOB Events, in order to
      * receive this event.
      *
-     * @param addr    Esl server address
-     * @param command API command to send
-     * @param arg     command arguments
+     * @param addr     Esl server address
+     * @param command  API command to send
+     * @param arg      command arguments
      * @param consumer a {@link java.util.function.Consumer} object.
      */
     void sendAsyncApiCommand(String addr, String command, String arg, Consumer<String> consumer);
@@ -213,5 +230,13 @@ public interface InboundClient extends InboundClientService {
      * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
      */
     CommandResponse close(String addr);
+
+    /**
+     * Close the socket connection
+     *
+     * @param addr Esl server address
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
+     */
+    InboundClient closeChannel(String addr);
 
 }

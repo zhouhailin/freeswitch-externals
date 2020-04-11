@@ -17,7 +17,9 @@
 
 package link.thingscloud.freeswitch.esl.inbound;
 
+import link.thingscloud.freeswitch.esl.InboundClient;
 import link.thingscloud.freeswitch.esl.constant.EslConstant;
+import link.thingscloud.freeswitch.esl.exception.InboundTimeoutExcetion;
 import link.thingscloud.freeswitch.esl.inbound.handler.InboundChannelHandler;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.transport.CommandResponse;
@@ -25,6 +27,7 @@ import link.thingscloud.freeswitch.esl.transport.SendMsg;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 
@@ -45,7 +48,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         super(option);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public EslMessage sendSyncApiCommand(String addr, String command, String arg) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -58,10 +63,25 @@ public class NettyInboundClient extends AbstractInboundClient {
             sb.append(' ');
             sb.append(arg);
         }
+        log.debug("sendSyncApiCommand addr : {}, command : {}, arg : {}", addr, command, arg);
         return handler.sendSyncSingleLineCommand(sb.toString());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public EslMessage sendSyncApiCommand(String addr, String command, String arg, long timeoutSeconds) throws InboundTimeoutExcetion {
+        try {
+            return publicExecutor.submit(() -> sendSyncApiCommand(addr, command, arg)).get(timeoutSeconds, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            throw new InboundTimeoutExcetion(String.format("sendSyncApiCommand addr : %s, command : %s, arg : %s, timeoutSeconds : %s", addr, command, arg, timeoutSeconds), e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void sendSyncApiCommand(String addr, String command, String arg, Consumer<EslMessage> consumer) {
         publicExecutor.execute(() -> {
@@ -72,7 +92,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         });
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String sendAsyncApiCommand(String addr, String command, String arg) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -90,7 +112,9 @@ public class NettyInboundClient extends AbstractInboundClient {
 
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void sendAsyncApiCommand(String addr, String command, String arg, Consumer<String> consumer) {
         publicExecutor.execute(() -> {
@@ -102,7 +126,9 @@ public class NettyInboundClient extends AbstractInboundClient {
 
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse setEventSubscriptions(String addr, String format, String events) {
         if (!StringUtils.equals(format, EslConstant.PLAIN)) {
@@ -121,7 +147,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sb.toString(), response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse cancelEventSubscriptions(String addr) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -129,7 +157,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse("noevents", response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse addEventFilter(String addr, String eventHeader, String valueToFilter) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -147,7 +177,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sb.toString(), response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse deleteEventFilter(String addr, String eventHeader, String valueToFilter) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -165,7 +197,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sb.toString(), response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse sendMessage(String addr, SendMsg sendMsg) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -173,7 +207,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sendMsg.toString(), response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse setLoggingLevel(String addr, String level) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -186,7 +222,9 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse(sb.toString(), response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse cancelLogging(String addr) {
         InboundChannelHandler handler = getAuthedHandler(addr);
@@ -194,11 +232,22 @@ public class NettyInboundClient extends AbstractInboundClient {
         return new CommandResponse("nolog", response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandResponse close(String addr) {
         InboundChannelHandler handler = getAuthedHandler(addr);
         EslMessage response = handler.sendSyncSingleLineCommand("exit");
         return new CommandResponse("exit", response);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public InboundClient closeChannel(String addr) {
+        getAuthedHandler(addr).close();
+        return this;
     }
 }

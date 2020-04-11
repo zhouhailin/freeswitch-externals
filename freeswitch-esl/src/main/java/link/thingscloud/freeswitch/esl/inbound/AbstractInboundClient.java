@@ -217,7 +217,7 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         log.info("Disconnected[{}] ...", addr);
     }
 
-    InboundChannelHandler getAuthedHandler(String addr) {
+    public InboundChannelHandler getAuthedHandler(String addr) {
         InboundChannelHandler handler = handlerTable.get(addr);
         if (handler == null) {
             throw new InboundClientException("not found inbound handler for addr : " + addr);
