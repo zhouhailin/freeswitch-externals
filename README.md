@@ -23,7 +23,7 @@
 
 ### 3.[freeswitch-esl-spring-boot-starter](freeswitch-esl-spring-boot-starter/README.md)
 
-    基于 Spring boot 2.1.x, freeswitch-esl 客户端(详细信息，移步至子模块）
+    基于 Spring boot 2.2.x, freeswitch-esl 客户端(详细信息，移步至子模块）
 
 ### 4.[freeswitch-esl-spring-boot-starter-example](freeswitch-esl-spring-boot-starter-example/README.md)
 
