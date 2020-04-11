@@ -112,6 +112,14 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
     @Override
     public void onChannelActive(String remoteAddr, InboundChannelHandler inboundChannelHandler) {
         handlerTable.put(remoteAddr, inboundChannelHandler);
+        // 连接监听
+        option().serverOptions().forEach(serverOption -> {
+            if (StringUtils.equals(serverOption.addr(), remoteAddr)) {
+                if (option().serverConnectionListener() != null) {
+                    option().serverConnectionListener().onOpened(serverOption);
+                }
+            }
+        });
     }
 
     /** {@inheritDoc} */
@@ -120,6 +128,10 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         handlerTable.remove(remoteAddr);
         option().serverOptions().forEach(serverOption -> {
             if (StringUtils.equals(serverOption.addr(), remoteAddr)) {
+                // 连接监听
+                if (option().serverConnectionListener() != null) {
+                    option().serverConnectionListener().onClosed(serverOption);
+                }
                 if (serverOption.state() != ConnectState.SHUTDOWN) {
                     serverOption.state(ConnectState.CLOSED);
                     scheduledPoolExecutor.schedule(() -> doConnect(serverOption), getTimeoutSeconds(serverOption), TimeUnit.SECONDS);

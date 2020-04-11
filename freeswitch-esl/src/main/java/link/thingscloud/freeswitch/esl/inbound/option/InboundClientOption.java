@@ -19,6 +19,7 @@ package link.thingscloud.freeswitch.esl.inbound.option;
 
 import link.thingscloud.freeswitch.esl.IEslEventListener;
 import link.thingscloud.freeswitch.esl.inbound.listener.EventListener;
+import link.thingscloud.freeswitch.esl.ServerConnectionListener;
 import link.thingscloud.freeswitch.esl.inbound.listener.ServerOptionListener;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
@@ -50,6 +51,7 @@ public class InboundClientOption {
     private long performanceCostTime = 200;
 
     private ServerOptionListener serverOptionListener = null;
+    private ServerConnectionListener serverConnectionListener = null;
     private List<ServerOption> serverOptions = new ArrayList<>();
     private ServerAddrOption serverAddrOption = new ServerAddrOption(serverOptions);
 
@@ -282,6 +284,26 @@ public class InboundClientOption {
      */
     public InboundClientOption serverOptionListener(ServerOptionListener serverOptionListener) {
         this.serverOptionListener = serverOptionListener;
+        return this;
+    }
+
+    /**
+     * <p>serverConnectionListener.</p>
+     *
+     * @return a {@link link.thingscloud.freeswitch.esl.inbound.listener.ServerOptionListener} object.
+     */
+    public ServerConnectionListener serverConnectionListener() {
+        return serverConnectionListener;
+    }
+
+    /**
+     * <p>serverConnectionListener.</p>
+     *
+     * @param serverConnectionListener a {@link link.thingscloud.freeswitch.esl.ServerConnectionListener} object.
+     * @return a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
+     */
+    public InboundClientOption serverConnectionListener(ServerConnectionListener serverConnectionListener) {
+        this.serverConnectionListener = serverConnectionListener;
         return this;
     }
 

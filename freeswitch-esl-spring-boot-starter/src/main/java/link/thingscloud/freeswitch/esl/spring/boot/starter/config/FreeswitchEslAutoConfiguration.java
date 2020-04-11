@@ -19,10 +19,12 @@ package link.thingscloud.freeswitch.esl.spring.boot.starter.config;
 
 import link.thingscloud.freeswitch.esl.IEslEventListener;
 import link.thingscloud.freeswitch.esl.InboundClient;
+import link.thingscloud.freeswitch.esl.ServerConnectionListener;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.inbound.option.ServerOption;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.propeties.InboundClientProperties;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.template.IEslEventListenerTemplate;
+import link.thingscloud.freeswitch.esl.spring.boot.starter.template.ServerConnectionListenerTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,14 +62,26 @@ public class FreeswitchEslAutoConfiguration {
     }
 
     /**
+     * <p>serverConnectionListener.</p>
+     *
+     * @return a {@link link.thingscloud.freeswitch.esl.ServerConnectionListener} object.
+     */
+    @Bean
+    @ConditionalOnMissingBean(ServerConnectionListener.class)
+    public ServerConnectionListener serverConnectionListener() {
+        return new ServerConnectionListenerTemplate();
+    }
+
+    /**
      * <p>inboundClient.</p>
      *
-     * @param listener a {@link link.thingscloud.freeswitch.esl.IEslEventListener} object.
+     * @param listener                 a {@link link.thingscloud.freeswitch.esl.IEslEventListener} object.
+     * @param serverConnectionListener a {@link link.thingscloud.freeswitch.esl.ServerConnectionListener} object.
      * @return a {@link link.thingscloud.freeswitch.esl.InboundClient} object.
      */
     @Bean(initMethod = "start", destroyMethod = "shutdown")
     @ConditionalOnMissingBean(InboundClient.class)
-    public InboundClient inboundClient(@Autowired IEslEventListener listener) {
+    public InboundClient inboundClient(@Autowired IEslEventListener listener, @Autowired ServerConnectionListener serverConnectionListener) {
         InboundClientOption option = new InboundClientOption();
 
         option.sndBufSize(properties.getSndBufSize())
@@ -94,6 +108,8 @@ public class FreeswitchEslAutoConfiguration {
         });
 
         option.addListener(listener);
+
+        option.serverConnectionListener(serverConnectionListener);
 
         log.info("inboundClient properties : [{}]", properties);
         log.info("inboundClient option : [{}]", option);
