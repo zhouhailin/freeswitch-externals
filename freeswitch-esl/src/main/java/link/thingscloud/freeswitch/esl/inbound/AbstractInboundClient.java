@@ -158,7 +158,6 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
                     log.info("Auth response success={}, message=[{}]", reply.isOk(), reply.getReplyText());
                     if (!option().events().isEmpty()) {
                         StringBuilder sb = new StringBuilder();
-                        sb.append("event plain ");
                         for (String event : option().events()) {
                             sb.append(event).append(" ");
                         }
