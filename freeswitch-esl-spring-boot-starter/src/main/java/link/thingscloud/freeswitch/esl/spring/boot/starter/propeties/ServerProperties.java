@@ -28,7 +28,7 @@ import lombok.Data;
 @Data
 public class ServerProperties {
     private String host;
-    private int port;
+    private int port = 8021;
     private int timeoutSeconds;
     private String password;
 }

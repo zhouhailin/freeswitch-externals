@@ -32,6 +32,11 @@ import java.util.Map;
  */
 public class EslHelper {
 
+    /**
+     * private constructor
+     */
+    private EslHelper() {
+    }
 
     /**
      * <p>formatEslEvent.</p>

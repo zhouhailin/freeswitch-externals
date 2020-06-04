@@ -94,7 +94,9 @@ public class FreeswitchEslAutoConfiguration {
                 .readerIdleTimeSeconds(properties.getReaderIdleTimeSeconds())
                 .defaultPassword(properties.getDefaultPassword())
                 .performance(properties.isPerformance())
-                .performanceCostTime(properties.getPerformanceCostTime());
+                .performanceCostTime(properties.getPerformanceCostTime())
+                .eventPerformance(properties.isEventPerformance())
+                .eventPerformanceCostTime(properties.getEventPerformanceCostTime());
 
         properties.getServers().forEach(server -> {
             if (StringUtils.isNotBlank(server.getHost()) && server.getPort() > 1) {

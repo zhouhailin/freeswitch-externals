@@ -63,14 +63,18 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         super(option);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public InboundClientOption option() {
         return option;
     }
 
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         log.info("inbound client will start ...");
@@ -88,7 +92,9 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
     }
 
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void shutdown() {
         log.info("inbound client will shutdown ...");
@@ -108,7 +114,9 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         workerGroup.shutdownGracefully();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onChannelActive(String remoteAddr, InboundChannelHandler inboundChannelHandler) {
         handlerTable.put(remoteAddr, inboundChannelHandler);
@@ -122,7 +130,9 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         });
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onChannelClosed(String remoteAddr) {
         handlerTable.remove(remoteAddr);
@@ -140,7 +150,9 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         });
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleAuthRequest(String addr, InboundChannelHandler inboundChannelHandler) {
         log.info("Auth requested[{}], sending [auth {}]", addr, "*****");
@@ -172,13 +184,26 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleEslEvent(String addr, EslEvent event) {
         option().listeners().forEach(listener -> {
             long start = 0L;
             if (option().performance()) {
                 start = System.currentTimeMillis();
+            }
+            if (option().eventPerformance()) {
+                long cost = 0L;
+                if (start > 0L) {
+                    cost = start - (event.getEventDateTimestamp() / 1000);
+                } else {
+                    cost = System.currentTimeMillis() - (event.getEventDateTimestamp() / 1000);
+                }
+                if (cost > option().eventPerformanceCostTime()) {
+                    log.warn("[event performance] received esl event diff time : {}ms, event is blocked.", cost);
+                }
             }
             log.debug("Event addr[{}] received [{}]", addr, event);
             /*
@@ -210,7 +235,9 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         });
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleDisconnectNotice(String addr) {
         log.info("Disconnected[{}] ...", addr);
@@ -272,7 +299,7 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
     }
 
     private void doConnect(final ServerOption serverOption) {
-        log.info("doConnect remote server [{}:{}] success.", serverOption.host(), serverOption.port());
+        log.info("connect remote server [{}:{}] ...", serverOption.host(), serverOption.port());
         serverOption.addConnectTimes();
         serverOption.state(ConnectState.CONNECTING);
         bootstrap.connect(serverOption.host(), serverOption.port()).addListener((ChannelFutureListener) future -> {

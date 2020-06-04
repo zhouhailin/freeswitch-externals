@@ -27,6 +27,13 @@ import java.net.SocketAddress;
  * @version $Id: $Id
  */
 public class RemotingUtil {
+
+    /**
+     * private constructor
+     */
+    private RemotingUtil() {
+    }
+
     /**
      * <p>socketAddress2String.</p>
      *

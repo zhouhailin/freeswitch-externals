@@ -18,8 +18,8 @@
 package link.thingscloud.freeswitch.esl.inbound.option;
 
 import link.thingscloud.freeswitch.esl.IEslEventListener;
-import link.thingscloud.freeswitch.esl.inbound.listener.EventListener;
 import link.thingscloud.freeswitch.esl.ServerConnectionListener;
+import link.thingscloud.freeswitch.esl.inbound.listener.EventListener;
 import link.thingscloud.freeswitch.esl.inbound.listener.ServerOptionListener;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
@@ -39,9 +39,9 @@ public class InboundClientOption {
     private int sndBufSize = 65535;
     private int rcvBufSize = 65535;
 
-    private int workerGroupThread = 8;
-    private int publicExecutorThread = 8;
-    private int callbackExecutorThread = 8;
+    private int workerGroupThread = Runtime.getRuntime().availableProcessors() * 2;
+    private int publicExecutorThread = Runtime.getRuntime().availableProcessors() * 2;
+    private int callbackExecutorThread = Runtime.getRuntime().availableProcessors() * 2;
 
     private int defaultTimeoutSeconds = 5;
     private String defaultPassword = "ClueCon";
@@ -52,16 +52,18 @@ public class InboundClientOption {
     private boolean disablePublicExecutor = false;
     private boolean performance = false;
     private long performanceCostTime = 200;
+    private boolean eventPerformance = false;
+    private long eventPerformanceCostTime = 200;
 
     private ServerOptionListener serverOptionListener = null;
     private ServerConnectionListener serverConnectionListener = null;
-    private List<ServerOption> serverOptions = new ArrayList<>();
-    private ServerAddrOption serverAddrOption = new ServerAddrOption(serverOptions);
+    private final List<ServerOption> serverOptions = new ArrayList<>();
+    private final ServerAddrOption serverAddrOption = new ServerAddrOption(serverOptions);
 
-    private List<IEslEventListener> listeners = new ArrayList<>();
+    private final List<IEslEventListener> listeners = new ArrayList<>();
 
     private EventListener eventListener = null;
-    private List<String> events = new ArrayList<>();
+    private final List<String> events = new ArrayList<>();
 
     /**
      * <p>sndBufSize.</p>
@@ -310,6 +312,46 @@ public class InboundClientOption {
      */
     public InboundClientOption performanceCostTime(long performanceCostTime) {
         this.performanceCostTime = performanceCostTime;
+        return this;
+    }
+
+    /**
+     * <p>eventPerformance.</p>
+     *
+     * @return a boolean.
+     */
+    public boolean eventPerformance() {
+        return eventPerformance;
+    }
+
+    /**
+     * <p>eventPerformance.</p>
+     *
+     * @param eventPerformance a boolean.
+     * @return a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
+     */
+    public InboundClientOption eventPerformance(boolean eventPerformance) {
+        this.eventPerformance = eventPerformance;
+        return this;
+    }
+
+    /**
+     * <p>eventPerformanceCostTime.</p>
+     *
+     * @return a long.
+     */
+    public long eventPerformanceCostTime() {
+        return eventPerformanceCostTime;
+    }
+
+    /**
+     * <p>eventPerformanceCostTime.</p>
+     *
+     * @param eventPerformanceCostTime a long.
+     * @return a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
+     */
+    public InboundClientOption eventPerformanceCostTime(long eventPerformanceCostTime) {
+        this.eventPerformanceCostTime = eventPerformanceCostTime;
         return this;
     }
 

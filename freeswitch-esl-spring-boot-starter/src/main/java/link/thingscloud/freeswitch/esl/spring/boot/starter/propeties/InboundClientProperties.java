@@ -35,15 +35,17 @@ public class InboundClientProperties {
 
     private int sndBufSize = 65535;
     private int rcvBufSize = 65535;
-    private int workerGroupThread = 8;
-    private int publicExecutorThread = 8;
-    private int callbackExecutorThread = 8;
+    private int workerGroupThread = Runtime.getRuntime().availableProcessors() * 2;
+    private int publicExecutorThread = Runtime.getRuntime().availableProcessors() * 2;
+    private int callbackExecutorThread = Runtime.getRuntime().availableProcessors() * 2;
     private int defaultTimeoutSeconds = 5;
     private int readTimeoutSeconds = 30;
     private int readerIdleTimeSeconds = 25;
     private String defaultPassword = "ClueCon";
     private boolean performance = false;
     private long performanceCostTime = 200;
+    private boolean eventPerformance = false;
+    private long eventPerformanceCostTime = 200;
     private List<String> events = new ArrayList<>();
     private List<ServerProperties> servers = new ArrayList<>();
 

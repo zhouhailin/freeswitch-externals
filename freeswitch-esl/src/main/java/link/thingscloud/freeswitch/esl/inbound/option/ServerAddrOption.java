@@ -30,6 +30,7 @@ import java.util.List;
  */
 public class ServerAddrOption {
     private final List<ServerOption> serverOptions;
+    private static final String VALIDATE_MESSAGE_1 = "serverOptions must be not empty!";
 
     ServerAddrOption(List<ServerOption> serverOptions) {
         this.serverOptions = serverOptions;
@@ -41,7 +42,7 @@ public class ServerAddrOption {
      * @return a {@link java.lang.String} object.
      */
     public String first() {
-        Validate.notEmpty(serverOptions, "serverOptions must be not empty!");
+        Validate.notEmpty(serverOptions, VALIDATE_MESSAGE_1);
         return serverOptions.get(0).addr();
     }
 
@@ -51,7 +52,7 @@ public class ServerAddrOption {
      * @return a {@link java.lang.String} object.
      */
     public String last() {
-        Validate.notEmpty(serverOptions, "serverOptions must be not empty!");
+        Validate.notEmpty(serverOptions, VALIDATE_MESSAGE_1);
         return serverOptions.get(serverOptions.size() - 1).addr();
     }
 
@@ -61,7 +62,7 @@ public class ServerAddrOption {
      * @return a {@link java.lang.String} object.
      */
     public String random() {
-        Validate.notEmpty(serverOptions, "serverOptions must be not empty!");
+        Validate.notEmpty(serverOptions, VALIDATE_MESSAGE_1);
         return serverOptions.get(RandomUtils.nextInt(0, serverOptions.size())).addr();
     }
 
