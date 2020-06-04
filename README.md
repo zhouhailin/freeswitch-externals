@@ -25,14 +25,6 @@
 
     基于 Spring boot 2.2.x, freeswitch-esl 客户端(详细信息，移步至子模块）
 
-```properties
-
-```
-
-```yaml
-
-```
-
 ### 4.[freeswitch-esl-spring-boot-starter-example](freeswitch-esl-spring-boot-starter-example/README.md)
 
     基于 freeswitch-esl-spring-boot-starter 客户端示例(详细信息，移步至子模块）
