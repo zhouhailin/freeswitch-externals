@@ -75,13 +75,12 @@ public class FreeswitchEslAutoConfiguration {
     /**
      * <p>inboundClient.</p>
      *
-     * @param listener                 a {@link link.thingscloud.freeswitch.esl.IEslEventListener} object.
      * @param serverConnectionListener a {@link link.thingscloud.freeswitch.esl.ServerConnectionListener} object.
      * @return a {@link link.thingscloud.freeswitch.esl.InboundClient} object.
      */
     @Bean(initMethod = "start", destroyMethod = "shutdown")
     @ConditionalOnMissingBean(InboundClient.class)
-    public InboundClient inboundClient(@Autowired IEslEventListener listener, @Autowired ServerConnectionListener serverConnectionListener) {
+    public InboundClient inboundClient(@Autowired ServerConnectionListener serverConnectionListener) {
         InboundClientOption option = new InboundClientOption();
 
         option.sndBufSize(properties.getSndBufSize())
@@ -110,8 +109,6 @@ public class FreeswitchEslAutoConfiguration {
                 option.addEvents(event);
             }
         });
-
-        option.addListener(listener);
 
         option.serverConnectionListener(serverConnectionListener);
 

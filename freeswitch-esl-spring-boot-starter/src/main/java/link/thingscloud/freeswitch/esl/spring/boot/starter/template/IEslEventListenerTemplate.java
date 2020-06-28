@@ -18,6 +18,7 @@
 package link.thingscloud.freeswitch.esl.spring.boot.starter.template;
 
 import link.thingscloud.freeswitch.esl.IEslEventListener;
+import link.thingscloud.freeswitch.esl.InboundClient;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.annotation.EslEventName;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.DefaultEslEventHandler;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.EslEventHandler;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
@@ -46,6 +48,8 @@ import java.util.Map;
 @Component
 public class IEslEventListenerTemplate implements IEslEventListener, InitializingBean, ApplicationContextAware {
 
+	@Autowired
+    private InboundClient inboundClient;
     private ApplicationContext applicationContext;
     private EslEventHandler defaultEventHandler = new DefaultEslEventHandler();
     private final Map<String, List<EslEventHandler>> handlerTable = new HashMap<>(16);
@@ -102,6 +106,12 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
                 }
             }
         }
+        /**
+         * 因为EslEventHandler的子类中可能会引入inboundClient对象，
+         * 所以在这里将IEslEventListenerTemplate添加到inboundClient，
+         * 避免因循环依赖导致自定义EslEventHandler无法被applicationContext.getBeansOfType扫描到
+         */
+        inboundClient.option().addListener(this);
     }
 
     /**
