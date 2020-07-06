@@ -24,7 +24,7 @@
     <groupId>link.thingscloud</groupId>
     <artifactId>freeswitch-esl-all</artifactId>
     <packaging>pom</packaging>
-    <version>1.2.4.RELEASE</version>
+    <version>1.2.5.RELEASE</version>
 
     <name>freeswitch-esl-all-${project.version}</name>
     <description>freeswitch event socket library on netty 4.1</description>
@@ -42,7 +42,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <spring-boot.version>2.2.0.RELEASE</spring-boot.version>
+        <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
 
         <java.version>1.8</java.version>
 

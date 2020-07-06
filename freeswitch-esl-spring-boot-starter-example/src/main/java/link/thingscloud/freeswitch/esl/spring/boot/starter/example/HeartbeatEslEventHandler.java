@@ -22,6 +22,7 @@ import link.thingscloud.freeswitch.esl.spring.boot.starter.annotation.EslEventNa
 import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.EslEventHandler;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>HeartbeatEslEventHandler class.</p>
@@ -31,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @EslEventName(EventNames.HEARTBEAT)
+@Component
 public class HeartbeatEslEventHandler implements EslEventHandler {
     /** {@inheritDoc} */
     @Override
