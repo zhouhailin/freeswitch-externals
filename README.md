@@ -8,7 +8,7 @@
 
     1、支持连接FreeSWITCH大规模集群
     2、更易于集成使用
-    4、与spring boot 2.2.x深度整合，提供 starter
+    4、与spring boot 2.3.x深度整合，提供 starter
     5、可动态配置
 
 ## 模块说明
@@ -23,7 +23,7 @@
 
 ### 3.[freeswitch-esl-spring-boot-starter](freeswitch-esl-spring-boot-starter/README.md)
 
-    基于 Spring boot 2.2.x, freeswitch-esl 客户端(详细信息，移步至子模块）
+    基于 Spring boot 2.3.x, freeswitch-esl 客户端(详细信息，移步至子模块）
 
 ### 4.[freeswitch-esl-spring-boot-starter-example](freeswitch-esl-spring-boot-starter-example/README.md)
 
