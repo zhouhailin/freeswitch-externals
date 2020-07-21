@@ -28,6 +28,9 @@ public class ByteBuilder {
     private byte[] b = new byte[128];
     private int index = 0;
 
+    private ByteBuilder() {
+    }
+
     /**
      * <p>newBuilder.</p>
      *
@@ -60,7 +63,7 @@ public class ByteBuilder {
      * @return a int.
      */
     public int length() {
-        return index + 1;
+        return index;
     }
 
     /**
@@ -78,6 +81,6 @@ public class ByteBuilder {
      * @return a {@link java.lang.String} object.
      */
     public String string() {
-        return new String(b);
+        return new String(b, 0, index);
     }
 }
