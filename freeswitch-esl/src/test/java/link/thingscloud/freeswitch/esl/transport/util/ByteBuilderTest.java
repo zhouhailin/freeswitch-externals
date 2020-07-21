@@ -15,33 +15,21 @@
  * limitations under the License.
  */
 
-package link.thingscloud.freeswitch.esl.spring.boot.starter.example;
+package link.thingscloud.freeswitch.esl.transport.util;
 
-import link.thingscloud.freeswitch.esl.ServerConnectionListener;
-import link.thingscloud.freeswitch.esl.inbound.option.ServerOption;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import junit.framework.TestCase;
 
 /**
- * <p>ServerConnectionListenerImpl class.</p>
- *
- * @author : zhouhailin
- * @version $Id: $Id
+ * @author zhouhailin
  */
-@Slf4j
-@Service
-public class ServerConnectionListenerImpl implements ServerConnectionListener {
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onOpened(ServerOption serverOption) {
-        log.info("onOpened serverOption : {}", serverOption);
+public class ByteBuilderTest extends TestCase {
+
+    public void testLength() {
+        ByteBuilder builder = ByteBuilder.newBuilder();
+        System.out.println(builder.string());
+        System.out.println(builder.length());
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public void onClosed(ServerOption serverOption) {
-        log.info("onClosed serverOption : {}", serverOption);
+    public void testString() {
     }
 }

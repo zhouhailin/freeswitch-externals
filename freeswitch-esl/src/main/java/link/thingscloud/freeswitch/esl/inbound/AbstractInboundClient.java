@@ -243,6 +243,12 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         log.info("Disconnected[{}] ...", addr);
     }
 
+    /**
+     * <p>getAuthedHandler.</p>
+     *
+     * @param addr a {@link java.lang.String} object.
+     * @return a {@link link.thingscloud.freeswitch.esl.inbound.handler.InboundChannelHandler} object.
+     */
     public InboundChannelHandler getAuthedHandler(String addr) {
         InboundChannelHandler handler = handlerTable.get(addr);
         if (handler == null) {

@@ -25,8 +25,12 @@ package link.thingscloud.freeswitch.esl.constant;
  */
 public class EslConstant {
 
-    /** Constant <code>BACKGROUND_JOB="BACKGROUND_JOB"</code> */
+    /**
+     * Constant <code>BACKGROUND_JOB="BACKGROUND_JOB"</code>
+     */
     public static final String BACKGROUND_JOB = "BACKGROUND_JOB";
-    /** Constant <code>PLAIN="plain"</code> */
+    /**
+     * Constant <code>PLAIN="plain"</code>
+     */
     public static final String PLAIN = "plain";
 }

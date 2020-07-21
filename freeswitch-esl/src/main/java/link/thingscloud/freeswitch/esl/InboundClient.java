@@ -18,7 +18,6 @@
 package link.thingscloud.freeswitch.esl;
 
 import link.thingscloud.freeswitch.esl.exception.InboundTimeoutExcetion;
-import link.thingscloud.freeswitch.esl.inbound.handler.InboundChannelHandler;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.transport.CommandResponse;
 import link.thingscloud.freeswitch.esl.transport.SendMsg;
@@ -84,7 +83,7 @@ public interface InboundClient extends InboundClientService {
      * @param arg            command arguments
      * @param timeoutSeconds timeout seconds arguments
      * @return an {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} containing command results
-     * @throws InboundTimeoutExcetion ite execute command timeout
+     * @throws link.thingscloud.freeswitch.esl.exception.InboundTimeoutExcetion ite execute command timeout
      */
     EslMessage sendSyncApiCommand(String addr, String command, String arg, long timeoutSeconds) throws InboundTimeoutExcetion;
 
