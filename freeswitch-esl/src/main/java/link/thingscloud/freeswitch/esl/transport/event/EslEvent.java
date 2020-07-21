@@ -45,8 +45,8 @@ import java.util.Map;
  * The messageHeader lines from the original message are cached in a map keyed by {@link link.thingscloud.freeswitch.esl.transport.message.EslHeaders.Name}.
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @see EslEventHeaderNames
  * @version $Id: $Id
+ * @see EslEventHeaderNames
  */
 @Slf4j
 public class EslEvent {
@@ -54,7 +54,7 @@ public class EslEvent {
     private final Map<EslHeaders.Name, String> messageHeaders;
     private final Map<String, String> eventHeaders;
     private final List<String> eventBody;
-    private boolean decodeEventHeaders = true;
+    private final boolean decodeEventHeaders = true;
 
     /**
      * <p>Constructor for EslEvent.</p>
@@ -197,7 +197,9 @@ public class EslEvent {
 
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("EslEvent: name=[");

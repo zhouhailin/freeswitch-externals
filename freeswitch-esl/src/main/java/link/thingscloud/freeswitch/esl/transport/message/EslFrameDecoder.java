@@ -23,6 +23,7 @@ import io.netty.handler.codec.ReplayingDecoder;
 import io.netty.handler.codec.TooLongFrameException;
 import io.netty.util.ReferenceCountUtil;
 import link.thingscloud.freeswitch.esl.exception.EslDecoderException;
+import link.thingscloud.freeswitch.esl.transport.util.ByteBuilder;
 import link.thingscloud.freeswitch.esl.transport.util.HeaderParser;
 import lombok.extern.slf4j.Slf4j;
 
@@ -70,7 +71,9 @@ public class EslFrameDecoder extends ReplayingDecoder<EslFrameDecoder.State> {
         this.treatUnknownHeadersAsBody = treatUnknownHeadersAsBody;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buffer, List<Object> out) {
         log.trace("decode() : state [{}]", state());
@@ -154,41 +157,41 @@ public class EslFrameDecoder extends ReplayingDecoder<EslFrameDecoder.State> {
     }
 
     private String readToLineFeedOrFail(ByteBuf buffer, int maxLineLegth) {
-        StringBuilder sb = new StringBuilder(64);
+        ByteBuilder builder = ByteBuilder.newBuilder();
         while (true) {
             // this read might fail
             byte nextByte = buffer.readByte();
             if (nextByte == LF) {
-                return sb.toString();
+                return builder.string();
             } else {
                 // Abort decoding if the decoded line is too large.
-                if (sb.length() >= maxLineLegth) {
+                if (builder.length() >= maxLineLegth) {
                     throw new TooLongFrameException(
                             "ESL header line is longer than " + maxLineLegth + " bytes.");
                 }
-                sb.append((char) nextByte);
+                builder.append(nextByte);
             }
         }
     }
 
     private String readLine(ByteBuf buffer, int maxLineLength) {
-        StringBuilder sb = new StringBuilder(64);
+        ByteBuilder builder = ByteBuilder.newBuilder();
         while (buffer.isReadable()) {
             // this read should always succeed
             byte nextByte = buffer.readByte();
             if (nextByte == LF) {
-                return sb.toString();
+                return builder.string();
             } else {
                 // Abort decoding if the decoded line is too large.
-                if (sb.length() >= maxLineLength) {
+                if (builder.length() >= maxLineLength) {
                     throw new TooLongFrameException(
                             "ESL message line is longer than " + maxLineLength + " bytes.");
                 }
-                sb.append((char) nextByte);
+                builder.append(nextByte);
             }
         }
 
-        return sb.toString();
+        return builder.string();
     }
 
     protected enum State {

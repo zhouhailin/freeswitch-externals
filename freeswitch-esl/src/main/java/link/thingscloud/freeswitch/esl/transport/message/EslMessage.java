@@ -36,8 +36,8 @@ import java.util.Map;
  * Any Body lines are cached in a list.
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @see EslHeaders.Name
  * @version $Id: $Id
+ * @see EslHeaders.Name
  */
 @Slf4j
 public class EslMessage {
@@ -142,7 +142,9 @@ public class EslMessage {
         body.add(line);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("EslMessage: contentType=[");

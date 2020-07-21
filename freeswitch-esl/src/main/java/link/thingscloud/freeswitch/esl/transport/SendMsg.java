@@ -164,7 +164,9 @@ public class SendMsg {
         return hasUuid;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("SendMsg: ");
