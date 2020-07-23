@@ -75,8 +75,6 @@ abstract class AbstractNettyInboundClient implements ChannelEventListener, Inbou
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline.addLast("encoder", new StringEncoder());
-                        pipeline.addLast("decoder-line", new LineBasedFrameDecoder(1024));
-                        pipeline.addLast("encoder-string", new StringDecoder());
                         pipeline.addLast("decoder", new EslFrameDecoder(8192));
                         if (option.readerIdleTimeSeconds() > 0 && option.readTimeoutSeconds() > 0
                                 && option.readerIdleTimeSeconds() < option.readTimeoutSeconds()) {
