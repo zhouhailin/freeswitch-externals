@@ -21,7 +21,6 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,14 +42,12 @@ public class SocketClient {
 	private final EventLoopGroup bossGroup;
 	private final EventLoopGroup workerGroup;
 	private final IClientHandlerFactory factory;
-	private final InboundClientOption option;
 	private final SocketAddress bindAddress;
 
 	private Channel serverChannel;
 
-	public SocketClient(SocketAddress bindAddress, InboundClientOption option, IClientHandlerFactory factory) {
+	public SocketClient(SocketAddress bindAddress, IClientHandlerFactory factory) {
 		this.bindAddress = bindAddress;
-		this.option = option;
 		this.factory = factory;
 		this.bossGroup = new NioEventLoopGroup();
 		this.workerGroup = new NioEventLoopGroup();
@@ -60,7 +57,7 @@ public class SocketClient {
 		final ServerBootstrap bootstrap = new ServerBootstrap()
 				.group(bossGroup, workerGroup)
 				.channel(NioServerSocketChannel.class)
-				.childHandler(new OutboundChannelInitializer(option, factory))
+				.childHandler(new OutboundChannelInitializer(factory))
 				.childOption(ChannelOption.TCP_NODELAY, true)
 				.childOption(ChannelOption.SO_KEEPALIVE, true);
 

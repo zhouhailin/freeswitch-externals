@@ -15,12 +15,11 @@ import java.util.concurrent.CompletableFuture;
 import static link.thingscloud.freeswitch.esl.internal.IModEslApi.EventFormat.PLAIN;
 
 public class OutboundServer {
-    static CompletableFuture<EslEvent> future;
+
     public static void main(String[] args) {
-        InboundClientOption option = new InboundClientOption();
         SocketAddress address = new InetSocketAddress("localhost", 8084);
         try {
-            new SocketClient(address, option, () -> new IClientHandler() {
+            new SocketClient(address, () -> new IClientHandler() {
                 @Override
                 public void onConnect(Context context, EslEvent eslEvent) {
                     StringBuffer subscriptions = new StringBuffer();
@@ -36,7 +35,7 @@ public class OutboundServer {
                     CommandResponse response = context.setEventSubscriptions(PLAIN, subscriptions.toString());
                     System.out.println(response.isOk());
 
-                    future = context.sendBackgroundApiCommand("system", "ls /");
+                    CompletableFuture<EslEvent> future = context.sendBackgroundApiCommand("system", "ls /");
                     future.thenAccept(result -> System.out.println("Job::::::::::::"+result.toString()));
 
                     response = context.addEventFilter("Unique-ID", uuid);

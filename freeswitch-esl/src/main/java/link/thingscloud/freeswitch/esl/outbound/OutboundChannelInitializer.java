@@ -14,12 +14,11 @@ import java.util.concurrent.Executors;
 
 public class OutboundChannelInitializer extends ChannelInitializer<SocketChannel> {
 
-    private final InboundClientOption option;
     private final IClientHandlerFactory clientHandlerFactory;
     private ExecutorService callbackExecutor = Executors.newSingleThreadExecutor();
 
-    public OutboundChannelInitializer(InboundClientOption option, IClientHandlerFactory clientHandlerFactory) {
-        this.option = option; this.clientHandlerFactory = clientHandlerFactory;
+    public OutboundChannelInitializer(IClientHandlerFactory clientHandlerFactory) {
+        this.clientHandlerFactory = clientHandlerFactory;
     }
 
     public OutboundChannelInitializer setCallbackExecutor(ExecutorService callbackExecutor) {
@@ -34,11 +33,6 @@ public class OutboundChannelInitializer extends ChannelInitializer<SocketChannel
         pipeline.addLast("encoder", new StringEncoder());
         // Note that outbound mode requires the decoder to treat many 'headers' as body lines
         pipeline.addLast("decoder", new EslFrameDecoder(8092, true));
-        if (option.readerIdleTimeSeconds() > 0 && option.readTimeoutSeconds() > 0
-                && option.readerIdleTimeSeconds() < option.readTimeoutSeconds()) {
-            pipeline.addLast("idleState", new IdleStateHandler(option.readerIdleTimeSeconds(), 0, 0));
-            pipeline.addLast("readTimeout", new ReadTimeoutHandler(option.readTimeoutSeconds()));
-        }
 
         // now the outbound client logic
         pipeline.addLast("clientHandler",
