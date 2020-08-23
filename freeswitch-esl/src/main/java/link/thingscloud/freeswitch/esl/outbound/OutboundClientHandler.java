@@ -50,15 +50,6 @@ class OutboundClientHandler extends AbstractEslClientHandler {
 				handleDisconnectionNotice();
 			}
 		});
-//		sendApiSingleLineCommand(ctx.channel(), "connect")
-//				.thenAccept(response -> clientHandler.onConnect(
-//						new Context(ctx.channel(), OutboundClientHandler.this),
-//						new EslEvent(response, true)))
-//				.exceptionally(throwable -> {
-//					ctx.channel().close();
-//					handleDisconnectionNotice();
-//					return null;
-//				});
 	}
 
 	@Override
