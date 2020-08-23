@@ -19,10 +19,7 @@ package link.thingscloud.freeswitch.esl.transport.message;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Basic FreeSWITCH Event Socket messages from the server are decoded into this data object.
@@ -42,7 +39,8 @@ import java.util.Map;
 @Slf4j
 public class EslMessage {
 
-    private final Map<EslHeaders.Name, String> headers = new EnumMap<>(EslHeaders.Name.class);
+    //private final Map<EslHeaders.Name, String> headers = new EnumMap<>(EslHeaders.Name.class);
+    private final Map<EslHeaders.Name, String> headers = new HashMap<>();
     private final List<String> body = new ArrayList<>();
 
     private Integer contentLength = null;

@@ -202,15 +202,35 @@ public class EslEvent {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("EslEvent: name=[");
-        sb.append(getEventName());
-        sb.append("] headers=");
-        sb.append(messageHeaders.size());
-        sb.append(", eventHeaders=");
-        sb.append(eventHeaders.size());
-        sb.append(", eventBody=");
-        sb.append(eventBody.size());
-        sb.append(" lines.");
-        return sb.toString();
+        String lineSeparator = System.lineSeparator();
+        String endSeparator = "= = = = = = = = = = =";
+        StringBuilder builder = new StringBuilder(lineSeparator);
+        builder.append("=======================  ").append(getEventName());
+        builder.append("  =============================").append(lineSeparator);
+        builder.append("messageHeaders:").append(lineSeparator);
+        for (Map.Entry<EslHeaders.Name, String> entry: messageHeaders.entrySet())
+            builder.append(entry.getKey()).append(" = ").append(entry.getValue()).append(lineSeparator);
+        builder.append(lineSeparator).append("eventHeaders:").append(lineSeparator);
+        for (Map.Entry<String, String> entry: eventHeaders.entrySet())
+            builder.append(entry.getKey()).append(" = ").append(entry.getValue()).append(lineSeparator);
+        if (eventBody.size() > 0) {
+            builder.append(lineSeparator).append("eventBody:").append(lineSeparator);
+            for (String line : eventBody)
+                builder.append(line).append(lineSeparator);
+        }
+        builder.append("=======================  ").append(endSeparator);
+        builder.append("  =============================").append(lineSeparator);
+        return builder.append(lineSeparator).append(lineSeparator).toString();
+
+//        StringBuilder sb = new StringBuilder("EslEvent: name=[");
+//        sb.append(getEventName());
+//        sb.append("] headers=");
+//        sb.append(messageHeaders.size());
+//        sb.append(", eventHeaders=");
+//        sb.append(eventHeaders.size());
+//        sb.append(", eventBody=");
+//        sb.append(eventBody.size());
+//        sb.append(" lines.");
+//        return sb.toString();
     }
 }

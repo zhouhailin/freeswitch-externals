@@ -25,6 +25,7 @@ import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import link.thingscloud.freeswitch.esl.helper.EslHelper;
 import link.thingscloud.freeswitch.esl.inbound.listener.ChannelEventListener;
+import link.thingscloud.freeswitch.esl.internal.SyncCallback;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
 import link.thingscloud.freeswitch.esl.transport.message.EslHeaders;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
@@ -35,7 +36,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -259,40 +259,5 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
     public ChannelFuture close() {
         return channel.close();
     }
-
-    class SyncCallback {
-        private final CountDownLatch latch = new CountDownLatch(1);
-        private EslMessage response;
-
-        /**
-         * Block waiting for the countdown latch to be released, then return the
-         * associated response object.
-         *
-         * @return msg
-         */
-        EslMessage get() {
-            try {
-                log.trace("awaiting latch ... ");
-                latch.await();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
-            log.trace("returning response [{}]", response);
-            return response;
-        }
-
-        /**
-         * Attach this response to the callback and release the countdown latch.
-         *
-         * @param response res
-         */
-        void handle(EslMessage response) {
-            this.response = response;
-            log.trace("releasing latch for response [{}]", response);
-            latch.countDown();
-        }
-    }
-
 
 }
