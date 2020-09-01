@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.SocketAddress;
+import java.util.concurrent.ExecutorService;
 
 /**
  * Entry point to run a socket client that a running FreeSWITCH Event Socket Library module can
@@ -39,6 +40,7 @@ import java.net.SocketAddress;
 public class SocketClient {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	private final OutboundChannelInitializer channelInitializer;
 	private final EventLoopGroup bossGroup;
 	private final EventLoopGroup workerGroup;
 	private final IClientHandlerFactory factory;
@@ -46,18 +48,21 @@ public class SocketClient {
 
 	private Channel serverChannel;
 
-	public SocketClient(SocketAddress bindAddress, IClientHandlerFactory factory) {
+	public SocketClient(SocketAddress bindAddress,
+						IClientHandlerFactory factory,
+						ExecutorService executor) {
 		this.bindAddress = bindAddress;
 		this.factory = factory;
 		this.bossGroup = new NioEventLoopGroup();
 		this.workerGroup = new NioEventLoopGroup();
+		channelInitializer = new OutboundChannelInitializer(factory, executor);
 	}
 
 	public void start() {
 		final ServerBootstrap bootstrap = new ServerBootstrap()
 				.group(bossGroup, workerGroup)
 				.channel(NioServerSocketChannel.class)
-				.childHandler(new OutboundChannelInitializer(factory))
+				.childHandler(channelInitializer)
 				.childOption(ChannelOption.TCP_NODELAY, true)
 				.childOption(ChannelOption.SO_KEEPALIVE, true);
 

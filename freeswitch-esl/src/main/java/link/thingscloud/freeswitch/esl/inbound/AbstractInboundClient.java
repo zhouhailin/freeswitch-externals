@@ -37,6 +37,7 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -54,13 +55,16 @@ import java.util.concurrent.TimeUnit;
  */
 abstract class AbstractInboundClient extends AbstractNettyInboundClient implements InboundClient {
 
-    private final ScheduledThreadPoolExecutor scheduledPoolExecutor = new ScheduledThreadPoolExecutor(1,
-            new BasicThreadFactory.Builder().namingPattern("scheduled-pool-%d").daemon(true).build());
-
+    private final ScheduledExecutorService scheduledExecutor;
     private final Map<String, InboundChannelHandler> handlerTable = new HashMap<>(32);
 
     AbstractInboundClient(InboundClientOption option) {
         super(option);
+        if (option.getScheduledExecutor() == null) {
+            BasicThreadFactory.Builder builder = new BasicThreadFactory.Builder();
+            builder = builder.namingPattern("scheduled-pool-%d").daemon(true);
+            scheduledExecutor = new ScheduledThreadPoolExecutor(1, builder.build());
+        } else { scheduledExecutor = option.getScheduledExecutor(); }
     }
 
     /**
@@ -104,9 +108,11 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
             if (inboundChannelHandler != null) {
                 inboundChannelHandler.close().addListener((ChannelFutureListener) future -> {
                     if (future.isSuccess()) {
-                        log.info("shutdown inbound client remote server [{}:{}] success.", serverOption.host(), serverOption.port());
+                        log.info("shutdown inbound client remote server [{}:{}] success.",
+                                serverOption.host(), serverOption.port());
                     } else {
-                        log.info("shutdown inbound client remote server [{}:{}] failed, cause : ", serverOption.host(), serverOption.port(), future.cause());
+                        log.info("shutdown inbound client remote server [{}:{}] failed, cause : ",
+                                serverOption.host(), serverOption.port(), future.cause());
                     }
                 });
             }
@@ -123,9 +129,13 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         // 连接监听
         option().serverOptions().forEach(serverOption -> {
             if (StringUtils.equals(serverOption.addr(), remoteAddr)) {
-                if (option().serverConnectionListener() != null) {
-                    option().serverConnectionListener().onOpened(serverOption);
-                }
+                option().getConnectionListeners().forEach(listener->{
+                    try {
+                        scheduledExecutor.execute(()->listener.onOpened(serverOption));
+                    } catch (Exception e) {
+                        log.error(e.getMessage(), e);
+                    }
+                });
             }
         });
     }
@@ -139,12 +149,17 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         option().serverOptions().forEach(serverOption -> {
             if (StringUtils.equals(serverOption.addr(), remoteAddr)) {
                 // 连接监听
-                if (option().serverConnectionListener() != null) {
-                    option().serverConnectionListener().onClosed(serverOption);
-                }
+                option().getConnectionListeners().forEach(listener -> {
+                    try {
+                        scheduledExecutor.execute(()->listener.onClosed(serverOption));
+                    } catch (Exception e) {
+                        log.error(e.getMessage(), e);
+                    }
+                });
                 if (serverOption.state() != ConnectState.SHUTDOWN) {
                     serverOption.state(ConnectState.CLOSED);
-                    scheduledPoolExecutor.schedule(() -> doConnect(serverOption), getTimeoutSeconds(serverOption), TimeUnit.SECONDS);
+                    scheduledExecutor.schedule(() -> doConnect(serverOption),
+                            getTimeoutSeconds(serverOption), TimeUnit.SECONDS);
                 }
             }
         });
@@ -168,9 +183,9 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
                     CommandResponse reply = new CommandResponse("auth " + password, response);
                     serverOption.state(ConnectState.AUTHED);
                     log.info("Auth response success={}, message=[{}]", reply.isOk(), reply.getReplyText());
-                    if (!option().events().isEmpty()) {
+                    if (!serverOption.events().isEmpty()) {
                         StringBuilder sb = new StringBuilder();
-                        for (String event : option().events()) {
+                        for (String event : serverOption.events()) {
                             sb.append(event).append(" ");
                         }
                         setEventSubscriptions(addr, "plain", sb.toString());
@@ -277,7 +292,8 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
 
             @Override
             public void onRemoved(ServerOption serverOption) {
-                if (serverOption.state() == ConnectState.CONNECTED || serverOption.state() == ConnectState.AUTHED) {
+                if (serverOption.state() == ConnectState.CONNECTED ||
+                        serverOption.state() == ConnectState.AUTHED) {
                     doClose(serverOption);
                 }
             }
@@ -286,21 +302,24 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
 
     private void addEventListener() {
         log.info("add event listener ...");
-        option().eventListener(new EventListener() {
-            @Override
-            public void addEvents(List<String> list) {
-                StringBuilder sb = new StringBuilder();
-                for (String event : list) {
-                    sb.append(event).append(" ");
+        option().serverOptions().forEach(serverOption -> {
+            serverOption.eventListener(new EventListener() {
+                @Override
+                public void addEvents(List<String> list) {
+                    StringBuilder sb = new StringBuilder();
+                    for (String event : list) {
+                        sb.append(event).append(" ");
+                    }
+                    publicExecutor.execute(() -> setEventSubscriptions(
+                            serverOption.addr(), "plain", sb.toString()));
                 }
-                option().serverOptions().forEach(serverOption -> publicExecutor.execute(() -> setEventSubscriptions(serverOption.addr(), "plain", sb.toString())));
-            }
 
-            @Override
-            public void cancelEvents() {
-                option().serverOptions().forEach(serverOption -> publicExecutor.execute(() -> cancelEventSubscriptions(serverOption.addr())));
+                @Override
+                public void cancelEvents() {
+                    publicExecutor.execute(() -> cancelEventSubscriptions(serverOption.addr()));
 
-            }
+                }
+            });
         });
     }
 
@@ -314,8 +333,10 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
                 log.info("connect remote server [{}:{}] success.", serverOption.host(), serverOption.port());
             } else {
                 serverOption.state(ConnectState.FAILED);
-                log.warn("connect remote server [{}:{}] failed, will try again, cause : ", serverOption.host(), serverOption.port(), future.cause());
-                scheduledPoolExecutor.schedule(() -> doConnect(serverOption), getTimeoutSeconds(serverOption), TimeUnit.SECONDS);
+                log.warn("connect remote server [{}:{}] failed, will try again, cause : ",
+                        serverOption.host(), serverOption.port(), future.cause());
+                scheduledExecutor.schedule(() -> doConnect(serverOption),
+                        getTimeoutSeconds(serverOption), TimeUnit.SECONDS);
             }
         });
     }
@@ -331,7 +352,8 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
                 if (future.isSuccess()) {
                     log.info("close remote server [{}:{}] success.", serverOption.host(), serverOption.port());
                 } else {
-                    log.info("close remote server [{}:{}] failed, cause : ", serverOption.host(), serverOption.port(), future.cause());
+                    log.info("close remote server [{}:{}] failed, cause : ",
+                            serverOption.host(), serverOption.port(), future.cause());
                 }
             });
         }

@@ -20,6 +20,9 @@ package link.thingscloud.freeswitch.esl.transport;
 
 import link.thingscloud.freeswitch.esl.transport.message.EslHeaders;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
+import org.apache.commons.lang3.StringUtils;
+
+import static link.thingscloud.freeswitch.esl.transport.message.EslHeaders.Name.REPLY_TEXT;
 
 /**
  * <p>CommandResponse class.</p>
@@ -41,10 +44,11 @@ public class CommandResponse {
      * @param response a {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} object.
      */
     public CommandResponse(String command, EslMessage response) {
-        this.command = command;
-        this.response = response;
-        this.replyText = response == null ? "" : response.getHeaderValue(EslHeaders.Name.REPLY_TEXT);
-        this.success = replyText.startsWith("+OK");
+        this.command = command; this.response = response;
+        if (response == null) { replyText = ""; } else {
+            replyText = response.getHeaderValue(REPLY_TEXT);
+        }
+        success = StringUtils.startsWith(replyText, "+OK");
     }
 
     /**

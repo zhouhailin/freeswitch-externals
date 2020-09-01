@@ -58,8 +58,12 @@ abstract class AbstractNettyInboundClient implements ChannelEventListener, Inbou
 
         bootstrap = new Bootstrap();
 
-        publicExecutor = new ScheduledThreadPoolExecutor(option.publicExecutorThread(),
-                new BasicThreadFactory.Builder().namingPattern("publicExecutor-%d").daemon(true).build());
+        if (option.getThreadPoolExecutor() == null) {
+            int corePoolSize = option.publicExecutorThread();
+            BasicThreadFactory.Builder builder = new BasicThreadFactory.Builder();
+            builder = builder.namingPattern("publicExecutor-%d").daemon(true);
+            publicExecutor = new ScheduledThreadPoolExecutor(corePoolSize, builder.build());
+        } else { publicExecutor = option.getThreadPoolExecutor(); }
 
         workerGroup = new NioEventLoopGroup(option.workerGroupThread());
         bootstrap.group(workerGroup)
@@ -80,7 +84,9 @@ abstract class AbstractNettyInboundClient implements ChannelEventListener, Inbou
                             pipeline.addLast("readTimeout", new ReadTimeoutHandler(option.readTimeoutSeconds()));
                         }
                         // now the inbound client logic
-                        pipeline.addLast("clientHandler", new InboundChannelHandler(AbstractNettyInboundClient.this, publicExecutor, option.disablePublicExecutor()));
+                        pipeline.addLast("clientHandler", new InboundChannelHandler(
+                                AbstractNettyInboundClient.this, publicExecutor,
+                                option.disablePublicExecutor()));
                     }
                 });
     }

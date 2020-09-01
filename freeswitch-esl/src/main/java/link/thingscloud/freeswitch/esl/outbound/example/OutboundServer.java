@@ -11,6 +11,8 @@ import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static link.thingscloud.freeswitch.esl.internal.IModEslApi.EventFormat.PLAIN;
 
@@ -18,6 +20,7 @@ public class OutboundServer {
 
     public static void main(String[] args) {
         SocketAddress address = new InetSocketAddress("localhost", 8084);
+        ExecutorService executor = Executors.newCachedThreadPool();
         try {
             new SocketClient(address, () -> new IClientHandler() {
                 @Override
@@ -51,7 +54,7 @@ public class OutboundServer {
                 public void onEslEvent(Context ctx, EslEvent eslEvent) {
 //                    System.out.println(eslEvent.toString());
                 }
-            }).start();
+            }, executor).start();
         } catch (Exception e) {
             e.printStackTrace();
         }

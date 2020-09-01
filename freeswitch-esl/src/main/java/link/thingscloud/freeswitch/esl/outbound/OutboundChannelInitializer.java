@@ -4,26 +4,18 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.string.StringEncoder;
-import io.netty.handler.timeout.IdleStateHandler;
-import io.netty.handler.timeout.ReadTimeoutHandler;
-import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.transport.message.EslFrameDecoder;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class OutboundChannelInitializer extends ChannelInitializer<SocketChannel> {
 
-    private final IClientHandlerFactory clientHandlerFactory;
-    private ExecutorService callbackExecutor = Executors.newSingleThreadExecutor();
+    private final IClientHandlerFactory factory;
+    private final ExecutorService executor;
 
-    public OutboundChannelInitializer(IClientHandlerFactory clientHandlerFactory) {
-        this.clientHandlerFactory = clientHandlerFactory;
-    }
-
-    public OutboundChannelInitializer setCallbackExecutor(ExecutorService callbackExecutor) {
-        this.callbackExecutor = callbackExecutor;
-        return this;
+    public OutboundChannelInitializer(IClientHandlerFactory factory,
+                                      ExecutorService executor) {
+        this.factory = factory; this.executor = executor;
     }
 
     @Override
@@ -36,8 +28,6 @@ public class OutboundChannelInitializer extends ChannelInitializer<SocketChannel
 
         // now the outbound client logic
         pipeline.addLast("clientHandler",
-                new OutboundClientHandler(
-                        clientHandlerFactory.createClientHandler(),
-                        callbackExecutor));
+                new OutboundClientHandler(factory.createClientHandler(), executor));
     }
 }

@@ -5,15 +5,24 @@ import link.thingscloud.freeswitch.esl.transport.CommandResponse;
 import link.thingscloud.freeswitch.esl.transport.SendMsg;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.concurrent.CompletableFuture;
 
-public class Context implements IModEslApi {
+@Data
+public class Context extends Execute {
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private final AbstractEslClientHandler handler;
+
+    @Setter(AccessLevel.NONE)
     private final Channel channel;
 
     public Context(Channel channel, AbstractEslClientHandler clientHandler) {

@@ -17,15 +17,18 @@
 
 package link.thingscloud.freeswitch.esl.inbound.option;
 
+import link.thingscloud.freeswitch.esl.ConnectionListener;
 import link.thingscloud.freeswitch.esl.IEslEventListener;
-import link.thingscloud.freeswitch.esl.ServerConnectionListener;
-import link.thingscloud.freeswitch.esl.inbound.listener.EventListener;
 import link.thingscloud.freeswitch.esl.inbound.listener.ServerOptionListener;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * <p>InboundClientOption class.</p>
@@ -55,15 +58,15 @@ public class InboundClientOption {
     private boolean eventPerformance = false;
     private long eventPerformanceCostTime = 200;
 
+
+    private ExecutorService threadPoolExecutor;
+    private ScheduledExecutorService scheduledExecutor;
     private ServerOptionListener serverOptionListener = null;
-    private ServerConnectionListener serverConnectionListener = null;
     private final List<ServerOption> serverOptions = new ArrayList<>();
     private final ServerAddrOption serverAddrOption = new ServerAddrOption(serverOptions);
+    private Set<ConnectionListener> connectionListeners = ConcurrentHashMap.newKeySet();
 
-    private final List<IEslEventListener> listeners = new ArrayList<>();
-
-    private EventListener eventListener = null;
-    private final List<String> events = new ArrayList<>();
+    private final Set<IEslEventListener> listeners = ConcurrentHashMap.newKeySet();
 
     /**
      * <p>sndBufSize.</p>
@@ -380,18 +383,20 @@ public class InboundClientOption {
      *
      * @return a {@link link.thingscloud.freeswitch.esl.inbound.listener.ServerOptionListener} object.
      */
-    public ServerConnectionListener serverConnectionListener() {
-        return serverConnectionListener;
+    public Set<ConnectionListener> getConnectionListeners() {
+        return connectionListeners;
     }
 
     /**
-     * <p>serverConnectionListener.</p>
+     * <p>connectionListener.</p>
      *
-     * @param serverConnectionListener a {@link link.thingscloud.freeswitch.esl.ServerConnectionListener} object.
+     * @param connectionListener a {@link ConnectionListener} object.
      * @return a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
      */
-    public InboundClientOption serverConnectionListener(ServerConnectionListener serverConnectionListener) {
-        this.serverConnectionListener = serverConnectionListener;
+    public InboundClientOption addConnectionListener(ConnectionListener connectionListener) {
+        if (connectionListeners.contains(connectionListener))
+            return this;
+        this.connectionListeners.add(connectionListener);
         return this;
     }
 
@@ -421,7 +426,7 @@ public class InboundClientOption {
      */
     public InboundClientOption addServerOption(ServerOption serverOption) {
         for (ServerOption option : serverOptions) {
-            if (StringUtils.equals(option.addr(), serverOption.addr())) {
+            if (StringUtils.equalsIgnoreCase(option.addr(), serverOption.addr())) {
                 return this;
             }
         }
@@ -473,79 +478,23 @@ public class InboundClientOption {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<IEslEventListener> listeners() {
+    public Set<IEslEventListener> listeners() {
         return listeners;
     }
 
-    /**
-     * <p>eventListener.</p>
-     *
-     * @return a {@link link.thingscloud.freeswitch.esl.inbound.listener.EventListener} object.
-     */
-    public EventListener eventListener() {
-        return eventListener;
+    public ExecutorService getThreadPoolExecutor() {
+        return threadPoolExecutor;
     }
 
-    /**
-     * <p>eventListener.</p>
-     *
-     * @param eventListener a {@link link.thingscloud.freeswitch.esl.inbound.listener.EventListener} object.
-     * @return a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
-     */
-    public InboundClientOption eventListener(EventListener eventListener) {
-        this.eventListener = eventListener;
-        return this;
+    public void setThreadPoolExecutor(ExecutorService threadPoolExecutor) {
+        this.threadPoolExecutor = threadPoolExecutor;
     }
 
-    /**
-     * <p>events.</p>
-     *
-     * @return a {@link java.util.List} object.
-     */
-    public List<String> events() {
-        return events;
+    public void setScheduledExecutor(ScheduledExecutorService scheduledExecutor) {
+        this.scheduledExecutor = scheduledExecutor;
     }
 
-    /**
-     * <p>addEvents.</p>
-     *
-     * @param addEvents a {@link java.lang.String} object.
-     * @return a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
-     */
-    public InboundClientOption addEvents(String... addEvents) {
-        if (addEvents == null) {
-            return this;
-        }
-
-        List<String> list = new ArrayList<>();
-        for (String addEvent : addEvents) {
-            if (!events().contains(addEvent)) {
-                list.add(addEvent);
-            }
-        }
-        if (!list.isEmpty()) {
-            events.addAll(list);
-            if (eventListener != null) {
-                eventListener.addEvents(list);
-            }
-        }
-        return this;
+    public ScheduledExecutorService getScheduledExecutor() {
+        return scheduledExecutor;
     }
-
-    /**
-     * <p>cancelEvents.</p>
-     *
-     * @return a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
-     */
-    public InboundClientOption cancelEvents() {
-        if (!events.isEmpty()) {
-            if (eventListener != null) {
-                eventListener.cancelEvents();
-            }
-            events.clear();
-        }
-        return this;
-    }
-
-
 }

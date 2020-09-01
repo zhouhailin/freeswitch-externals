@@ -17,8 +17,15 @@
 
 package link.thingscloud.freeswitch.esl.inbound.option;
 
+import link.thingscloud.freeswitch.esl.inbound.listener.EventListener;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>ServerOption class.</p>
@@ -32,12 +39,16 @@ import lombok.experimental.Accessors;
 public class ServerOption {
     private final String host;
     private final int port;
-    private int timeoutSeconds;
     private String password;
-
+    private int timeoutSeconds;
+    private int connectTimes = 0;
+    private EventListener eventListener;
     private ConnectState state = ConnectState.INIT;
 
-    private int connectTimes = 0;
+    @Setter(AccessLevel.NONE)
+    private List<String> events = new ArrayList<>();
+
+
 
     /**
      * <p>addr.</p>
@@ -53,5 +64,44 @@ public class ServerOption {
      */
     public void addConnectTimes() {
         connectTimes++;
+    }
+
+    public ServerOption setEvents(List<String> events) {
+        if (events == null || events.isEmpty())
+            return this;
+        this.events = events;
+        if (eventListener != null)
+            eventListener.addEvents(events);
+        return this;
+    }
+
+    public ServerOption addEvents(String... addEvents) {
+        if (addEvents == null) {
+            return this;
+        }
+
+        List<String> list = new ArrayList<>();
+        for (String addEvent : addEvents) {
+            if (!events().contains(addEvent)) {
+                list.add(addEvent);
+            }
+        }
+        if (!list.isEmpty()) {
+            events.addAll(list);
+            if (eventListener != null) {
+                eventListener.addEvents(list);
+            }
+        }
+        return this;
+    }
+
+    public ServerOption cancelEvents() {
+        if (!events.isEmpty()) {
+            if (eventListener != null) {
+                eventListener.cancelEvents();
+            }
+            events.clear();
+        }
+        return this;
     }
 }

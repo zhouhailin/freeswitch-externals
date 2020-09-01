@@ -20,12 +20,12 @@ package link.thingscloud.freeswitch.esl;
 import link.thingscloud.freeswitch.esl.inbound.option.ServerOption;
 
 /**
- * <p>ServerConnectionListener interface.</p>
+ * <p>ConnectionListener interface.</p>
  *
  * @author : zhouhailin
  * @version $Id: $Id
  */
-public interface ServerConnectionListener {
+public interface ConnectionListener {
 
     /**
      * <p>onOpened.</p>
