@@ -23,6 +23,8 @@ import link.thingscloud.freeswitch.esl.transport.CommandResponse;
 import link.thingscloud.freeswitch.esl.transport.SendMsg;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
 
+import java.nio.channels.ClosedChannelException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 /**
@@ -70,7 +72,7 @@ public interface InboundClient extends InboundClientService {
      * @param arg     command arguments
      * @return an {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} containing command results
      */
-    EslMessage sendSyncApiCommand(String addr, String command, String arg);
+    EslMessage sendSyncApiCommand(String addr, String command, String arg) throws Exception;
 
     /**
      * Sends a FreeSWITCH API command to the server and blocks, waiting for an immediate response from the
@@ -98,7 +100,7 @@ public interface InboundClient extends InboundClientService {
      * @param arg      command arguments
      * @param consumer a {@link java.util.function.Consumer} object.
      */
-    void sendSyncApiCommand(String addr, String command, String arg, Consumer<EslMessage> consumer);
+    void sendSyncApiCommand(String addr, String command, String arg, Consumer<EslMessage> consumer) throws ExecutionException, InterruptedException;
 
     /**
      * Submit a FreeSWITCH API command to the server to be executed in background mode. A synchronous
@@ -238,4 +240,9 @@ public interface InboundClient extends InboundClientService {
      */
     InboundClient closeChannel(String addr);
 
+    boolean hangup(String addr);
+    boolean hangup(String addr, String reason);
+    boolean bridge(String addr, String endpoint);
+    CommandResponse executeApp(String addr, String app);
+    CommandResponse executeApp(String addr, String app, String args);
 }

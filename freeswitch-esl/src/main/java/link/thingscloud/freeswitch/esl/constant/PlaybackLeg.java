@@ -1,5 +1,5 @@
 package link.thingscloud.freeswitch.esl.constant;
 
-public enum PlayDirection {
+public enum PlaybackLeg {
     aleg,bleg,both
 }

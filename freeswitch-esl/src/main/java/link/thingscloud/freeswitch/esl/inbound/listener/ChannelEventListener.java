@@ -20,6 +20,8 @@ package link.thingscloud.freeswitch.esl.inbound.listener;
 import link.thingscloud.freeswitch.esl.inbound.handler.InboundChannelHandler;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
 
+import java.nio.channels.ClosedChannelException;
+
 /**
  * <p>ChannelEventListener interface.</p>
  *

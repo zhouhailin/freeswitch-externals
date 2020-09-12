@@ -17,10 +17,7 @@
 
 package link.thingscloud.freeswitch.esl.inbound.handler;
 
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.*;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import link.thingscloud.freeswitch.esl.helper.EslHelper;
@@ -32,11 +29,14 @@ import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
 import link.thingscloud.freeswitch.esl.util.RemotingUtil;
 import lombok.extern.slf4j.Slf4j;
 
+import java.nio.channels.ClosedChannelException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -101,13 +101,13 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
      * {@inheritDoc}
      */
     @Override
-    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-        if (evt instanceof IdleStateEvent) {
-            if (((IdleStateEvent) evt).state() == IdleState.READER_IDLE) {
-                log.debug("userEventTriggered remoteAddr : {}, evt state : {} ", remoteAddr, ((IdleStateEvent) evt).state());
-                publicExecutor.execute(() -> sendSyncSingleLineCommand("status"));
-            }
-        }
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
+        if (!(evt instanceof IdleStateEvent)) return;
+        if (((IdleStateEvent) evt).state() != IdleState.READER_IDLE)
+            return;
+        String text = "userEventTriggered remoteAddr : {}, evt state : {} ";
+        log.debug(text, remoteAddr, ((IdleStateEvent) evt).state());
+        publicExecutor.submit(() -> sendSyncSingleLineCommand("status"));
     }
 
     /**
@@ -183,6 +183,8 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         if (isTraceEnabled) {
             log.trace("sendSyncSingleLineCommand command : {}", command);
         }
+        if (!channel.isActive())
+            throw new ChannelException();
         SyncCallback callback = new SyncCallback();
         syncLock.lock();
         try {
@@ -205,7 +207,6 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
      * @return the {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} attached to this command's callback
      */
     public EslMessage sendSyncMultiLineCommand(final List<String> commandLines) {
-        SyncCallback callback = new SyncCallback();
         //  Build command with double line terminator at the end
         StringBuilder sb = new StringBuilder();
         for (String line : commandLines) {
@@ -216,6 +217,9 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         if (isTraceEnabled) {
             log.trace("sendSyncMultiLineCommand command : {}", sb.toString());
         }
+        if (!channel.isActive())
+            throw new ChannelException();
+        SyncCallback callback = new SyncCallback();
         syncLock.lock();
         try {
             syncCallbacks.add(callback);

@@ -34,6 +34,7 @@ import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
+import java.nio.channels.ClosedChannelException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -310,13 +311,13 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
                     for (String event : list) {
                         sb.append(event).append(" ");
                     }
-                    publicExecutor.execute(() -> setEventSubscriptions(
+                    publicExecutor.submit(() -> setEventSubscriptions(
                             serverOption.addr(), "plain", sb.toString()));
                 }
 
                 @Override
                 public void cancelEvents() {
-                    publicExecutor.execute(() -> cancelEventSubscriptions(serverOption.addr()));
+                    publicExecutor.submit(() -> cancelEventSubscriptions(serverOption.addr()));
 
                 }
             });

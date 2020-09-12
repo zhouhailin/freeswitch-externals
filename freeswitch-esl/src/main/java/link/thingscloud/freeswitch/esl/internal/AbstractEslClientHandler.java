@@ -1,6 +1,7 @@
 package link.thingscloud.freeswitch.esl.internal;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelException;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
@@ -102,6 +103,8 @@ public abstract class AbstractEslClientHandler extends SimpleChannelInboundHandl
      * @return the {@link EslMessage} attached to this command's callback
      */
     public EslMessage sendApiSingleLineCommand(Channel channel, final String command) {
+        if (!channel.isActive())
+            throw new ChannelException();
         SyncCallback callback = new SyncCallback();
         try {
             syncLock.lock();
@@ -148,6 +151,8 @@ public abstract class AbstractEslClientHandler extends SimpleChannelInboundHandl
             sb.append(LINE_TERMINATOR);
         }
         sb.append(LINE_TERMINATOR);
+        if (!channel.isActive())
+            throw new ChannelException();
         SyncCallback callback = new SyncCallback();
         try {
             syncLock.lock();

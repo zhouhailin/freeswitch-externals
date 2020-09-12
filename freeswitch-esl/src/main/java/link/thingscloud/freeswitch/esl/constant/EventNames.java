@@ -24,6 +24,27 @@ package link.thingscloud.freeswitch.esl.constant;
  * @version $Id: $Id
  */
 public class EventNames {
+    public static class Sofia {
+        public static final String NOTIFY_REFER = "sofia::notify_refer";
+        public static final String NOTIFY_WATCHED_HEADER = "sofia::notify_watched_header";
+        public static final String UNREGISTER = "sofia::unregister";
+        public static final String PROFILE_START = "sofia::profile_start";
+        public static final String REINVITE = "sofia::reinvite";
+        public static final String REPLACED = "sofia::replaced";
+        public static final String TRANSFEROR = "sofia::transferor";
+        public static final String TRANSFEREE = "sofia::transferee";
+        public static final String ERROR = "sofia::error";
+        public static final String INTERCEPTED = "sofia::intercepted";
+        public static final String GATEWAY_STATE = "sofia::gateway_state";
+        public static final String SIP_USER_STATE = "sofia::sip_user_state";
+        public static final String GATEWAY_DELETE = "sofia::gateway_delete";
+        public static final String EXPIRE = "sofia::expire";
+        public static final String REGISTER_ATTEMPT = "sofia::register_attempt";
+        public static final String REGISTER_FAILURE = "sofia::register_failure";
+        public static final String PRE_REGISTER = "sofia::pre_register";
+        public static final String REGISTER = "sofia::register";
+        public static final String GATEWAY_ADD = "sofia::gateway_add";
+    }
     /**
      * Constant <code>CUSTOM="CUSTOM"</code>
      */

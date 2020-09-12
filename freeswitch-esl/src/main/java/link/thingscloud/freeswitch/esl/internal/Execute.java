@@ -1,6 +1,6 @@
 package link.thingscloud.freeswitch.esl.internal;
 
-import link.thingscloud.freeswitch.esl.constant.PlayDirection;
+import link.thingscloud.freeswitch.esl.constant.PlaybackLeg;
 import link.thingscloud.freeswitch.esl.transport.CommandResponse;
 import link.thingscloud.freeswitch.esl.transport.SendMsg;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
@@ -823,22 +823,22 @@ public abstract class Execute implements IModEslApi {
 //    }
 
     public boolean playBack(@NotBlank String uuid, @NotBlank String file,
-                            PlayDirection direction) {
+                            PlaybackLeg direction) {
         return playBack(uuid, file, 0, 0, null, direction);
     }
 
     public boolean playBack(@NotBlank String uuid, @NotBlank String file,
-                            String hangupCause, PlayDirection direction) {
+                            String hangupCause, PlaybackLeg direction) {
         return playBack(uuid, file, 0, 0, hangupCause, direction);
     }
 
     public boolean playBack(@NotBlank String uuid, @NotBlank String file,
-                            int loops, String hangupCause, PlayDirection direction) {
+                            int loops, String hangupCause, PlaybackLeg direction) {
         return playBack(uuid, file, 0, loops, hangupCause, direction);
     }
 
     public boolean playBack(@NotBlank String uuid, @NotBlank String file,
-                            int delay, int loops, String hangupCause, PlayDirection direction) {
+                            int delay, int loops, String hangupCause, PlaybackLeg direction) {
         StringBuffer filePath = new StringBuffer(file);
         if (StringUtils.startsWith(file, "http://"))
             filePath.insert(0, "http_cache://");
@@ -1686,20 +1686,34 @@ public abstract class Execute implements IModEslApi {
 //        CommandResponse resp = execute("sched_broadcast", sb.toString());
 //        return resp != null && resp.isOk();
 //    }
-//
-//    /**
-//     * The sched_hangup application allows you to schedule a hangup action for a
-//     * call, basically to limit call duration.
-//     *
-//     * @param seconds
-//     *            the epoc time in the future, or the number of seconds in the
-//     *            future
-//     * @param interval
-//     *            is the param seconds an epoc time or interval
-//     */
-//    public boolean schedHangup(long seconds, boolean interval) {
-//       return schedHangup(seconds, interval, null);
-//    }
+
+    /**
+     * The sched_hangup application allows you to schedule a hangup action for a
+     * call, basically to limit call duration.
+     *
+     * @param seconds
+     *            the epoc time in the future, or the number of seconds in the
+     *            future
+     * @param cause
+     *             ex:allotted_timeout
+     */
+    public boolean schedHangup(long seconds, String cause) {
+        return schedHangup(seconds, true, cause);
+    }
+
+    /**
+     * The sched_hangup application allows you to schedule a hangup action for a
+     * call, basically to limit call duration.
+     *
+     * @param seconds
+     *            the epoc time in the future, or the number of seconds in the
+     *            future
+     * @param interval
+     *            is the param seconds an epoc time or interval
+     */
+    public boolean schedHangup(long seconds, boolean interval) {
+       return schedHangup(seconds, interval, null);
+    }
 
     /**
      * The sched_hangup application allows you to schedule a hangup action for a

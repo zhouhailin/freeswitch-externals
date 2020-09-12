@@ -27,6 +27,10 @@ import link.thingscloud.freeswitch.esl.transport.SendMsg;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
 import org.apache.commons.lang3.StringUtils;
 
+import java.nio.channels.ClosedChannelException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
@@ -52,7 +56,7 @@ public class NettyInboundClient extends AbstractInboundClient {
      * {@inheritDoc}
      */
     @Override
-    public EslMessage sendSyncApiCommand(String addr, String command, String arg) {
+    public EslMessage sendSyncApiCommand(String addr, String command, String arg) throws Exception {
         InboundChannelHandler handler = getAuthedHandler(addr);
         StringBuilder sb = new StringBuilder();
         if (command != null && !command.isEmpty()) {
@@ -84,12 +88,15 @@ public class NettyInboundClient extends AbstractInboundClient {
      */
     @Override
     public void sendSyncApiCommand(String addr, String command, String arg, Consumer<EslMessage> consumer) {
-        publicExecutor.execute(() -> {
-            EslMessage msg = sendSyncApiCommand(addr, command, arg);
-            if (consumer != null) {
-                consumer.accept(msg);
-            }
-        });
+        Future<EslMessage> future = publicExecutor.submit(() -> sendSyncApiCommand(addr, command, arg));
+        EslMessage result = null;
+        try {
+            result = future.get();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        if (consumer != null)
+            consumer.accept(result);
     }
 
     /**
@@ -117,13 +124,15 @@ public class NettyInboundClient extends AbstractInboundClient {
      */
     @Override
     public void sendAsyncApiCommand(String addr, String command, String arg, Consumer<String> consumer) {
-        publicExecutor.execute(() -> {
-            String msg = sendAsyncApiCommand(addr, command, arg);
-            if (consumer != null) {
-                consumer.accept(msg);
-            }
-        });
-
+        Future<String> future = publicExecutor.submit(() -> sendAsyncApiCommand(addr, command, arg));
+        String result = null;
+        try {
+            result = future.get();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        if (consumer != null)
+            consumer.accept(result);
     }
 
     /**
@@ -249,5 +258,42 @@ public class NettyInboundClient extends AbstractInboundClient {
     public InboundClient closeChannel(String addr) {
         getAuthedHandler(addr).close();
         return this;
+    }
+
+    @Override
+    public boolean hangup(String addr) {
+        return hangup(addr, null);
+    }
+
+    @Override
+    public boolean hangup(String addr, String reason) {
+        SendMsg sendMsg = new SendMsg();
+        sendMsg.addCallCommand("execute");
+        sendMsg.addExecuteAppName("hangup");
+        if (StringUtils.isNotBlank(reason))
+            sendMsg.addHangupCause(reason);
+        CommandResponse resp = sendMessage(addr, sendMsg);
+        return resp != null && resp.isOk();
+    }
+
+    @Override
+    public boolean bridge(String addr, String endpoint) {
+        CommandResponse resp = executeApp(addr, "bridge", endpoint);
+        return resp != null && resp.isOk();
+    }
+
+    @Override
+    public CommandResponse executeApp(String addr, String app) {
+        return executeApp(addr, app, null);
+    }
+
+    @Override
+    public CommandResponse executeApp(String addr, String app, String args) {
+        SendMsg msg = new SendMsg();
+        msg.addCallCommand("execute");
+        msg.addExecuteAppName(app);
+        if (StringUtils.isNotBlank(args))
+            msg.addExecuteAppArg(args);
+        return sendMessage(addr, msg);
     }
 }
