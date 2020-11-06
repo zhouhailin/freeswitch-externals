@@ -55,6 +55,20 @@ public class SendEvent {
     }
 
     /**
+     * A generic method to add a message line. The constructed line in the sent message will be in the
+     * form:
+     * <pre>
+     *   name: value
+     * </pre>
+     *
+     * @param line part of line
+     */
+    public void addBody(String line) {
+        msgLines.add("");
+        msgLines.add(line);
+    }
+
+    /**
      * The list of strings that make up the message to send to FreeSWITCH.
      *
      * @return list of strings, as they were added to this message.
