@@ -33,6 +33,8 @@ public class SendEvent {
     /**
      * Constructor for use with outbound socket client only.  This client mode does not need a call
      * UUID for context.
+     *
+     * @param name  part of line
      */
     public SendEvent(String name) {
         msgLines.add("sendevent " + name);
