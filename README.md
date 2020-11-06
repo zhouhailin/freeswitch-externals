@@ -25,6 +25,44 @@
 ### 3.[freeswitch-esl-spring-boot-starter](freeswitch-esl-spring-boot-starter/README.md)
 
     基于 Spring boot 2.3.x, freeswitch-esl 客户端(详细信息，移步至子模块）
+    
+    application.properties
+    
+        link.thingscloud.freeswitch.esl.inbound.servers[0].host=127.0.0.1
+        link.thingscloud.freeswitch.esl.inbound.servers[0].port=8021
+        link.thingscloud.freeswitch.esl.inbound.servers[0].timeout-seconds=5
+        link.thingscloud.freeswitch.esl.inbound.servers[0].password=ClueCon
+        link.thingscloud.freeswitch.esl.inbound.servers[2].host=127.0.0.2
+        link.thingscloud.freeswitch.esl.inbound.servers[2].port=8021
+        link.thingscloud.freeswitch.esl.inbound.servers[2].timeout-seconds=5
+        link.thingscloud.freeswitch.esl.inbound.events=CHANNEL_CREATE CHANNEL_DESTORY 
+        # 开启性能监控 - 事件驱动-业务逻辑处理时间
+        link.thingscloud.freeswitch.esl.inbound.performance=true 
+        link.thingscloud.freeswitch.esl.inbound.performanceCostTime=200 
+        # 开启事件性能监控 - fs产生事件与应用接收到事件时间差
+        link.thingscloud.freeswitch.esl.inbound.eventPerformance=false 
+        link.thingscloud.freeswitch.esl.inbound.eventPerformanceCostTime=200 
+
+    
+    application.yml
+    
+        link:
+          thingscloud:
+            freeswitch:
+              esl:
+                inbound:
+                  defaultPassword: ClueCon
+                  performance: false
+                  performanceCostTime: 200
+                  servers:
+                    - host: 127.0.0.1
+                      port: 8021
+                      timeoutSeconds: 5
+                    - host: 127.0.0.2
+                    - host: 127.0.0.3
+                  events:
+                    - CHANNEL_CREATE
+                    - CHANNEL_DESTORY
 
 ### 4.[freeswitch-esl-spring-boot-starter-example](freeswitch-esl-spring-boot-starter-example/README.md)
 
