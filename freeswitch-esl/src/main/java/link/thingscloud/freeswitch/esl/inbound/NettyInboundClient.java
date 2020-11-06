@@ -23,6 +23,7 @@ import link.thingscloud.freeswitch.esl.exception.InboundTimeoutExcetion;
 import link.thingscloud.freeswitch.esl.inbound.handler.InboundChannelHandler;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.transport.CommandResponse;
+import link.thingscloud.freeswitch.esl.transport.SendEvent;
 import link.thingscloud.freeswitch.esl.transport.SendMsg;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
 import org.apache.commons.lang3.StringUtils;
@@ -195,6 +196,16 @@ public class NettyInboundClient extends AbstractInboundClient {
         }
         EslMessage response = handler.sendSyncSingleLineCommand(sb.toString());
         return new CommandResponse(sb.toString(), response);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public CommandResponse sendEvent(String addr, SendEvent sendEvent) {
+        InboundChannelHandler handler = getAuthedHandler(addr);
+        EslMessage response = handler.sendSyncMultiLineCommand(sendEvent.getMsgLines());
+        return new CommandResponse(sendEvent.toString(), response);
     }
 
     /**
