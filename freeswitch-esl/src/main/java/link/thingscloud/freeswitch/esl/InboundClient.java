@@ -20,6 +20,7 @@ package link.thingscloud.freeswitch.esl;
 import link.thingscloud.freeswitch.esl.exception.InboundTimeoutExcetion;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.transport.CommandResponse;
+import link.thingscloud.freeswitch.esl.transport.SendEvent;
 import link.thingscloud.freeswitch.esl.transport.SendMsg;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
 
@@ -198,6 +199,20 @@ public interface InboundClient extends InboundClientService {
     /**
      * Send a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} command to FreeSWITCH.  This client requires that the {@link link.thingscloud.freeswitch.esl.transport.SendMsg}
      * has a call UUID parameter.
+     * <p>
+     * https://freeswitch.org/confluence/display/FREESWITCH/mod_event_socket
+     *
+     * @param addr      Esl server address
+     * @param sendEvent a {@link link.thingscloud.freeswitch.esl.transport.SendEvent} Event
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
+     */
+    CommandResponse sendEvent(String addr, SendEvent sendEvent);
+
+    /**
+     * Send a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} command to FreeSWITCH.  This client requires that the {@link link.thingscloud.freeswitch.esl.transport.SendMsg}
+     * has a call UUID parameter.
+     * <p>
+     * https://freeswitch.org/confluence/display/FREESWITCH/mod_event_socket
      *
      * @param addr    Esl server address
      * @param sendMsg a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} with call UUID

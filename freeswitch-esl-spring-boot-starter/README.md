@@ -26,4 +26,19 @@
     link.thingscloud.freeswitch.esl.inbound.eventPerformanceCostTime=200 
 
     
-    
+    application.yml
+
+    link:
+      thingscloud:
+        freeswitch:
+          esl:
+            inbound:
+              defaultPassword: ClueCon
+              performance: false
+              performanceCostTime: 200
+              servers:
+                - host: 127.0.0.1
+                  port: 8021
+                  timeoutSeconds: 5
+              events:
+                - ALL
