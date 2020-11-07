@@ -264,6 +264,16 @@
 
     <profiles>
         <profile>
+            <id>github</id>
+            <distributionManagement>
+                <repository>
+                    <id>github</id>
+                    <name>GitHub OWNER Apache Maven Packages</name>
+                    <url>https://maven.pkg.github.com/zhouhailin/freeswitch-esl-all</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
             <id>sonatype-release</id>
             <build>
                 <plugins>
