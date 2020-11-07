@@ -85,6 +85,7 @@ public interface InboundClient extends InboundClientService {
      * @param timeoutSeconds timeout seconds arguments
      * @return an {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} containing command results
      * @throws link.thingscloud.freeswitch.esl.exception.InboundTimeoutExcetion ite execute command timeout
+     * @throws link.thingscloud.freeswitch.esl.exception.InboundTimeoutExcetion if any.
      */
     EslMessage sendSyncApiCommand(String addr, String command, String arg, long timeoutSeconds) throws InboundTimeoutExcetion;
 

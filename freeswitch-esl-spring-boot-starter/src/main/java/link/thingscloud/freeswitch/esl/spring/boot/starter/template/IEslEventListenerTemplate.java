@@ -48,7 +48,7 @@ import java.util.Map;
 @Component
 public class IEslEventListenerTemplate implements IEslEventListener, InitializingBean, ApplicationContextAware {
 
-	@Autowired
+    @Autowired
     private InboundClient inboundClient;
     private ApplicationContext applicationContext;
     private EslEventHandler defaultEventHandler = new DefaultEslEventHandler();
@@ -62,7 +62,9 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
         handleEslEvent(addr, event);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void backgroundJobResultReceived(String addr, EslEvent event) {
         handleEslEvent(addr, event);
@@ -79,7 +81,9 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
     }
 
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void afterPropertiesSet() {
         log.info("IEslEventListener init ...");
@@ -110,7 +114,9 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
         inboundClient.option().addListener(this);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;

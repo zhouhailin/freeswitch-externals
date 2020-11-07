@@ -37,7 +37,9 @@ public class ServerConnectionListenerTemplate implements ServerConnectionListene
         log.info("onOpened serverOption : {}", serverOption.host() + ":" + serverOption.port());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onClosed(ServerOption serverOption) {
         log.info("onClosed serverOption : {}", serverOption.host() + ":" + serverOption.port());

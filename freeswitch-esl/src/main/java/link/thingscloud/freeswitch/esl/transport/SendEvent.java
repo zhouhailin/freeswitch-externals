@@ -34,7 +34,7 @@ public class SendEvent {
      * Constructor for use with outbound socket client only.  This client mode does not need a call
      * UUID for context.
      *
-     * @param name  part of line
+     * @param name part of line
      */
     public SendEvent(String name) {
         msgLines.add("sendevent " + name);
@@ -49,9 +49,11 @@ public class SendEvent {
      *
      * @param name  part of line
      * @param value part of line
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.SendEvent} object.
      */
-    public void addLine(String name, String value) {
+    public SendEvent addLine(String name, String value) {
         msgLines.add(name + ": " + value);
+        return this;
     }
 
     /**
@@ -91,6 +93,5 @@ public class SendEvent {
 
         return sb.toString();
     }
-
 
 }

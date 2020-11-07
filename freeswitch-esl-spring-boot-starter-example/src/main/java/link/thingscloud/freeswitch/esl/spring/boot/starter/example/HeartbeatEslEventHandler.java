@@ -34,7 +34,9 @@ import org.springframework.stereotype.Component;
 @EslEventName(EventNames.HEARTBEAT)
 @Component
 public class HeartbeatEslEventHandler implements EslEventHandler {
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handle(String addr, EslEvent event) {
         log.info("HeartbeatEslEventHandler handle addr[{}] EslEvent[{}].", addr, event);
