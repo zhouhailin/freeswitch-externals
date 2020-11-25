@@ -50,30 +50,12 @@ public class StringUtils {
         return true;
     }
 
-    // Equals
-    //-----------------------------------------------------------------------
-
     /**
-     * <p>Compares two CharSequences, returning {@code true} if they represent
-     * equal sequences of characters.</p>
+     * <p>equals.</p>
      *
-     * <p>{@code null}s are handled without exceptions. Two {@code null}
-     * references are considered to be equal. The comparison is <strong>case sensitive</strong>.</p>
-     *
-     * <pre>
-     * StringUtils.equals(null, null)   = true
-     * StringUtils.equals(null, "abc")  = false
-     * StringUtils.equals("abc", null)  = false
-     * StringUtils.equals("abc", "abc") = true
-     * StringUtils.equals("abc", "ABC") = false
-     * </pre>
-     *
-     * @param cs1 the first CharSequence, may be {@code null}
-     * @param cs2 the second CharSequence, may be {@code null}
-     * @return {@code true} if the CharSequences are equal (case-sensitive), or both {@code null}
-     * @see Object#equals(Object)
-     * @see #equalsIgnoreCase(CharSequence, CharSequence)
-     * @since 3.0 Changed signature from equals(String, String) to equals(CharSequence, CharSequence)
+     * @param cs1 a {@link java.lang.CharSequence} object.
+     * @param cs2 a {@link java.lang.CharSequence} object.
+     * @return a boolean.
      */
     public static boolean equals(final CharSequence cs1, final CharSequence cs2) {
         if (cs1 == cs2) {
