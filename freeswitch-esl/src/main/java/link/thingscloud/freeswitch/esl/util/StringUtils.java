@@ -1,21 +1,42 @@
 package link.thingscloud.freeswitch.esl.util;
 
 /**
+ * <p>StringUtils class.</p>
+ *
  * @author zhouhailin
+ * @version $Id: $Id
  */
 public class StringUtils {
 
     private StringUtils() {
     }
 
+    /**
+     * <p>length.</p>
+     *
+     * @param cs a {@link java.lang.CharSequence} object.
+     * @return a int.
+     */
     public static int length(final CharSequence cs) {
         return cs == null ? 0 : cs.length();
     }
 
+    /**
+     * <p>isNotBlank.</p>
+     *
+     * @param cs a {@link java.lang.CharSequence} object.
+     * @return a boolean.
+     */
     public static boolean isNotBlank(final CharSequence cs) {
         return !isBlank(cs);
     }
 
+    /**
+     * <p>isBlank.</p>
+     *
+     * @param cs a {@link java.lang.CharSequence} object.
+     * @return a boolean.
+     */
     public static boolean isBlank(final CharSequence cs) {
         final int strLen = length(cs);
         if (strLen == 0) {

@@ -7,15 +7,26 @@ import link.thingscloud.freeswitch.esl.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
+ * <p>Abstract AbstractInboundClientOptionHandler class.</p>
+ *
  * @author zhouhailin
+ * @version $Id: $Id
  */
 public abstract class AbstractInboundClientOptionHandler implements InboundClientOptionHandler {
 
     @Autowired
     protected InboundClientProperties properties;
 
+    /**
+     * <p>intercept.</p>
+     *
+     * @param inboundClientOption a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
+     */
     protected abstract void intercept(InboundClientOption inboundClientOption);
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public InboundClientOption getOption() {
         InboundClientOption option = newInboundClientOption();
@@ -35,6 +46,11 @@ public abstract class AbstractInboundClientOptionHandler implements InboundClien
         return option;
     }
 
+    /**
+     * <p>newInboundClientOption.</p>
+     *
+     * @return a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
+     */
     protected InboundClientOption newInboundClientOption() {
         return new InboundClientOption().sndBufSize(properties.getSndBufSize())
                 .rcvBufSize(properties.getRcvBufSize())

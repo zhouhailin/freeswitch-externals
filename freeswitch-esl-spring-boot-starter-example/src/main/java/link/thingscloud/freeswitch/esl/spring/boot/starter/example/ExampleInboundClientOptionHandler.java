@@ -9,12 +9,18 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
+ * <p>ExampleInboundClientOptionHandler class.</p>
+ *
  * @author zhouhailin
+ * @version $Id: $Id
  */
 @Slf4j
 @Component
 public class ExampleInboundClientOptionHandler extends AbstractInboundClientOptionHandler {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void intercept(InboundClientOption inboundClientOption) {
         List<ServerOption> serverOptions = inboundClientOption.serverOptions();

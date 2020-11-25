@@ -50,7 +50,7 @@ public class FreeswitchEslAutoConfiguration {
     /**
      * <p>inboundClientPropertiesHandler.</p>
      *
-     * @return a {@link InboundClientOptionHandler} object.
+     * @return a {@link link.thingscloud.freeswitch.esl.spring.boot.starter.handler.InboundClientOptionHandler} object.
      */
     @Bean
     @ConditionalOnMissingBean(InboundClientOptionHandler.class)
@@ -83,7 +83,8 @@ public class FreeswitchEslAutoConfiguration {
     /**
      * <p>inboundClient.</p>
      *
-     * @param serverConnectionListener a {@link link.thingscloud.freeswitch.esl.ServerConnectionListener} object.
+     * @param serverConnectionListener   a {@link link.thingscloud.freeswitch.esl.ServerConnectionListener} object.
+     * @param inboundClientOptionHandler a {@link link.thingscloud.freeswitch.esl.spring.boot.starter.handler.InboundClientOptionHandler} object.
      * @return a {@link link.thingscloud.freeswitch.esl.InboundClient} object.
      */
     @Bean(initMethod = "start", destroyMethod = "shutdown")
