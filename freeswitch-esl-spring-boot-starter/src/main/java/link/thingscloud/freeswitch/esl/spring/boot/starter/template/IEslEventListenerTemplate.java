@@ -45,7 +45,6 @@ import java.util.Map;
  * @version $Id: $Id
  */
 @Slf4j
-@Component
 public class IEslEventListenerTemplate implements IEslEventListener, InitializingBean, ApplicationContextAware {
 
     @Autowired
