@@ -18,6 +18,7 @@
 package link.thingscloud.freeswitch.esl.inbound;
 
 import io.netty.channel.ChannelFutureListener;
+import io.netty.util.concurrent.DefaultThreadFactory;
 import link.thingscloud.freeswitch.esl.InboundClient;
 import link.thingscloud.freeswitch.esl.constant.EslConstant;
 import link.thingscloud.freeswitch.esl.exception.InboundClientException;
@@ -31,8 +32,7 @@ import link.thingscloud.freeswitch.esl.transport.CommandResponse;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
 import link.thingscloud.freeswitch.esl.transport.message.EslHeaders;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+import link.thingscloud.freeswitch.esl.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +55,7 @@ import java.util.concurrent.TimeUnit;
 abstract class AbstractInboundClient extends AbstractNettyInboundClient implements InboundClient {
 
     private final ScheduledThreadPoolExecutor scheduledPoolExecutor = new ScheduledThreadPoolExecutor(1,
-            new BasicThreadFactory.Builder().namingPattern("scheduled-pool-%d").daemon(true).build());
+            new DefaultThreadFactory("scheduled-pool", true));
 
     private final Map<String, InboundChannelHandler> handlerTable = new HashMap<>(32);
 

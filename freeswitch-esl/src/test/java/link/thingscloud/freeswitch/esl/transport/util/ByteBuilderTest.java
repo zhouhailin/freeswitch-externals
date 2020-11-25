@@ -20,16 +20,26 @@ package link.thingscloud.freeswitch.esl.transport.util;
 import junit.framework.TestCase;
 
 /**
+ * <p>ByteBuilderTest class.</p>
+ *
  * @author zhouhailin
+ * @version $Id: $Id
+ * @since 1.4.0.SNAPSHOT
  */
 public class ByteBuilderTest extends TestCase {
 
+    /**
+     * <p>testLength.</p>
+     */
     public void testLength() {
         ByteBuilder builder = ByteBuilder.newBuilder();
         System.out.println(builder.string());
         System.out.println(builder.length());
     }
 
+    /**
+     * <p>testString.</p>
+     */
     public void testString() {
     }
 }

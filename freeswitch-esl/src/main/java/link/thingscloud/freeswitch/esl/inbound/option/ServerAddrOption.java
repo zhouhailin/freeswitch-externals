@@ -17,8 +17,9 @@
 
 package link.thingscloud.freeswitch.esl.inbound.option;
 
-import org.apache.commons.lang3.RandomUtils;
-import org.apache.commons.lang3.Validate;
+
+import link.thingscloud.freeswitch.esl.util.RandomUtils;
+import link.thingscloud.freeswitch.esl.util.Validate;
 
 import java.util.List;
 

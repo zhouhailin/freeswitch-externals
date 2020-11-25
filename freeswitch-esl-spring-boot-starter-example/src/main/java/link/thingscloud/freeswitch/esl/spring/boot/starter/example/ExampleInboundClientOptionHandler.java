@@ -1,7 +1,6 @@
 package link.thingscloud.freeswitch.esl.spring.boot.starter.example;
 
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
-import link.thingscloud.freeswitch.esl.inbound.option.ServerAddrOption;
 import link.thingscloud.freeswitch.esl.inbound.option.ServerOption;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.AbstractInboundClientOptionHandler;
 import lombok.extern.slf4j.Slf4j;

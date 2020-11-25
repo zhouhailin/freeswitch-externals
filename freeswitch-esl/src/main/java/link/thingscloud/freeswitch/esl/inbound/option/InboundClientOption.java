@@ -21,8 +21,8 @@ import link.thingscloud.freeswitch.esl.IEslEventListener;
 import link.thingscloud.freeswitch.esl.ServerConnectionListener;
 import link.thingscloud.freeswitch.esl.inbound.listener.EventListener;
 import link.thingscloud.freeswitch.esl.inbound.listener.ServerOptionListener;
+import link.thingscloud.freeswitch.esl.util.StringUtils;
 import lombok.ToString;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

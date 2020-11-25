@@ -22,10 +22,20 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+/**
+ * <p>ExampleApplicationTests class.</p>
+ *
+ * @author zhouhailin
+ * @version $Id: $Id
+ * @since 1.4.0.SNAPSHOT
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ExampleApplicationTests {
 
+    /**
+     * <p>contextLoads.</p>
+     */
     @Test
     public void contextLoads() {
     }
