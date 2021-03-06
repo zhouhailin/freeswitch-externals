@@ -24,7 +24,7 @@
     <groupId>link.thingscloud</groupId>
     <artifactId>freeswitch-esl-all</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.0.SNAPSHOT</version>
+    <version>1.5.0.RELEASE</version>
 
     <name>freeswitch-esl-all-${project.version}</name>
     <description>freeswitch event socket library on netty 4.1</description>
@@ -42,6 +42,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <netty.version>4.1.50.Final</netty.version>
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
 
         <java.version>1.8</java.version>
@@ -55,7 +56,7 @@
         <url>https://github.com/zhouhailin/freeswitch-esl-all</url>
         <connection>scm:git:https://github.com/zhouhailin/freeswitch-esl-all.git</connection>
         <developerConnection>scm:git:https://github.com/zhouhailin/freeswitch-esl-all.git</developerConnection>
-        <tag>1.4.0.SNAPSHOT</tag>
+        <tag>1.5.0.RELEASE</tag>
     </scm>
     <licenses>
         <license>
@@ -120,8 +121,16 @@
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
-                <version>4.1.50.Final</version>
+                <version>${netty.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-transport-native-epoll</artifactId>
+                <version>${netty.version}</version>
+                <classifier>linux-x86_64</classifier>
+                <scope>provided</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
