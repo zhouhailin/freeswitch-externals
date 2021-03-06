@@ -18,14 +18,11 @@
 package link.thingscloud.freeswitch.esl.spring.boot.starter.example.controller;
 
 import link.thingscloud.freeswitch.esl.InboundClient;
-import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.inbound.option.ServerOption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * <p>DemoController class.</p>
@@ -80,6 +77,7 @@ public class DemoController {
         ServerOption serverOption = inboundClient.option().serverOptions().get(0);
         inboundClient.option().removeServerOption(serverOption);
     }
+
     /**
      * <p>serverOptions.</p>
      *

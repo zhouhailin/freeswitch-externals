@@ -23,20 +23,14 @@ import link.thingscloud.freeswitch.esl.spring.boot.starter.annotation.EslEventNa
 import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.DefaultEslEventHandler;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.EslEventHandler;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
+import link.thingscloud.freeswitch.esl.util.ArrayUtils;
+import link.thingscloud.freeswitch.esl.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>IEslEventListenerTemplate class.</p>
@@ -45,12 +39,13 @@ import java.util.Map;
  * @version $Id: $Id
  */
 @Slf4j
-@Component
-public class IEslEventListenerTemplate implements IEslEventListener, InitializingBean, ApplicationContextAware {
+public class IEslEventListenerTemplate implements IEslEventListener, InitializingBean {
 
-	@Autowired
+    @Autowired
     private InboundClient inboundClient;
-    private ApplicationContext applicationContext;
+    @Autowired
+    private final List<EslEventHandler> eslEventHandlers = Collections.emptyList();
+
     private EslEventHandler defaultEventHandler = new DefaultEslEventHandler();
     private final Map<String, List<EslEventHandler>> handlerTable = new HashMap<>(16);
 
@@ -62,7 +57,9 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
         handleEslEvent(addr, event);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void backgroundJobResultReceived(String addr, EslEvent event) {
         handleEslEvent(addr, event);
@@ -79,14 +76,20 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
     }
 
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void afterPropertiesSet() {
         log.info("IEslEventListener init ...");
-        Map<String, EslEventHandler> eventHandlerMap = applicationContext.getBeansOfType(EslEventHandler.class);
-        for (EslEventHandler eventHandler : eventHandlerMap.values()) {
-            Class<? extends EslEventHandler> eventHandleImpl = eventHandler.getClass();
-            EslEventName eventName = eventHandleImpl.getAnnotation(EslEventName.class);
+        for (EslEventHandler eventHandler : eslEventHandlers) {
+            // link.thingscloud.freeswitch.esl.spring.boot.starter.example.HeartbeatEslEventHandler
+            // link.thingscloud.freeswitch.esl.spring.boot.starter.example.ReScheduleEslEventHandler$$EnhancerBySpringCGLIB$$1b4e8d
+            EslEventName eventName = eventHandler.getClass().getAnnotation(EslEventName.class);
+            if (eventName == null) {
+                // FIXED : AOP
+                eventName = eventHandler.getClass().getSuperclass().getAnnotation(EslEventName.class);
+            }
             if (eventName == null || ArrayUtils.isEmpty(eventName.value())) {
                 continue;
             }
@@ -102,18 +105,7 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
                 }
             }
         }
-        /**
-         * 因为EslEventHandler的子类中可能会引入inboundClient对象，
-         * 所以在这里将IEslEventListenerTemplate添加到inboundClient，
-         * 避免因循环依赖导致自定义EslEventHandler无法被applicationContext.getBeansOfType扫描到
-         */
         inboundClient.option().addListener(this);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
     }
 
 }

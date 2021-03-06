@@ -4,6 +4,7 @@
 [![Jdk Version](https://img.shields.io/badge/JDK-1.8-green.svg)](https://img.shields.io/badge/JDK-1.8-green.svg)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/link.thingscloud/freeswitch-esl-all/badge.svg)](https://maven-badges.herokuapp.com/maven-central/link.thingscloud/freeswitch-esl-all/)
+[![Gitter](https://badges.gitter.im/freeswitch-esl-all/community.svg)](https://gitter.im/freeswitch-esl-all/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## 目标
 
@@ -91,6 +92,16 @@
             void onOpened(ServerOption serverOption);
             void onClosed(ServerOption serverOption);
     
+    配置动态获取或者删除  
+        1、实现接口 InboundClientOptionHandler
+        2、继承抽象类 AbstractInboundClientOptionHandler
+
+## 使用须知
+
+    1、发送api建议采用异步操作，特别是originate命令
+    2、目前存在消息超时机制，应对服务端直接关机导致连接假死，设置readTimeoutSeconds参数值为0，可关闭此特性
+    3、为了提供性能，处理EslEvent时，使用Netty的Worker线程，如果处理逻辑涉及IO或者耗时操作，必须要将处理逻辑放在新线程里面处理，通过disablePublicExecutor参数设置
+
 ## License
 
 [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) Copyright (C) Apache Software Foundation

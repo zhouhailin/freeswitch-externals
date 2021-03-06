@@ -57,9 +57,11 @@ public class SendMsg {
      * </pre>
      *
      * @param command the string command [ execute | hangup ]
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} object.
      */
-    public void addCallCommand(String command) {
+    public SendMsg addCallCommand(String command) {
         msgLines.add("call-command: " + command);
+        return this;
     }
 
     /**
@@ -69,9 +71,11 @@ public class SendMsg {
      * </pre>
      *
      * @param appName the string app name to execute
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} object.
      */
-    public void addExecuteAppName(String appName) {
+    public SendMsg addExecuteAppName(String appName) {
         msgLines.add("execute-app-name: " + appName);
+        return this;
     }
 
     /**
@@ -81,9 +85,11 @@ public class SendMsg {
      * </pre>
      *
      * @param arg the string arg
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} object.
      */
-    public void addExecuteAppArg(String arg) {
+    public SendMsg addExecuteAppArg(String arg) {
         msgLines.add("execute-app-arg: " + arg);
+        return this;
     }
 
     /**
@@ -93,9 +99,11 @@ public class SendMsg {
      * </pre>
      *
      * @param count the int number of times to loop
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} object.
      */
-    public void addLoops(int count) {
+    public SendMsg addLoops(int count) {
         msgLines.add("loops: " + count);
+        return this;
     }
 
     /**
@@ -105,9 +113,11 @@ public class SendMsg {
      * </pre>
      *
      * @param cause the string cause
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} object.
      */
-    public void addHangupCause(String cause) {
+    public SendMsg addHangupCause(String cause) {
         msgLines.add("hangup-cause: " + cause);
+        return this;
     }
 
     /**
@@ -117,9 +127,11 @@ public class SendMsg {
      * </pre>
      *
      * @param value the string value part of the line
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} object.
      */
-    public void addNomediaUuid(String value) {
+    public SendMsg addNomediaUuid(String value) {
         msgLines.add("nomedia-uuid: " + value);
+        return this;
     }
 
     /**
@@ -127,9 +139,12 @@ public class SendMsg {
      * <pre>
      *    event-lock: true
      *  </pre>
+     *
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} object.
      */
-    public void addEventLock() {
+    public SendMsg addEventLock() {
         msgLines.add("event-lock: true");
+        return this;
     }
 
     /**
@@ -141,9 +156,11 @@ public class SendMsg {
      *
      * @param name  part of line
      * @param value part of line
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} object.
      */
-    public void addGenericLine(String name, String value) {
+    public SendMsg addGenericLine(String name, String value) {
         msgLines.add(name + ": " + value);
+        return this;
     }
 
     /**

@@ -21,12 +21,12 @@ import link.thingscloud.freeswitch.esl.IEslEventListener;
 import link.thingscloud.freeswitch.esl.InboundClient;
 import link.thingscloud.freeswitch.esl.ServerConnectionListener;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
-import link.thingscloud.freeswitch.esl.inbound.option.ServerOption;
+import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.InboundClientOptionHandler;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.propeties.InboundClientProperties;
+import link.thingscloud.freeswitch.esl.spring.boot.starter.template.DefaultInboundClientOptionHandlerTemplate;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.template.IEslEventListenerTemplate;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.template.ServerConnectionListenerTemplate;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -47,8 +47,16 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(InboundClient.class)
 public class FreeswitchEslAutoConfiguration {
 
-    @Autowired
-    private InboundClientProperties properties;
+    /**
+     * <p>inboundClientPropertiesHandler.</p>
+     *
+     * @return a {@link link.thingscloud.freeswitch.esl.spring.boot.starter.handler.InboundClientOptionHandler} object.
+     */
+    @Bean
+    @ConditionalOnMissingBean(InboundClientOptionHandler.class)
+    public InboundClientOptionHandler inboundClientOptionHandler() {
+        return new DefaultInboundClientOptionHandlerTemplate();
+    }
 
     /**
      * <p>listener.</p>
@@ -75,46 +83,17 @@ public class FreeswitchEslAutoConfiguration {
     /**
      * <p>inboundClient.</p>
      *
-     * @param serverConnectionListener a {@link link.thingscloud.freeswitch.esl.ServerConnectionListener} object.
+     * @param serverConnectionListener   a {@link link.thingscloud.freeswitch.esl.ServerConnectionListener} object.
+     * @param inboundClientOptionHandler a {@link link.thingscloud.freeswitch.esl.spring.boot.starter.handler.InboundClientOptionHandler} object.
      * @return a {@link link.thingscloud.freeswitch.esl.InboundClient} object.
      */
     @Bean(initMethod = "start", destroyMethod = "shutdown")
     @ConditionalOnMissingBean(InboundClient.class)
-    public InboundClient inboundClient(@Autowired ServerConnectionListener serverConnectionListener) {
-        InboundClientOption option = new InboundClientOption();
-
-        option.sndBufSize(properties.getSndBufSize())
-                .rcvBufSize(properties.getRcvBufSize())
-                .workerGroupThread(properties.getWorkerGroupThread())
-                .publicExecutorThread(properties.getPublicExecutorThread())
-                .callbackExecutorThread(properties.getCallbackExecutorThread())
-                .defaultTimeoutSeconds(properties.getDefaultTimeoutSeconds())
-                .readTimeoutSeconds(properties.getReadTimeoutSeconds())
-                .readerIdleTimeSeconds(properties.getReaderIdleTimeSeconds())
-                .defaultPassword(properties.getDefaultPassword())
-                .performance(properties.isPerformance())
-                .performanceCostTime(properties.getPerformanceCostTime())
-                .eventPerformance(properties.isEventPerformance())
-                .eventPerformanceCostTime(properties.getEventPerformanceCostTime());
-
-        properties.getServers().forEach(server -> {
-            if (StringUtils.isNotBlank(server.getHost()) && server.getPort() > 1) {
-                option.addServerOption(new ServerOption(server.getHost(), server.getPort())
-                        .timeoutSeconds(server.getTimeoutSeconds())
-                        .password(server.getPassword()));
-            }
-        });
-        properties.getEvents().forEach(event -> {
-            if (StringUtils.isNotBlank(event)) {
-                option.addEvents(event);
-            }
-        });
-
+    public InboundClient inboundClient(@Autowired ServerConnectionListener serverConnectionListener, @Autowired InboundClientOptionHandler inboundClientOptionHandler) {
+        InboundClientOption option = inboundClientOptionHandler.getOption();
         option.serverConnectionListener(serverConnectionListener);
-
-        log.info("inboundClient properties : [{}]", properties);
+        log.info("inboundClient properties : [{}]", option);
         log.info("inboundClient option : [{}]", option);
-
         return InboundClient.newInstance(option);
     }
 

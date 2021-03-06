@@ -25,17 +25,15 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.LineBasedFrameDecoder;
-import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.handler.timeout.ReadTimeoutHandler;
+import io.netty.util.concurrent.DefaultThreadFactory;
 import link.thingscloud.freeswitch.esl.InboundClientService;
 import link.thingscloud.freeswitch.esl.inbound.handler.InboundChannelHandler;
 import link.thingscloud.freeswitch.esl.inbound.listener.ChannelEventListener;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.transport.message.EslFrameDecoder;
-import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,7 +59,7 @@ abstract class AbstractNettyInboundClient implements ChannelEventListener, Inbou
         bootstrap = new Bootstrap();
 
         publicExecutor = new ScheduledThreadPoolExecutor(option.publicExecutorThread(),
-                new BasicThreadFactory.Builder().namingPattern("publicExecutor-%d").daemon(true).build());
+                new DefaultThreadFactory("publicExecutor", true));
 
         workerGroup = new NioEventLoopGroup(option.workerGroupThread());
         bootstrap.group(workerGroup)

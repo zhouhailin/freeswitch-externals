@@ -26,7 +26,7 @@ import link.thingscloud.freeswitch.esl.transport.CommandResponse;
 import link.thingscloud.freeswitch.esl.transport.SendEvent;
 import link.thingscloud.freeswitch.esl.transport.SendMsg;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
-import org.apache.commons.lang3.StringUtils;
+import link.thingscloud.freeswitch.esl.util.StringUtils;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;

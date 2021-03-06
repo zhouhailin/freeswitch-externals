@@ -39,7 +39,9 @@ public class ServerConnectionListenerImpl implements ServerConnectionListener {
         log.info("onOpened serverOption : {}", serverOption);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onClosed(ServerOption serverOption) {
         log.info("onClosed serverOption : {}", serverOption);
