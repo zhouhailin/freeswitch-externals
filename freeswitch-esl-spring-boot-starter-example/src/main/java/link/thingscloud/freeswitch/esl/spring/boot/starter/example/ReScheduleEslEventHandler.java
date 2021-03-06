@@ -21,9 +21,10 @@ import link.thingscloud.freeswitch.esl.InboundClient;
 import link.thingscloud.freeswitch.esl.constant.EventNames;
 import link.thingscloud.freeswitch.esl.helper.EslHelper;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.annotation.EslEventName;
-import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.EslEventHandler;
+import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.AbstractEslEventHandler;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
+import link.thingscloud.spring.boot.common.aop.Logging;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,7 +38,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @EslEventName(EventNames.RE_SCHEDULE)
 @Component
-public class ReScheduleEslEventHandler implements EslEventHandler {
+public class ReScheduleEslEventHandler extends AbstractEslEventHandler {
 
     @Autowired
     private InboundClient inboundClient;
@@ -45,6 +46,7 @@ public class ReScheduleEslEventHandler implements EslEventHandler {
     /**
      * {@inheritDoc}
      */
+    @Logging
     @Override
     public void handle(String addr, EslEvent event) {
         log.info("ReScheduleEslEventHandler handle addr[{}] EslEvent[{}].", addr, event);
