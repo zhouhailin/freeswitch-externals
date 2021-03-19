@@ -102,6 +102,10 @@
     2、目前存在消息超时机制，应对服务端直接关机导致连接假死，设置readTimeoutSeconds参数值为0，可关闭此特性
     3、为了提供性能，处理EslEvent时，使用Netty的Worker线程，如果处理逻辑涉及IO或者耗时操作，必须要将处理逻辑放在新线程里面处理，通过disablePublicExecutor参数设置
 
+## 志同道合(微信) - 请备注来源
+
+![微信](https://gitee.com/zhouhailin/images/raw/master/a0eb627b9b6bc1c6da8f19d3292ebce.jpg)
+
 ## License
 
 [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) Copyright (C) Apache Software Foundation
