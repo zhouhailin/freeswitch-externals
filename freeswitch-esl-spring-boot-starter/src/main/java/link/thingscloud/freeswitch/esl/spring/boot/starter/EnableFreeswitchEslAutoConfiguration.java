@@ -26,7 +26,7 @@ import java.lang.annotation.*;
  * <p>EnableFreeswitchEslAutoConfiguration class.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

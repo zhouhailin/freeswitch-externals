@@ -27,7 +27,7 @@ import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
  * <p>EslInboundClientExample class.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public class EslInboundClientExample {
 

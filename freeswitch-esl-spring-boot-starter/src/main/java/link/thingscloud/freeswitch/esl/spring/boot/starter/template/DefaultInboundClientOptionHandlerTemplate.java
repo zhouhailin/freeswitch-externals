@@ -7,7 +7,7 @@ import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.AbstractInbou
  * <p>DefaultInboundClientOptionHandlerTemplate class.</p>
  *
  * @author zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public class DefaultInboundClientOptionHandlerTemplate extends AbstractInboundClientOptionHandler {
 

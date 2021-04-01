@@ -6,7 +6,7 @@ import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
  * <p>InboundClientOptionHandler interface.</p>
  *
  * @author zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public interface InboundClientOptionHandler {
 
