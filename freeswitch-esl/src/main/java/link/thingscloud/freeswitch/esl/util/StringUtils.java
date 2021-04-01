@@ -79,4 +79,13 @@ public class StringUtils {
         }
         return true;
     }
+
+    public static boolean inEquals(String str, String... strs) {
+        for (String s : strs) {
+            if (equals(str, s)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

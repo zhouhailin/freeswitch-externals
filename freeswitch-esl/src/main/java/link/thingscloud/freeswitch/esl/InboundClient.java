@@ -32,7 +32,7 @@ import java.util.function.Consumer;
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
  * @version 1.0.0
  */
-public interface InboundClient extends InboundClientService {
+public interface InboundClient extends InboundClientService, InboundClientCommand {
 
     /**
      * <p>newInstance.</p>
