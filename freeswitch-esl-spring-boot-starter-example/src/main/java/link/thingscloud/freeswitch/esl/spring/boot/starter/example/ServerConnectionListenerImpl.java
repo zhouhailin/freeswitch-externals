@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
  * <p>ServerConnectionListenerImpl class.</p>
  *
  * @author : zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  */
 @Slf4j
 @Service

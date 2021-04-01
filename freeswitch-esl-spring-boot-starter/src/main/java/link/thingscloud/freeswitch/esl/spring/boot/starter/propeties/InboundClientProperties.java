@@ -27,7 +27,7 @@ import java.util.List;
  * <p>InboundClientProperties class.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
 @Data
 @ConfigurationProperties(prefix = "link.thingscloud.freeswitch.esl.inbound")

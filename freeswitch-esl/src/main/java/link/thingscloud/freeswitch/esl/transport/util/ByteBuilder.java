@@ -21,7 +21,7 @@ package link.thingscloud.freeswitch.esl.transport.util;
  * <p>ByteBuilder class.</p>
  *
  * @author zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public class ByteBuilder {
 

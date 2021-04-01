@@ -21,7 +21,7 @@ package link.thingscloud.freeswitch.esl.exception;
  * <p>InboundTimeoutExcetion class.</p>
  *
  * @author : zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public class InboundTimeoutExcetion extends InboundClientException {
     /**

@@ -4,7 +4,7 @@ package link.thingscloud.freeswitch.esl.util;
  * <p>StringUtils class.</p>
  *
  * @author zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public class StringUtils {
 

@@ -45,7 +45,7 @@ import java.util.Map;
  * The messageHeader lines from the original message are cached in a map keyed by {@link link.thingscloud.freeswitch.esl.transport.message.EslHeaders.Name}.
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  * @see EslEventHeaderNames
  */
 @Slf4j

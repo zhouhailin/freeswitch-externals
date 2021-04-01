@@ -12,7 +12,7 @@ import java.util.List;
  * <p>ExampleInboundClientOptionHandler class.</p>
  *
  * @author zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  */
 @Slf4j
 @Component

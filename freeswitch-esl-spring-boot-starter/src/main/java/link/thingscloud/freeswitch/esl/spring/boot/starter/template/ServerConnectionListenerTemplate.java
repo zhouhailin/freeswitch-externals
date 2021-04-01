@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
  * <p>ServerConnectionListenerTemplate class.</p>
  *
  * @author : zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  */
 @Slf4j
 public class ServerConnectionListenerTemplate implements ServerConnectionListener {

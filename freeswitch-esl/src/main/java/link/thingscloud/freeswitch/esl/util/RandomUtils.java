@@ -6,7 +6,7 @@ import java.util.Random;
  * <p>RandomUtils class.</p>
  *
  * @author zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public class RandomUtils {
 

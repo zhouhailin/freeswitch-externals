@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>DemoController class.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
 @RestController
 @RequestMapping("/demo")

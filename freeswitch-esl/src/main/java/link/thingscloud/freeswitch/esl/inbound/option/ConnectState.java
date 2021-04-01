@@ -21,7 +21,7 @@ package link.thingscloud.freeswitch.esl.inbound.option;
  * <p>ConnectState class.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public enum ConnectState {
     /**

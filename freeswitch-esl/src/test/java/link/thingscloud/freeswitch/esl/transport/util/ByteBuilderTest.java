@@ -23,7 +23,7 @@ import junit.framework.TestCase;
  * <p>ByteBuilderTest class.</p>
  *
  * @author zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  * @since 1.4.0.SNAPSHOT
  */
 public class ByteBuilderTest extends TestCase {

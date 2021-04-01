@@ -21,7 +21,7 @@ package link.thingscloud.freeswitch.esl.constant;
  * <p>EslConstant class.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public class EslConstant {
 

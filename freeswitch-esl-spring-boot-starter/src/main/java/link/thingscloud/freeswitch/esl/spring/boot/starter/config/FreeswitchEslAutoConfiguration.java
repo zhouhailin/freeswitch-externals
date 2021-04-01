@@ -39,7 +39,7 @@ import org.springframework.context.annotation.Configuration;
  * <p>FreeswitchEslAutoConfiguration class.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
 @Slf4j
 @Configuration
