@@ -1,5 +1,8 @@
 package link.thingscloud.freeswitch.esl;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author zhouhailin
  * @since 1.6.0
@@ -45,5 +48,60 @@ public interface InboundClientCommand {
      * @return Job UUID
      */
     String break0(String addr, String uuid, boolean all);
+
+    /**
+     * uuid_hold [off|toggle] <uuid> [<display>]
+     *
+     * @param addr    addr
+     * @param smf     off|toggle
+     * @param uuid    leg uuid
+     * @param display false
+     * @return Job UUID
+     */
+    String hold(String addr, String smf, String uuid, boolean display);
+
+    /**
+     * uuid_getvar <uuid> <var>
+     *
+     * @param addr addr
+     * @param uuid leg uuid
+     * @param var  变量名
+     * @return Job UUID
+     */
+    List<String> getVar(String addr, String uuid, String var);
+
+    /**
+     * uuid_setvar <uuid> <var> [value]
+     *
+     * @param addr addr
+     * @param uuid leg uuid
+     * @param var  变量名
+     * @param val  变量值, 为空时则删除该变量
+     * @return Job UUID
+     */
+    String setVar(String addr, String uuid, String var, String val);
+
+    /**
+     * uuid_setvar_multi <uuid> <var>=<value>;<var>=<value>...
+     *
+     * @param addr addr
+     * @param uuid leg uuid
+     * @param map  键值对集合
+     * @return Job UUID
+     */
+    String multiSetVar(String addr, String uuid, Map<String, String> map);
+
+    /**
+     * uuid_record <uuid> [start|stop|mask|unmask] <path> [<limit>]
+     *
+     * @param addr   addr
+     * @param uuid   leg uuid
+     * @param action start|stop|mask|unmask
+     * @param path   录音路径
+     * @param limit  limit
+     * @return Job UUID
+     */
+    String record(String addr, String uuid, String action, String path, int limit);
+
 
 }
