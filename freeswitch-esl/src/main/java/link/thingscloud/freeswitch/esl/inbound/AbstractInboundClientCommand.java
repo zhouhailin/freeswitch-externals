@@ -208,4 +208,31 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
         }
         return sendAsyncApiCommand(addr, command, EMPTY);
     }
+
+    /**
+     * uuid_transfer <uuid> [-bleg|-both] <dest-exten> [<dialplan>] [<context>]
+     *
+     * @param addr   addr
+     * @param uuid   leg uuid
+     * @param action 键值对集合
+     * @param path   录音路径
+     * @param limit  limit
+     * @return Job UUID
+     */
+    public String transfer(String addr, String uuid, String action, String path, int limit) {
+        String command = "uuid_transfer " + uuid;
+        if (StringUtils.inEquals(action, "bleg", "both")) {
+            command += " " + action;
+        } else {
+            return null;
+        }
+        command += " " + path;
+        if (limit > 0) {
+            command += " " + limit;
+        }
+        if (debugEnabled) {
+            log.debug("record addr : {}, command : {}", addr, command);
+        }
+        return sendAsyncApiCommand(addr, command, EMPTY);
+    }
 }
