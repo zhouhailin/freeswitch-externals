@@ -44,10 +44,32 @@ public interface InboundClientCommand {
      *
      * @param addr addr
      * @param uuid leg uuid
+     * @return Job UUID
+     */
+    default String break0(String addr, String uuid) {
+        return break0(addr, uuid, false);
+    }
+
+    /**
+     * uuid_break <uuid> [all]
+     *
+     * @param addr addr
+     * @param uuid leg uuid
      * @param all  false
      * @return Job UUID
      */
     String break0(String addr, String uuid, boolean all);
+
+    /**
+     * uuid_hold [off|toggle] <uuid> [<display>]
+     *
+     * @param addr addr
+     * @param uuid leg uuid
+     * @return Job UUID
+     */
+    default String hold(String addr, String uuid) {
+        return hold(addr, "off", uuid, false);
+    }
 
     /**
      * uuid_hold [off|toggle] <uuid> [<display>]
@@ -103,5 +125,29 @@ public interface InboundClientCommand {
      */
     String record(String addr, String uuid, String action, String path, int limit);
 
+    /**
+     * uuid_transfer <uuid> [-bleg|-both] <dest-exten> [<dialplan>] [<context>]
+     *
+     * @param addr addr
+     * @param uuid leg uuid
+     * @param dest dest extension
+     * @return Job UUID
+     */
+    default String transfer(String addr, String uuid, String dest) {
+        return transfer(addr, uuid, null, dest, null, null);
+    }
+
+    /**
+     * uuid_transfer <uuid> [-bleg|-both] <dest-exten> [<dialplan>] [<context>]
+     *
+     * @param addr     addr
+     * @param uuid     leg uuid
+     * @param smf      [-bleg|-both]
+     * @param dest     dest extension
+     * @param dialplan XML
+     * @param context  dialplan context name
+     * @return Job UUID
+     */
+    String transfer(String addr, String uuid, String smf, String dest, String dialplan, String context);
 
 }

@@ -8,6 +8,8 @@ package link.thingscloud.freeswitch.esl.util;
  */
 public class StringUtils {
 
+    public static final String BLANK = " ";
+
     private StringUtils() {
     }
 

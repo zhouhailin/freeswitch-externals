@@ -1,10 +1,12 @@
 package link.thingscloud.freeswitch.esl.inbound;
 
+import link.thingscloud.freeswitch.esl.builder.Command;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
-import link.thingscloud.freeswitch.esl.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
+
+import static link.thingscloud.freeswitch.esl.builder.Command.*;
 
 /**
  * @author zhouhailin
@@ -29,7 +31,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
      */
     @Override
     public String answer(String addr, String uuid) {
-        String command = "uuid_answer " + uuid;
+        String command = Command.cmd(UUID_ANSWER).arg(uuid).toString();
         if (debugEnabled) {
             log.debug("answer addr : {}, command : {}", addr, command);
         }
@@ -46,7 +48,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
      */
     @Override
     public String bridge(String addr, String uuid, String otherUuid) {
-        String command = "uuid_bridge " + uuid + " " + otherUuid;
+        String command = Command.cmd(UUID_BRIDGE).arg(uuid).arg(otherUuid).toString();
         if (debugEnabled) {
             log.debug("bridge addr : {}, command : {}", addr, command);
         }
@@ -64,10 +66,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
      */
     @Override
     public String broadcast(String addr, String uuid, String path, String smf) {
-        String command = "uuid_broadcast " + uuid + " " + path;
-        if (StringUtils.inEquals(smf, "aleg", "bleg", "holdb", "both")) {
-            command += " " + smf;
-        }
+        String command = Command.cmd(UUID_BROADCAST).arg(uuid).arg(path).arg(smf).toString();
         if (debugEnabled) {
             log.debug("broadcast addr : {}, command : {}", addr, command);
         }
@@ -84,10 +83,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
      */
     @Override
     public String break0(String addr, String uuid, boolean all) {
-        String command = "uuid_break " + uuid;
-        if (all) {
-            command += " all";
-        }
+        String command = Command.cmd(UUID_BREAK).arg(uuid).arg(all ? "all" : null).toString();
         if (debugEnabled) {
             log.debug("break0 addr : {}, command : {}", addr, command);
         }
@@ -105,14 +101,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
      */
     @Override
     public String hold(String addr, String smf, String uuid, boolean display) {
-        String command = "uuid_hold";
-        if (StringUtils.inEquals(smf, "off", "toggle")) {
-            command += " " + smf;
-        }
-        command += " " + uuid;
-        if (display) {
-            command += " all";
-        }
+        String command = Command.cmd(UUID_HOLD).arg(smf).arg(uuid).arg(display ? "all" : EMPTY).toString();
         if (debugEnabled) {
             log.debug("hold addr : {}, command : {}", addr, command);
         }
@@ -129,7 +118,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
      */
     @Override
     public List<String> getVar(String addr, String uuid, String var) {
-        String command = "uuid_getvar " + uuid + " " + var;
+        String command = Command.cmd(UUID_GETVAR).arg(uuid).arg(var).toString();
         if (debugEnabled) {
             log.debug("getVar addr : {}, command : {}", addr, command);
         }
@@ -147,10 +136,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
      */
     @Override
     public String setVar(String addr, String uuid, String var, String val) {
-        String command = "uuid_setvar " + uuid + " " + var;
-        if (val != null) {
-            command += " " + val;
-        }
+        String command = Command.cmd(UUID_SETVAR).arg(uuid).arg(var).arg(val).toString();
         if (debugEnabled) {
             log.debug("setVar addr : {}, command : {}", addr, command);
         }
@@ -171,12 +157,10 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
             return EMPTY;
         }
         StringBuilder command = new StringBuilder("uuid_setvar_multi " + uuid + " ");
-        map.forEach((key, value) -> {
-            command.append(key).append("=").append(value).append(";");
-        });
+        map.forEach((key, value) -> command.append(key).append("=").append(value).append(";"));
         command.deleteCharAt(command.length() - 1);
         if (debugEnabled) {
-            log.debug("multiSetVar addr : {}, command : {}", addr, command.toString());
+            log.debug("multiSetVar addr : {}, command : {}", addr, command);
         }
         return sendAsyncApiCommand(addr, command.toString(), EMPTY);
     }
@@ -193,16 +177,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
      */
     @Override
     public String record(String addr, String uuid, String action, String path, int limit) {
-        String command = "uuid_record " + uuid;
-        if (StringUtils.inEquals(action, "start", "stop", "mask", "unmask")) {
-            command += " " + action;
-        } else {
-            return null;
-        }
-        command += " " + path;
-        if (limit > 0) {
-            command += " " + limit;
-        }
+        String command = Command.cmd(UUID_RECORD).arg(uuid).arg(action).arg(path).arg(limit < 1 ? null : String.valueOf(limit)).toString();
         if (debugEnabled) {
             log.debug("record addr : {}, command : {}", addr, command);
         }
@@ -212,26 +187,19 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
     /**
      * uuid_transfer <uuid> [-bleg|-both] <dest-exten> [<dialplan>] [<context>]
      *
-     * @param addr   addr
-     * @param uuid   leg uuid
-     * @param action 键值对集合
-     * @param path   录音路径
-     * @param limit  limit
+     * @param addr     addr
+     * @param uuid     leg uuid
+     * @param smf      [-bleg|-both]
+     * @param dest     dest extension
+     * @param dialplan XML
+     * @param context  dialplan context name
      * @return Job UUID
      */
-    public String transfer(String addr, String uuid, String action, String path, int limit) {
-        String command = "uuid_transfer " + uuid;
-        if (StringUtils.inEquals(action, "bleg", "both")) {
-            command += " " + action;
-        } else {
-            return null;
-        }
-        command += " " + path;
-        if (limit > 0) {
-            command += " " + limit;
-        }
+    @Override
+    public String transfer(String addr, String uuid, String smf, String dest, String dialplan, String context) {
+        String command = Command.cmd(UUID_TRANSFER).arg(uuid).arg(smf).arg(dest).arg(dialplan).arg(context).toString();
         if (debugEnabled) {
-            log.debug("record addr : {}, command : {}", addr, command);
+            log.debug("transfer addr : {}, command : {}", addr, command);
         }
         return sendAsyncApiCommand(addr, command, EMPTY);
     }
