@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>InboundClientCommand interface.</p>
+ *
  * @author zhouhailin
+ * @version $Id: $Id
  * @since 1.6.0
  */
 public interface InboundClientCommand {

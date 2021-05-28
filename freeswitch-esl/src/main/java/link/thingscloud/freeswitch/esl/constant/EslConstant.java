@@ -34,8 +34,20 @@ public class EslConstant {
      */
     public static final String PLAIN = "plain";
 
+    /**
+     * Constant <code>SMF_ALEG="aleg"</code>
+     */
     public static final String SMF_ALEG = "aleg";
+    /**
+     * Constant <code>SMF_BLEG="bleg"</code>
+     */
     public static final String SMF_BLEG = "bleg";
+    /**
+     * Constant <code>SMF_HOLDB="holdb"</code>
+     */
     public static final String SMF_HOLDB = "holdb";
+    /**
+     * Constant <code>SMF_BOTH="both"</code>
+     */
     public static final String SMF_BOTH = "both";
 }
