@@ -24,7 +24,7 @@
     <groupId>link.thingscloud</groupId>
     <artifactId>freeswitch-esl-all</artifactId>
     <packaging>pom</packaging>
-    <version>1.6.0.SNAPSHOT</version>
+    <version>1.6.0.RELEASE</version>
 
     <name>freeswitch-esl-all-${project.version}</name>
     <description>freeswitch event socket library on netty 4.1</description>
@@ -56,7 +56,7 @@
         <url>https://github.com/zhouhailin/freeswitch-esl-all</url>
         <connection>scm:git:https://github.com/zhouhailin/freeswitch-esl-all.git</connection>
         <developerConnection>scm:git:https://github.com/zhouhailin/freeswitch-esl-all.git</developerConnection>
-        <tag>1.6.0.SNAPSHOT</tag>
+        <tag>1.6.0.RELEASE</tag>
     </scm>
     <licenses>
         <license>
@@ -279,11 +279,19 @@
         <profile>
             <id>sonatype-release</id>
             <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-gpg-plugin</artifactId>
+                            <version>3.0.1</version>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
                         <executions>
                             <execution>
                                 <phase>verify</phase>
