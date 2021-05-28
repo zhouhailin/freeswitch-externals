@@ -209,6 +209,19 @@ public interface InboundClient extends InboundClientService, InboundClientComman
     CommandResponse sendEvent(String addr, SendEvent sendEvent);
 
     /**
+     * Aync callback Send a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} command to FreeSWITCH.  This client requires that the {@link link.thingscloud.freeswitch.esl.transport.SendMsg}
+     * has a call UUID parameter.
+     * <p>
+     * https://freeswitch.org/confluence/display/FREESWITCH/mod_event_socket
+     *
+     * @param addr      Esl server address
+     * @param sendEvent a {@link link.thingscloud.freeswitch.esl.transport.SendEvent} Event
+     * @param consumer  a {@link java.util.function.Consumer} object.
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
+     */
+    void sendEvent(String addr, SendEvent sendEvent, Consumer<CommandResponse> consumer);
+
+    /**
      * Send a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} command to FreeSWITCH.  This client requires that the {@link link.thingscloud.freeswitch.esl.transport.SendMsg}
      * has a call UUID parameter.
      * <p>
@@ -219,6 +232,19 @@ public interface InboundClient extends InboundClientService, InboundClientComman
      * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
      */
     CommandResponse sendMessage(String addr, SendMsg sendMsg);
+
+    /**
+     * Aync callback Send a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} command to FreeSWITCH.  This client requires that the {@link link.thingscloud.freeswitch.esl.transport.SendMsg}
+     * has a call UUID parameter.
+     * <p>
+     * https://freeswitch.org/confluence/display/FREESWITCH/mod_event_socket
+     *
+     * @param addr     Esl server address
+     * @param sendMsg  a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} with call UUID
+     * @param consumer a {@link java.util.function.Consumer} object.
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
+     */
+    void sendMessage(String addr, SendMsg sendMsg, Consumer<CommandResponse> consumer);
 
     /**
      * Enable log output.
