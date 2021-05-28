@@ -23,11 +23,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
     }
 
     /**
-     * uuid_answer <uuid>
-     *
-     * @param addr addr
-     * @param uuid leg uuid
-     * @return Job UUID
+     * {@inheritDoc}
      */
     @Override
     public String answer(String addr, String uuid) {
@@ -39,12 +35,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
     }
 
     /**
-     * uuid_bridge <uuid> <other_uuid>
-     *
-     * @param addr      addr
-     * @param uuid      leg uuid
-     * @param otherUuid other leg uuid
-     * @return Job UUID
+     * {@inheritDoc}
      */
     @Override
     public String bridge(String addr, String uuid, String otherUuid) {
@@ -56,13 +47,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
     }
 
     /**
-     * uuid_broadcast  <uuid> <path> [aleg|bleg|holdb|both]
-     *
-     * @param addr addr
-     * @param uuid leg uuid
-     * @param path file path
-     * @param smf  swithc media flag : aleg|bleg|holdb|both
-     * @return Job UUID
+     * {@inheritDoc}
      */
     @Override
     public String broadcast(String addr, String uuid, String path, String smf) {
@@ -74,12 +59,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
     }
 
     /**
-     * uuid_break <uuid> [all]
-     *
-     * @param addr addr
-     * @param uuid leg uuid
-     * @param all  all
-     * @return Job UUID
+     * {@inheritDoc}
      */
     @Override
     public String break0(String addr, String uuid, boolean all) {
@@ -91,13 +71,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
     }
 
     /**
-     * uuid_hold [off|toggle] <uuid> [<display>]
-     *
-     * @param addr    addr
-     * @param smf     off|toggle
-     * @param uuid    leg uuid
-     * @param display false
-     * @return Job UUID
+     * {@inheritDoc}
      */
     @Override
     public String hold(String addr, String smf, String uuid, boolean display) {
@@ -109,12 +83,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
     }
 
     /**
-     * uuid_getvar <uuid> <var>
-     *
-     * @param addr addr
-     * @param uuid leg uuid
-     * @param var  变量名
-     * @return 变量结果
+     * {@inheritDoc}
      */
     @Override
     public List<String> getVar(String addr, String uuid, String var) {
@@ -126,13 +95,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
     }
 
     /**
-     * uuid_setvar <uuid> <var> [value]
-     *
-     * @param addr addr
-     * @param uuid leg uuid
-     * @param var  变量名
-     * @param val  变量值, 为空时则删除该变量
-     * @return Job UUID
+     * {@inheritDoc}
      */
     @Override
     public String setVar(String addr, String uuid, String var, String val) {
@@ -144,12 +107,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
     }
 
     /**
-     * uuid_setvar_multi <uuid> <var>=<value>;<var>=<value>...
-     *
-     * @param addr addr
-     * @param uuid leg uuid
-     * @param map  键值对集合
-     * @return Job UUID
+     * {@inheritDoc}
      */
     @Override
     public String multiSetVar(String addr, String uuid, Map<String, String> map) {
@@ -166,14 +124,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
     }
 
     /**
-     * uuid_record <uuid> [start|stop|mask|unmask] <path> [<limit>]
-     *
-     * @param addr   addr
-     * @param uuid   leg uuid
-     * @param action 键值对集合
-     * @param path   录音路径
-     * @param limit  limit
-     * @return Job UUID
+     * {@inheritDoc}
      */
     @Override
     public String record(String addr, String uuid, String action, String path, int limit) {
@@ -185,15 +136,7 @@ abstract class AbstractInboundClientCommand extends AbstractInboundClient {
     }
 
     /**
-     * uuid_transfer <uuid> [-bleg|-both] <dest-exten> [<dialplan>] [<context>]
-     *
-     * @param addr     addr
-     * @param uuid     leg uuid
-     * @param smf      [-bleg|-both]
-     * @param dest     dest extension
-     * @param dialplan XML
-     * @param context  dialplan context name
-     * @return Job UUID
+     * {@inheritDoc}
      */
     @Override
     public String transfer(String addr, String uuid, String smf, String dest, String dialplan, String context) {

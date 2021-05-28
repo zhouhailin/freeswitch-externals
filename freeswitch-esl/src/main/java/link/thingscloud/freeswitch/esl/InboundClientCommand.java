@@ -10,7 +10,7 @@ import java.util.Map;
 public interface InboundClientCommand {
 
     /**
-     * uuid_answer <uuid>
+     * uuid_answer &lt;uuid&gt;
      *
      * @param addr addr
      * @param uuid leg uuid
@@ -19,7 +19,7 @@ public interface InboundClientCommand {
     String answer(String addr, String uuid);
 
     /**
-     * uuid_bridge <uuid> <other_uuid>
+     * uuid_bridge &lt;uuid&gt; &lt;other_uuid&gt;
      *
      * @param addr      addr
      * @param uuid      leg uuid
@@ -29,7 +29,7 @@ public interface InboundClientCommand {
     String bridge(String addr, String uuid, String otherUuid);
 
     /**
-     * uuid_broadcast  <uuid> <path> [aleg|bleg|holdb|both]
+     * uuid_broadcast  &lt;uuid&gt; &lt;path&gt; [aleg|bleg|holdb|both]
      *
      * @param addr addr
      * @param uuid leg uuid
@@ -40,7 +40,7 @@ public interface InboundClientCommand {
     String broadcast(String addr, String uuid, String path, String smf);
 
     /**
-     * uuid_break <uuid> [all]
+     * uuid_break &lt;uuid&gt; [all]
      *
      * @param addr addr
      * @param uuid leg uuid
@@ -51,7 +51,7 @@ public interface InboundClientCommand {
     }
 
     /**
-     * uuid_break <uuid> [all]
+     * uuid_break &lt;uuid&gt; [all]
      *
      * @param addr addr
      * @param uuid leg uuid
@@ -61,7 +61,7 @@ public interface InboundClientCommand {
     String break0(String addr, String uuid, boolean all);
 
     /**
-     * uuid_hold [off|toggle] <uuid> [<display>]
+     * uuid_hold [off|toggle] &lt;uuid&gt; [&lt;display&gt;]
      *
      * @param addr addr
      * @param uuid leg uuid
@@ -72,7 +72,7 @@ public interface InboundClientCommand {
     }
 
     /**
-     * uuid_hold [off|toggle] <uuid> [<display>]
+     * uuid_hold [off|toggle] &lt;uuid&gt; [&lt;display&gt;]
      *
      * @param addr    addr
      * @param smf     off|toggle
@@ -83,7 +83,7 @@ public interface InboundClientCommand {
     String hold(String addr, String smf, String uuid, boolean display);
 
     /**
-     * uuid_getvar <uuid> <var>
+     * uuid_getvar &lt;uuid&gt; &lt;var&gt;
      *
      * @param addr addr
      * @param uuid leg uuid
@@ -93,7 +93,7 @@ public interface InboundClientCommand {
     List<String> getVar(String addr, String uuid, String var);
 
     /**
-     * uuid_setvar <uuid> <var> [value]
+     * uuid_setvar &lt;uuid&gt; &lt;var&gt; [value]
      *
      * @param addr addr
      * @param uuid leg uuid
@@ -104,7 +104,7 @@ public interface InboundClientCommand {
     String setVar(String addr, String uuid, String var, String val);
 
     /**
-     * uuid_setvar_multi <uuid> <var>=<value>;<var>=<value>...
+     * uuid_setvar_multi &lt;uuid&gt; &lt;var&gt;=&lt;value&gt;;&lt;var&gt;=&lt;value&gt;...
      *
      * @param addr addr
      * @param uuid leg uuid
@@ -114,7 +114,7 @@ public interface InboundClientCommand {
     String multiSetVar(String addr, String uuid, Map<String, String> map);
 
     /**
-     * uuid_record <uuid> [start|stop|mask|unmask] <path> [<limit>]
+     * uuid_record &lt;uuid&gt; [start|stop|mask|unmask] &lt;path&gt; [&lt;limit&gt;]
      *
      * @param addr   addr
      * @param uuid   leg uuid
@@ -126,7 +126,7 @@ public interface InboundClientCommand {
     String record(String addr, String uuid, String action, String path, int limit);
 
     /**
-     * uuid_transfer <uuid> [-bleg|-both] <dest-exten> [<dialplan>] [<context>]
+     * uuid_transfer &lt;uuid&gt; [-bleg|-both] &lt;dest-exten&gt; [&lt;dialplan&gt;] [&lt;context&gt;]
      *
      * @param addr addr
      * @param uuid leg uuid
@@ -138,7 +138,7 @@ public interface InboundClientCommand {
     }
 
     /**
-     * uuid_transfer <uuid> [-bleg|-both] <dest-exten> [<dialplan>] [<context>]
+     * uuid_transfer &lt;uuid&gt; [-bleg|-both] &lt;dest-exten&gt; [&lt;dialplan&gt;] [&lt;context&gt;]
      *
      * @param addr     addr
      * @param uuid     leg uuid
