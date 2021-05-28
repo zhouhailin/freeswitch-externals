@@ -30,6 +30,7 @@ public class Validate {
      * @param collection a T object.
      * @param message    a {@link java.lang.String} object.
      * @param values     a {@link java.lang.Object} object.
+     * @param <T>        T
      * @return a T object.
      */
     public static <T extends Collection<?>> T notEmpty(final T collection, final String message, final Object... values) {

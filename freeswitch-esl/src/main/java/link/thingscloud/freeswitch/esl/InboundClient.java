@@ -85,7 +85,6 @@ public interface InboundClient extends InboundClientService, InboundClientComman
      * @param timeoutSeconds timeout seconds arguments
      * @return an {@link link.thingscloud.freeswitch.esl.transport.message.EslMessage} containing command results
      * @throws link.thingscloud.freeswitch.esl.exception.InboundTimeoutExcetion if any.
-     * @throws link.thingscloud.freeswitch.esl.exception.InboundTimeoutExcetion if any.
      */
     EslMessage sendSyncApiCommand(String addr, String command, String arg, long timeoutSeconds) throws InboundTimeoutExcetion;
 
@@ -218,6 +217,7 @@ public interface InboundClient extends InboundClientService, InboundClientComman
      * @param addr      Esl server address
      * @param sendEvent a {@link link.thingscloud.freeswitch.esl.transport.SendEvent} Event
      * @param consumer  a {@link java.util.function.Consumer} object.
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
      */
     void sendEvent(String addr, SendEvent sendEvent, Consumer<CommandResponse> consumer);
 
@@ -242,6 +242,7 @@ public interface InboundClient extends InboundClientService, InboundClientComman
      * @param addr     Esl server address
      * @param sendMsg  a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} with call UUID
      * @param consumer a {@link java.util.function.Consumer} object.
+     * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
      */
     void sendMessage(String addr, SendMsg sendMsg, Consumer<CommandResponse> consumer);
 

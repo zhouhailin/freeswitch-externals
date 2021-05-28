@@ -8,9 +8,6 @@ package link.thingscloud.freeswitch.esl.util;
  */
 public class StringUtils {
 
-    /**
-     * Constant <code>BLANK=" "</code>
-     */
     public static final String BLANK = " ";
 
     private StringUtils() {
@@ -85,13 +82,6 @@ public class StringUtils {
         return true;
     }
 
-    /**
-     * <p>inEquals.</p>
-     *
-     * @param str  a {@link java.lang.String} object.
-     * @param strs a {@link java.lang.String} object.
-     * @return a boolean.
-     */
     public static boolean inEquals(String str, String... strs) {
         for (String s : strs) {
             if (equals(str, s)) {
