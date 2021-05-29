@@ -69,7 +69,6 @@
 
     基于 freeswitch-esl-spring-boot-starter 客户端示例(详细信息，移步至子模块）
 
-
 ## 特性说明
 
     获取实例 

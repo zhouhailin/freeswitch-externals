@@ -21,7 +21,7 @@ package link.thingscloud.freeswitch.esl.constant;
  * <p>EslConstant class.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public class EslConstant {
 
@@ -33,4 +33,9 @@ public class EslConstant {
      * Constant <code>PLAIN="plain"</code>
      */
     public static final String PLAIN = "plain";
+
+    public static final String SMF_ALEG = "aleg";
+    public static final String SMF_BLEG = "bleg";
+    public static final String SMF_HOLDB = "holdb";
+    public static final String SMF_BOTH = "both";
 }

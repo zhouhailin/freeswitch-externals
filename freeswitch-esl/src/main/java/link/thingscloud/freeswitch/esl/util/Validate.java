@@ -7,7 +7,7 @@ import java.util.Objects;
  * <p>Validate class.</p>
  *
  * @author zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public class Validate {
 

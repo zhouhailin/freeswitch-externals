@@ -23,7 +23,7 @@ import link.thingscloud.freeswitch.esl.inbound.option.ServerOption;
  * <p>ServerConnectionListener interface.</p>
  *
  * @author : zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public interface ServerConnectionListener {
 

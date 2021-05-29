@@ -6,7 +6,7 @@ import java.lang.reflect.Array;
  * <p>ArrayUtils class.</p>
  *
  * @author zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public class ArrayUtils {
 

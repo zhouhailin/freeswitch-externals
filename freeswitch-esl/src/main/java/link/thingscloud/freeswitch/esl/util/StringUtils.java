@@ -4,9 +4,11 @@ package link.thingscloud.freeswitch.esl.util;
  * <p>StringUtils class.</p>
  *
  * @author zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public class StringUtils {
+
+    public static final String BLANK = " ";
 
     private StringUtils() {
     }
@@ -78,5 +80,14 @@ public class StringUtils {
             }
         }
         return true;
+    }
+
+    public static boolean inEquals(String str, String... strs) {
+        for (String s : strs) {
+            if (equals(str, s)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

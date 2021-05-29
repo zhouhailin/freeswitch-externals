@@ -23,7 +23,7 @@ import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
  * <p>IEslEventListener interface.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public interface IEslEventListener {
 

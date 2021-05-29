@@ -36,7 +36,7 @@ import java.util.Map;
  * Any Body lines are cached in a list.
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  * @see EslHeaders.Name
  */
 @Slf4j

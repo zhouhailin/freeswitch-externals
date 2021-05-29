@@ -36,9 +36,9 @@ import java.util.function.Consumer;
  * <p>NettyInboundClient class.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
-public class NettyInboundClient extends AbstractInboundClient {
+public class NettyInboundClient extends AbstractInboundClientCommand {
 
     /**
      * <p>Constructor for NettyInboundClient.</p>
@@ -108,9 +108,7 @@ public class NettyInboundClient extends AbstractInboundClient {
             sb.append(' ');
             sb.append(arg);
         }
-
         return handler.sendAsyncCommand(sb.toString());
-
     }
 
     /**
@@ -124,7 +122,6 @@ public class NettyInboundClient extends AbstractInboundClient {
                 consumer.accept(msg);
             }
         });
-
     }
 
     /**
@@ -212,10 +209,36 @@ public class NettyInboundClient extends AbstractInboundClient {
      * {@inheritDoc}
      */
     @Override
+    public void sendEvent(String addr, SendEvent sendEvent, Consumer<CommandResponse> consumer) {
+        publicExecutor.execute(() -> {
+            CommandResponse response = sendEvent(addr, sendEvent);
+            if (consumer != null) {
+                consumer.accept(response);
+            }
+        });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public CommandResponse sendMessage(String addr, SendMsg sendMsg) {
         InboundChannelHandler handler = getAuthedHandler(addr);
         EslMessage response = handler.sendSyncMultiLineCommand(sendMsg.getMsgLines());
         return new CommandResponse(sendMsg.toString(), response);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void sendMessage(String addr, SendMsg sendMsg, Consumer<CommandResponse> consumer) {
+        publicExecutor.execute(() -> {
+            CommandResponse response = sendMessage(addr, sendMsg);
+            if (consumer != null) {
+                consumer.accept(response);
+            }
+        });
     }
 
     /**

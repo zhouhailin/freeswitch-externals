@@ -30,9 +30,9 @@ import java.util.function.Consumer;
  * <p>InboundClient interface.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
-public interface InboundClient extends InboundClientService {
+public interface InboundClient extends InboundClientService, InboundClientCommand {
 
     /**
      * <p>newInstance.</p>
@@ -209,6 +209,18 @@ public interface InboundClient extends InboundClientService {
     CommandResponse sendEvent(String addr, SendEvent sendEvent);
 
     /**
+     * Aync callback Send a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} command to FreeSWITCH.  This client requires that the {@link link.thingscloud.freeswitch.esl.transport.SendMsg}
+     * has a call UUID parameter.
+     * <p>
+     * https://freeswitch.org/confluence/display/FREESWITCH/mod_event_socket
+     *
+     * @param addr      Esl server address
+     * @param sendEvent a {@link link.thingscloud.freeswitch.esl.transport.SendEvent} Event
+     * @param consumer  a {@link java.util.function.Consumer} object.
+     */
+    void sendEvent(String addr, SendEvent sendEvent, Consumer<CommandResponse> consumer);
+
+    /**
      * Send a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} command to FreeSWITCH.  This client requires that the {@link link.thingscloud.freeswitch.esl.transport.SendMsg}
      * has a call UUID parameter.
      * <p>
@@ -219,6 +231,18 @@ public interface InboundClient extends InboundClientService {
      * @return a {@link link.thingscloud.freeswitch.esl.transport.CommandResponse} with the server's response.
      */
     CommandResponse sendMessage(String addr, SendMsg sendMsg);
+
+    /**
+     * Aync callback Send a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} command to FreeSWITCH.  This client requires that the {@link link.thingscloud.freeswitch.esl.transport.SendMsg}
+     * has a call UUID parameter.
+     * <p>
+     * https://freeswitch.org/confluence/display/FREESWITCH/mod_event_socket
+     *
+     * @param addr     Esl server address
+     * @param sendMsg  a {@link link.thingscloud.freeswitch.esl.transport.SendMsg} with call UUID
+     * @param consumer a {@link java.util.function.Consumer} object.
+     */
+    void sendMessage(String addr, SendMsg sendMsg, Consumer<CommandResponse> consumer);
 
     /**
      * Enable log output.

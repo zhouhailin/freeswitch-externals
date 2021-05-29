@@ -44,7 +44,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * <p>InboundChannelHandler class.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
 @Slf4j
 public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessage> {
@@ -105,7 +105,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         if (evt instanceof IdleStateEvent) {
             if (((IdleStateEvent) evt).state() == IdleState.READER_IDLE) {
                 log.debug("userEventTriggered remoteAddr : {}, evt state : {} ", remoteAddr, ((IdleStateEvent) evt).state());
-                publicExecutor.execute(() -> sendSyncSingleLineCommand("status"));
+                publicExecutor.execute(() -> sendAsyncCommand("status"));
             }
         }
     }

@@ -23,7 +23,7 @@ import lombok.Data;
  * <p>ServerProperties class.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
 @Data
 public class ServerProperties {

@@ -24,7 +24,7 @@ import java.net.SocketAddress;
  * <p>RemotingUtil class.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
- * @version $Id: $Id
+ * @version 1.0.0
  */
 public class RemotingUtil {
 

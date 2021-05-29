@@ -11,7 +11,7 @@
     inboundClient : 单例对象
     
     可以动态添加服务端或删除服务端，InboundClient感知，进行连接或者断开连接
-    
+
 ## 目标
 
     目标：支持单个InboundClient实例连接10000台以上的FreeSWITCH
@@ -54,7 +54,6 @@
     
     // 关闭客户端 - 注：关闭后不支持再次 start, 一般伴随JVM关闭而关闭
     inboundClient.shutdown();
-
 
 ## 获取 InboundClient
 

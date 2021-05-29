@@ -26,7 +26,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * <p>ExampleApplicationTests class.</p>
  *
  * @author zhouhailin
- * @version $Id: $Id
+ * @version 1.0.0
  * @since 1.4.0.SNAPSHOT
  */
 @RunWith(SpringRunner.class)
