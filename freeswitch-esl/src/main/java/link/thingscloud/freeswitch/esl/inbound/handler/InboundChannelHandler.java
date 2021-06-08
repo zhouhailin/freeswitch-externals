@@ -105,7 +105,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         if (evt instanceof IdleStateEvent) {
             if (((IdleStateEvent) evt).state() == IdleState.READER_IDLE) {
                 log.debug("userEventTriggered remoteAddr : {}, evt state : {} ", remoteAddr, ((IdleStateEvent) evt).state());
-                publicExecutor.execute(() -> sendAsyncCommand("status"));
+                publicExecutor.execute(() -> sendAsyncCommand("bgapi status"));
             }
         }
     }
