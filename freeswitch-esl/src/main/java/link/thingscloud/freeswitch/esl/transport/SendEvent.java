@@ -66,7 +66,6 @@ public class SendEvent {
      * @param line part of line
      */
     public void addBody(String line) {
-        msgLines.add("");
         msgLines.add(line);
     }
 

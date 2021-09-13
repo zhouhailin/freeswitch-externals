@@ -10,7 +10,7 @@
 
     1、支持连接FreeSWITCH大规模集群
     2、更易于集成使用
-    4、与spring boot 2.3.x深度整合，提供 starter
+    4、与spring boot 2.x深度整合，提供 starter
     5、可动态配置
 
 ## 模块说明
