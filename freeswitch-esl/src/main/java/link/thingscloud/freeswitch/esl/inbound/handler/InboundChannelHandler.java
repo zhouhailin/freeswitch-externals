@@ -56,6 +56,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
     private final Queue<SyncCallback> syncCallbacks = new ConcurrentLinkedQueue<>();
     private final ChannelEventListener listener;
     private final ExecutorService publicExecutor;
+    private final ExecutorService privateExecutor;
     private final boolean disablePublicExecutor;
     private Channel channel;
     private String remoteAddr;
@@ -69,9 +70,10 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
      * @param publicExecutor        a {@link java.util.concurrent.ExecutorService} object.
      * @param disablePublicExecutor a boolean.
      */
-    public InboundChannelHandler(ChannelEventListener listener, ExecutorService publicExecutor, boolean disablePublicExecutor) {
+    public InboundChannelHandler(ChannelEventListener listener, ExecutorService publicExecutor, ExecutorService privateExecutor, boolean disablePublicExecutor) {
         this.listener = listener;
         this.publicExecutor = publicExecutor;
+        this.privateExecutor = privateExecutor;
         this.disablePublicExecutor = disablePublicExecutor;
     }
 
@@ -151,7 +153,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
                 break;
             case EslHeaders.Value.AUTH_REQUEST:
                 log.debug("Auth request received [{}]", message);
-                publicExecutor.execute(() -> listener.handleAuthRequest(remoteAddr, this));
+                privateExecutor.execute(() -> listener.handleAuthRequest(remoteAddr, this));
                 break;
             case EslHeaders.Value.TEXT_DISCONNECT_NOTICE:
                 log.debug("Disconnect notice received [{}]", message);
