@@ -20,7 +20,7 @@ package link.thingscloud.freeswitch.esl.inbound;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import link.thingscloud.freeswitch.esl.InboundClient;
-import link.thingscloud.freeswitch.esl.constant.EslConstant;
+import link.thingscloud.freeswitch.esl.constant.Constants;
 import link.thingscloud.freeswitch.esl.exception.InboundClientException;
 import link.thingscloud.freeswitch.esl.inbound.handler.InboundChannelHandler;
 import link.thingscloud.freeswitch.esl.inbound.listener.EventListener;
@@ -34,7 +34,6 @@ import link.thingscloud.freeswitch.esl.transport.message.EslHeaders;
 import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
 import link.thingscloud.freeswitch.esl.util.StringUtils;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -214,7 +213,7 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
              *  Use a different worker thread pool for async job results than for event driven
              *  events to keep the latency as low as possible.
              */
-            if (StringUtils.equals(event.getEventName(), EslConstant.BACKGROUND_JOB)) {
+            if (StringUtils.equals(event.getEventName(), Constants.BACKGROUND_JOB)) {
                 try {
                     listener.backgroundJobResultReceived(addr, event);
                 } catch (Throwable t) {

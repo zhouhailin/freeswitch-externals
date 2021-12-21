@@ -18,7 +18,7 @@
 package link.thingscloud.freeswitch.esl.inbound;
 
 import link.thingscloud.freeswitch.esl.InboundClient;
-import link.thingscloud.freeswitch.esl.constant.EslConstant;
+import link.thingscloud.freeswitch.esl.constant.Constants;
 import link.thingscloud.freeswitch.esl.exception.InboundTimeoutExcetion;
 import link.thingscloud.freeswitch.esl.inbound.handler.InboundChannelHandler;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
@@ -129,7 +129,7 @@ public class NettyInboundClient extends AbstractInboundClientCommand {
      */
     @Override
     public CommandResponse setEventSubscriptions(String addr, String format, String events) {
-        if (!StringUtils.equals(format, EslConstant.PLAIN)) {
+        if (!StringUtils.equals(format, Constants.PLAIN)) {
             throw new IllegalStateException("Only 'plain' event format is supported at present");
         }
         InboundChannelHandler handler = getAuthedHandler(addr);

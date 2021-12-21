@@ -55,6 +55,7 @@
                   defaultPassword: ClueCon
                   performance: false
                   performanceCostTime: 200
+                  #read-timeout-seconds: 0
                   servers:
                     - host: 127.0.0.1
                       port: 8021
