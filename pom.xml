@@ -24,7 +24,7 @@
     <groupId>link.thingscloud</groupId>
     <artifactId>freeswitch-esl-all</artifactId>
     <packaging>pom</packaging>
-    <version>1.6.5.RELEASE</version>
+    <version>1.6.6.RELEASE</version>
 
     <name>freeswitch-esl-all-${project.version}</name>
     <description>freeswitch event socket library on netty 4.1</description>
@@ -56,7 +56,7 @@
         <url>https://github.com/zhouhailin/freeswitch-esl-all</url>
         <connection>scm:git:https://github.com/zhouhailin/freeswitch-esl-all.git</connection>
         <developerConnection>scm:git:https://github.com/zhouhailin/freeswitch-esl-all.git</developerConnection>
-        <tag>1.6.5.RELEASE</tag>
+        <tag>1.6.6.RELEASE</tag>
     </scm>
     <licenses>
         <license>
@@ -104,17 +104,17 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.30</version>
+                <version>1.7.32</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-core</artifactId>
-                <version>1.2.3</version>
+                <version>1.2.10</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.2.3</version>
+                <version>1.2.10</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
