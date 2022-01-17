@@ -23,7 +23,7 @@ package link.thingscloud.freeswitch.esl.constant;
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
  * @version 1.0.0
  */
-public class EslConstant {
+public class Constants {
 
     /**
      * Constant <code>BACKGROUND_JOB="BACKGROUND_JOB"</code>
@@ -38,4 +38,16 @@ public class EslConstant {
     public static final String SMF_BLEG = "bleg";
     public static final String SMF_HOLDB = "holdb";
     public static final String SMF_BOTH = "both";
+
+    public static final String UUID_ANSWER = "uuid_answer";
+    public static final String UUID_BRIDGE = "uuid_bridge";
+    public static final String UUID_BROADCAST = "uuid_broadcast";
+    public static final String UUID_BREAK = "uuid_break";
+    public static final String UUID_HOLD = "uuid_hold";
+    public static final String UUID_GETVAR = "uuid_getvar";
+    public static final String UUID_SETVAR = "uuid_setvar";
+    public static final String UUID_SETVAR_MULTI = "uuid_setvar_multi";
+    public static final String UUID_RECORD = "uuid_record";
+    public static final String UUID_TRANSFER = "uuid_transfer";
+
 }

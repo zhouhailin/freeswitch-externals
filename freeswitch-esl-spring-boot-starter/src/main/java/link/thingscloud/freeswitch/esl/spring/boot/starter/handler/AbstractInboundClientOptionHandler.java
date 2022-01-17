@@ -56,6 +56,7 @@ public abstract class AbstractInboundClientOptionHandler implements InboundClien
                 .rcvBufSize(properties.getRcvBufSize())
                 .workerGroupThread(properties.getWorkerGroupThread())
                 .publicExecutorThread(properties.getPublicExecutorThread())
+                .privateExecutorThread(properties.getPrivateExecutorThread())
                 .callbackExecutorThread(properties.getCallbackExecutorThread())
                 .defaultTimeoutSeconds(properties.getDefaultTimeoutSeconds())
                 .readTimeoutSeconds(properties.getReadTimeoutSeconds())
