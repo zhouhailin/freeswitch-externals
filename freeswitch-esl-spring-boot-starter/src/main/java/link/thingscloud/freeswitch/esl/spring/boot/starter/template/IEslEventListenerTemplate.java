@@ -43,7 +43,7 @@ public class IEslEventListenerTemplate implements IEslEventListener, Initializin
 
     @Autowired
     private InboundClient inboundClient;
-    @Autowired
+    @Autowired(required = false)
     private final List<EslEventHandler> eslEventHandlers = Collections.emptyList();
 
     private EslEventHandler defaultEventHandler = new DefaultEslEventHandler();
