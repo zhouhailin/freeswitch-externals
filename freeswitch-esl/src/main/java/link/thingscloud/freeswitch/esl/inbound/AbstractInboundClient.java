@@ -244,6 +244,14 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void handleRudeRejection(String addr) {
+        log.info("Rejected by acl  ...");
+    }
+
+    /**
      * <p>getAuthedHandler.</p>
      *
      * @param addr a {@link java.lang.String} object.

@@ -159,6 +159,10 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
                 log.debug("Disconnect notice received [{}]", message);
                 publicExecutor.execute(() -> listener.handleDisconnectNotice(remoteAddr));
                 break;
+            case EslHeaders.Value.TEXT_RUDE_REJECTION:
+                log.debug("Rude rejection received [{}]", message);
+                publicExecutor.execute(() -> listener.handleRudeRejection(remoteAddr));
+                break;
             default:
                 log.warn("Unexpected message content type [{}]", contentType);
                 break;
@@ -262,7 +266,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         return channel.close();
     }
 
-    class SyncCallback {
+    static class SyncCallback {
         private final CountDownLatch latch = new CountDownLatch(1);
         private EslMessage response;
 

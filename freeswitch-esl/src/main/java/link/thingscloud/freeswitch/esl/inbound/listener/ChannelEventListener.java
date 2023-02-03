@@ -65,4 +65,11 @@ public interface ChannelEventListener {
      * @param remoteAddr a {@link java.lang.String} object.
      */
     void handleDisconnectNotice(String remoteAddr);
+
+    /**
+     * <p>handleRudeRejection.</p>
+     *
+     * @param remoteAddr a {@link java.lang.String} object.
+     */
+    void handleRudeRejection(String remoteAddr);
 }

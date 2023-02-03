@@ -123,6 +123,10 @@ public class EslHeaders {
          */
         public static final String TEXT_DISCONNECT_NOTICE = "text/disconnect-notice";
         /**
+         * {@code "text/rude-rejection"}
+         */
+        public static final String TEXT_RUDE_REJECTION = "text/rude-rejection";
+        /**
          * {@code "-ERR invalid"}
          */
         public static final String ERR_INVALID = "-ERR invalid";
