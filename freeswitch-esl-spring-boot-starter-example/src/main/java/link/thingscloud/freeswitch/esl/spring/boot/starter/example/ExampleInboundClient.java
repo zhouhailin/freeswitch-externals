@@ -33,4 +33,8 @@ public class ExampleInboundClient {
         inboundClient.hold("", "");
     }
 
+    public void record() {
+        inboundClient.record("", "", "", "", 1);
+    }
+
 }
