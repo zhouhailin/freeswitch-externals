@@ -36,4 +36,8 @@ public class ExampleInboundClientTest extends TestCase {
     public void testAnswer() {
         inboundClient.answer("", "");
     }
+
+    public void testBreak() {
+        inboundClient.break0("", "");
+    }
 }
