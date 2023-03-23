@@ -39,5 +39,10 @@ public class ExampleInboundClientTest extends TestCase {
 
     public void testBreak() {
         inboundClient.break0("", "");
+        inboundClient.getVar("", "", "123");
+    }
+
+    public void testGetVar() {
+        inboundClient.getVar("", "", "123");
     }
 }
