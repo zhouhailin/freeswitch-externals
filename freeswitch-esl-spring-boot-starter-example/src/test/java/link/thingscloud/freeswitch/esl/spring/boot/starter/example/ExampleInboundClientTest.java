@@ -45,4 +45,8 @@ public class ExampleInboundClientTest extends TestCase {
     public void testGetVar() {
         inboundClient.getVar("", "", "123");
     }
+
+    public void testSetVar() {
+        inboundClient.setVar("", "", "123", "value");
+    }
 }
