@@ -2,7 +2,7 @@ package link.thingscloud.freeswitch.esl.spring.boot.starter.handler;
 
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.inbound.option.ServerOption;
-import link.thingscloud.freeswitch.esl.spring.boot.starter.propeties.InboundClientProperties;
+import link.thingscloud.freeswitch.esl.spring.boot.starter.properties.InboundClientProperties;
 import link.thingscloud.freeswitch.esl.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -22,7 +22,7 @@ import link.thingscloud.freeswitch.esl.InboundClient;
 import link.thingscloud.freeswitch.esl.ServerConnectionListener;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.InboundClientOptionHandler;
-import link.thingscloud.freeswitch.esl.spring.boot.starter.propeties.InboundClientProperties;
+import link.thingscloud.freeswitch.esl.spring.boot.starter.properties.InboundClientProperties;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.template.DefaultInboundClientOptionHandlerTemplate;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.template.IEslEventListenerTemplate;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.template.ServerConnectionListenerTemplate;

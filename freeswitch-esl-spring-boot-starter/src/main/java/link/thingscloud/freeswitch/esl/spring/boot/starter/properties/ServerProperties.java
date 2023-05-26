@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package link.thingscloud.freeswitch.esl.spring.boot.starter.propeties;
+package link.thingscloud.freeswitch.esl.spring.boot.starter.properties;
 
 import lombok.Data;
 
