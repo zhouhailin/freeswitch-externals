@@ -15,7 +15,7 @@ public class DefaultInboundClientOptionHandlerTemplate extends AbstractInboundCl
      * {@inheritDoc}
      */
     @Override
-    protected void intercept(InboundClientOption inboundClientOption) {
+    protected void intercept(InboundClientOption option) {
     }
 
 }

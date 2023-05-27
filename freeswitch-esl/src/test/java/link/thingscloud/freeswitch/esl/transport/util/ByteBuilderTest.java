@@ -28,18 +28,4 @@ import junit.framework.TestCase;
  */
 public class ByteBuilderTest extends TestCase {
 
-    /**
-     * <p>testLength.</p>
-     */
-    public void testLength() {
-        ByteBuilder builder = ByteBuilder.newBuilder();
-        System.out.println(builder.string());
-        System.out.println(builder.length());
-    }
-
-    /**
-     * <p>testString.</p>
-     */
-    public void testString() {
-    }
 }

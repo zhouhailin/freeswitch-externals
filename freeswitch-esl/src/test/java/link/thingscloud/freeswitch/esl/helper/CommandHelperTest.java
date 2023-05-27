@@ -16,7 +16,6 @@
 package link.thingscloud.freeswitch.esl.helper;
 
 import junit.framework.TestCase;
-import org.junit.Test;
 
 /**
  * @author zhouhailin
@@ -24,7 +23,5 @@ import org.junit.Test;
  */
 public class CommandHelperTest extends TestCase {
 
-    @Test
-    public void testCmd() {
-    }
+
 }

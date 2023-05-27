@@ -122,10 +122,8 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
         handlerTable.put(remoteAddr, inboundChannelHandler);
         // 连接监听
         option().serverOptions().forEach(serverOption -> {
-            if (StringUtils.equals(serverOption.addr(), remoteAddr)) {
-                if (option().serverConnectionListener() != null) {
-                    option().serverConnectionListener().onOpened(serverOption);
-                }
+            if (StringUtils.equals(serverOption.addr(), remoteAddr) && option().serverConnectionListener() != null) {
+                option().serverConnectionListener().onOpened(serverOption);
             }
         });
     }

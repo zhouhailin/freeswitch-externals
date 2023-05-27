@@ -2,7 +2,7 @@
 
 [![Jdk Version](https://img.shields.io/badge/JDK-1.8-green.svg)](https://img.shields.io/badge/JDK-1.8-green.svg)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/link.thingscloud/freeswitch-esl/badge.svg)](https://maven-badges.herokuapp.com/maven-central/link.thingscloud/freeswitch-esl/)
+[![Maven Central](https://img.shields.io/maven-central/v/link.thingscloud/freeswitch-esl)](https://mvnrepository.com/artifact/link.thingscloud/freeswitch-esl)
 
     FreeSWITCH Event Socket 客户端，基于 Netty 4.1.x
 
