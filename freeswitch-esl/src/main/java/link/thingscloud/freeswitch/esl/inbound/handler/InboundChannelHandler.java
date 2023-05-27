@@ -104,11 +104,9 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
      */
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-        if (evt instanceof IdleStateEvent) {
-            if (((IdleStateEvent) evt).state() == IdleState.READER_IDLE) {
-                log.debug("userEventTriggered remoteAddr : {}, evt state : {} ", remoteAddr, ((IdleStateEvent) evt).state());
-                publicExecutor.execute(() -> sendAsyncCommand("bgapi status"));
-            }
+        if (evt instanceof IdleStateEvent && ((IdleStateEvent) evt).state() == IdleState.READER_IDLE) {
+            log.debug("userEventTriggered remoteAddr : {}, evt state : {} ", remoteAddr, ((IdleStateEvent) evt).state());
+            publicExecutor.execute(() -> sendAsyncCommand("bgapi status"));
         }
     }
 
@@ -158,6 +156,10 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
             case EslHeaders.Value.TEXT_DISCONNECT_NOTICE:
                 log.debug("Disconnect notice received [{}]", message);
                 publicExecutor.execute(() -> listener.handleDisconnectNotice(remoteAddr));
+                break;
+            case EslHeaders.Value.TEXT_RUDE_REJECTION:
+                log.debug("Rude rejection received [{}]", message);
+                publicExecutor.execute(() -> listener.handleRudeRejection(remoteAddr));
                 break;
             default:
                 log.warn("Unexpected message content type [{}]", contentType);
@@ -262,7 +264,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         return channel.close();
     }
 
-    class SyncCallback {
+    static class SyncCallback {
         private final CountDownLatch latch = new CountDownLatch(1);
         private EslMessage response;
 

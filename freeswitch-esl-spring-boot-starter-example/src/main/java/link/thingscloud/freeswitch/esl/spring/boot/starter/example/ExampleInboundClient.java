@@ -5,9 +5,7 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,17 +13,28 @@
  * limitations under the License.
  */
 
-package link.thingscloud.freeswitch.esl.transport.util;
+package link.thingscloud.freeswitch.esl.spring.boot.starter.example;
 
-import junit.framework.TestCase;
+import link.thingscloud.freeswitch.esl.InboundClient;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
- * <p>ByteBuilderTest class.</p>
- *
  * @author zhouhailin
- * @version 1.0.0
- * @since 1.4.0.SNAPSHOT
  */
-public class ByteBuilderTest extends TestCase {
+@Slf4j
+@Component
+public class ExampleInboundClient {
+    @Autowired
+    private InboundClient inboundClient;
+
+    public void hold() {
+        inboundClient.hold("", "");
+    }
+
+    public void record() {
+        inboundClient.record("", "", "", "", 1);
+    }
 
 }

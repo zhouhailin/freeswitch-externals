@@ -19,6 +19,7 @@ package link.thingscloud.freeswitch.esl.example;
 
 import link.thingscloud.freeswitch.esl.IEslEventListener;
 import link.thingscloud.freeswitch.esl.InboundClient;
+import link.thingscloud.freeswitch.esl.ServerConnectionListener;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.inbound.option.ServerOption;
 import link.thingscloud.freeswitch.esl.transport.event.EslEvent;
@@ -54,6 +55,18 @@ public class EslInboundClientExample {
             public void backgroundJobResultReceived(String addr, EslEvent event) {
                 System.out.println(addr);
                 System.out.println(event);
+            }
+        });
+
+        option.serverConnectionListener(new ServerConnectionListener() {
+            @Override
+            public void onOpened(ServerOption serverOption) {
+                System.out.println("---onOpened--");
+            }
+
+            @Override
+            public void onClosed(ServerOption serverOption) {
+                System.out.println("---onClosed--");
             }
         });
 

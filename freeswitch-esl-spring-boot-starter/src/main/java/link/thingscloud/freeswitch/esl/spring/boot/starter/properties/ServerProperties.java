@@ -15,17 +15,20 @@
  * limitations under the License.
  */
 
-package link.thingscloud.freeswitch.esl.transport.util;
+package link.thingscloud.freeswitch.esl.spring.boot.starter.properties;
 
-import junit.framework.TestCase;
+import lombok.Data;
 
 /**
- * <p>ByteBuilderTest class.</p>
+ * <p>ServerProperties class.</p>
  *
- * @author zhouhailin
+ * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
  * @version 1.0.0
- * @since 1.4.0.SNAPSHOT
  */
-public class ByteBuilderTest extends TestCase {
-
+@Data
+public class ServerProperties {
+    private String host;
+    private int port = 8021;
+    private int timeoutSeconds;
+    private String password;
 }
