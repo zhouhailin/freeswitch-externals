@@ -1,16 +1,21 @@
 # FreeSWITCH ESL ALL
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/23fb13f7487f4ccd985f09c96341dfab)](https://app.codacy.com/gh/zhouhailin/freeswitch-esl-all?utm_source=github.com&utm_medium=referral&utm_content=zhouhailin/freeswitch-esl-all&utm_campaign=Badge_Grade_Settings)
-[![Jdk Version](https://img.shields.io/badge/JDK-1.8-green.svg)](https://img.shields.io/badge/JDK-1.8-green.svg)
-[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[![Jdk Version](https://img.shields.io/badge/JDK-17-green.svg)](https://img.shields.io/badge/JDK-17-green.svg)
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Maven Central](https://img.shields.io/maven-central/v/link.thingscloud/freeswitch-esl-all)](https://mvnrepository.com/artifact/link.thingscloud/freeswitch-esl-all)
 [![Gitter](https://badges.gitter.im/freeswitch-esl-all/community.svg)](https://gitter.im/freeswitch-esl-all/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+## 版本说明
+
+    1.x 版本, JDK 1.8, spring boot 2.x
+    2.x 版本, JDK 17,  spring boot 3.x
 
 ## 特性
 
     1、支持连接FreeSWITCH大规模集群
     2、更易于集成使用
-    4、与spring boot 2.x深度整合，提供 starter
+    4、与spring boot 3.x深度整合，提供 starter
     5、可动态配置
 
 ## 模块说明
@@ -25,7 +30,7 @@
 
 ### 3.[freeswitch-esl-spring-boot-starter](freeswitch-esl-spring-boot-starter/README.md)
 
-    基于 Spring boot 2.3.x, freeswitch-esl 客户端(详细信息，移步至子模块）
+    基于 Spring boot 3.x.x, freeswitch-esl 客户端(详细信息，移步至子模块）
     
     application.properties
     
@@ -108,4 +113,4 @@
 
 ## LICENSE
 
-[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) Copyright (C) Apache Software Foundation
+[Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) Copyright (C) Apache Software Foundation
