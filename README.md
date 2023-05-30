@@ -6,6 +6,11 @@
 [![Maven Central](https://img.shields.io/maven-central/v/link.thingscloud/freeswitch-esl-all)](https://mvnrepository.com/artifact/link.thingscloud/freeswitch-esl-all)
 [![Gitter](https://badges.gitter.im/freeswitch-esl-all/community.svg)](https://gitter.im/freeswitch-esl-all/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
+## 版本说明
+
+    1.x 版本, JDK 1.8, spring boot 2.x
+    2.x 版本, JDK 17,  spring boot 3.x (v2.0-dev)
+
 ## 特性
 
     1、支持连接FreeSWITCH大规模集群
@@ -108,4 +113,4 @@
 
 ## LICENSE
 
-[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) Copyright (C) Apache Software Foundation
+[Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) Copyright (C) Apache Software Foundation
