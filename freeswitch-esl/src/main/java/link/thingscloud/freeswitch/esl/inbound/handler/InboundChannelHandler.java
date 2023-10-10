@@ -37,6 +37,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -63,6 +64,8 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
 
     private final boolean isTraceEnabled = log.isTraceEnabled();
 
+    private volatile boolean channelActive = false;
+
     /**
      * <p>Constructor for InboundChannelHandler.</p>
      *
@@ -83,6 +86,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);
+        this.channelActive = true;
         this.channel = ctx.channel();
         this.remoteAddr = RemotingUtil.socketAddress2String(channel.remoteAddress());
         log.debug("channelActive remoteAddr : {}", remoteAddr);
@@ -95,6 +99,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         super.channelInactive(ctx);
+        this.channelActive = false;
         log.debug("channelInactive remoteAddr : {}", remoteAddr);
         listener.onChannelClosed(remoteAddr);
     }
@@ -264,7 +269,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         return channel.close();
     }
 
-    static class SyncCallback {
+    class SyncCallback {
         private final CountDownLatch latch = new CountDownLatch(1);
         private EslMessage response;
 
@@ -276,8 +281,15 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
          */
         EslMessage get() {
             try {
+                boolean awaitSuccess;
+
                 log.trace("awaiting latch ... ");
-                latch.await();
+                do {
+                    awaitSuccess = latch.await(10, TimeUnit.MILLISECONDS);
+                } while (!awaitSuccess && channelActive);
+                if (!awaitSuccess) {
+                    throw new RuntimeException("awaiting latch timeout when channel is not active.");
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
