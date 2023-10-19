@@ -17,6 +17,7 @@ package link.thingscloud.freeswitch.esl.spring.boot.starter.config;
 
 import link.thingscloud.freeswitch.esl.IEslEventListener;
 import link.thingscloud.freeswitch.esl.InboundClient;
+import link.thingscloud.freeswitch.esl.InboundClientBootstrap;
 import link.thingscloud.freeswitch.esl.ServerConnectionListener;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
 import link.thingscloud.freeswitch.esl.spring.boot.starter.handler.InboundClientOptionHandler;
@@ -93,6 +94,18 @@ public class FreeswitchEslAutoConfiguration {
         log.info("inboundClient properties : [{}]", option);
         log.info("inboundClient option : [{}]", option);
         return InboundClient.newInstance(option);
+    }
+
+    /**
+     * InboundClient Bootstrap
+     *
+     * @param inboundClient a {@link link.thingscloud.freeswitch.esl.InboundClient} object.
+     * @return a {@link link.thingscloud.freeswitch.esl.InboundClientBootstrap} object.
+     */
+    @Bean
+    @ConditionalOnMissingBean(InboundClientBootstrap.class)
+    public InboundClientBootstrap inboundClientBootstrap(@Autowired InboundClient inboundClient) {
+        return new InboundClientBootstrap(inboundClient);
     }
 
 }

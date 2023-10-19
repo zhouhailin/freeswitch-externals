@@ -29,6 +29,7 @@
     <description>Freeswitch Esl</description>
 
     <dependencies>
+        <!-- io framework -->
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-handler</artifactId>

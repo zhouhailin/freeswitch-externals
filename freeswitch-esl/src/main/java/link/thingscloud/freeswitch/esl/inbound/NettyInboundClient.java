@@ -36,7 +36,7 @@ import java.util.function.Consumer;
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
  * @version 1.0.0
  */
-public class NettyInboundClient extends AbstractInboundClientCommand {
+public class NettyInboundClient extends AbstractInboundClient {
 
     /**
      * <p>Constructor for NettyInboundClient.</p>

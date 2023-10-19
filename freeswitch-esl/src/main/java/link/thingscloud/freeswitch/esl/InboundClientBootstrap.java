@@ -13,39 +13,18 @@
  * limitations under the License.
  */
 
-package link.thingscloud.freeswitch.esl.spring.boot.starter.example;
-
-import link.thingscloud.freeswitch.esl.InboundClient;
-import link.thingscloud.freeswitch.esl.InboundClientBootstrap;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
+package link.thingscloud.freeswitch.esl;
 
 /**
  * @author zhouhailin
+ * @since 1.8.0
  */
-@Slf4j
-@Component
-public class ExampleInboundClient {
-    @Autowired
-    private InboundClient inboundClient;
+public class InboundClientBootstrap {
 
-    @Autowired
-    private InboundClientBootstrap inboundClientBootstrap;
+    private final InboundClient inboundClient;
 
-    @PostConstruct
-    public void startup() {
-        System.out.println(inboundClientBootstrap);
+    public InboundClientBootstrap(InboundClient inboundClient) {
+        this.inboundClient = inboundClient;
     }
-
-//    public void hold() {
-//        inboundClient.hold("", "");
-//    }
-//
-//    public void record() {
-//        inboundClient.record("", "", "", "", 1);
-//    }
 
 }
