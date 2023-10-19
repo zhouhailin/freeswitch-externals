@@ -26,8 +26,8 @@
     InboundClientOption option = new InboundClientOption();
     
     // 设置 默认 ESL 密码, ServerOption 未设置密码，采用此默认值
-    option.defaultPassword("NewVois001")
-            .addServerOption(new ServerOption("172.16.2.253", 8014));
+    option.defaultPassword("ClueCon")
+            .addServerOption(new ServerOption("127.0.0.1", 8021));
     // 设置 ESL 订阅事件
     option.addEvents("all");
 
@@ -57,9 +57,10 @@
 
 ## 获取 InboundClient
 
-    // 任意地方获取 InboundClient 实例
+    // 获取 InboundClient 实例
     InboundClient inboundClient = InboundClient.getInstance();
 
-## InboundClient API
+## InboundClient FreeSWITCH API
 
-    暂未计划
+    InboundClient.getBootstrap()
+    SpringBoot容器 : @Autowired InboundClientBootstrap bootstrap

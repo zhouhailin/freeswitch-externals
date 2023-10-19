@@ -30,7 +30,7 @@ import java.util.function.Consumer;
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
  * @version 1.0.0
  */
-public interface InboundClient extends InboundClientService, InboundClientCommand {
+public interface InboundClient extends InboundClientService {
 
     /**
      * <p>newInstance.</p>
@@ -43,12 +43,31 @@ public interface InboundClient extends InboundClientService, InboundClientComman
     }
 
     /**
+     * <p>newBootstrap.</p>
+     *
+     * @param option a {@link link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption} object.
+     * @return a {@link link.thingscloud.freeswitch.esl.InboundClientBootstrap} object.
+     */
+    static InboundClientBootstrap newBootstrap(InboundClientOption option) {
+        return new InboundClientBootstrap(InboundClientFactory.getInstance().newInboundClient(option));
+    }
+
+    /**
      * <p>getInstance.</p>
      *
      * @return a {@link link.thingscloud.freeswitch.esl.InboundClient} object.
      */
     static InboundClient getInstance() {
         return InboundClientFactory.getInstance().getInboundClient();
+    }
+
+    /**
+     * <p>getBootstrap.</p>
+     *
+     * @return a {@link link.thingscloud.freeswitch.esl.InboundClientBootstrap} object.
+     */
+    static InboundClientBootstrap getBootstrap() {
+        return new InboundClientBootstrap(getInstance());
     }
 
     /**

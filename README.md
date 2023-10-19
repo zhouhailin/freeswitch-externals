@@ -79,7 +79,11 @@
 
     获取实例 
         InboundClient.getInstance()
-        SpringBoot容器 : @Autowired inboundClient
+        SpringBoot容器 : @Autowired InboundClient inboundClient
+
+    获取FreeSWITCH API实例
+        InboundClient.getBootstrap()
+        SpringBoot容器 : @Autowired InboundClientBootstrap bootstrap
     
     可动态配置添加或删除远端地址
         添加远端地址

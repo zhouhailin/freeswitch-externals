@@ -42,9 +42,9 @@ import java.util.concurrent.TimeUnit;
  * <p>flow :</p>
  * |------------------------------------|
  * |                                    |
- * \|            |---» CONNECTED  ---» CLOSED  ---» SHUTDOWN
- * INIT ----» CONNECTING -----|
- * /|            |---» FAILED
+ * \|            |---> CONNECTED  ---> CLOSED  ---> SHUTDOWN
+ * INIT ----> CONNECTING -----|
+ * /|            |---> FAILED
  * |                     |
  * ----------------------|
  *

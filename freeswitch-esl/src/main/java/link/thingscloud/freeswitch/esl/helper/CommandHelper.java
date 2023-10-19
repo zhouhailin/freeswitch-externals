@@ -21,7 +21,7 @@ package link.thingscloud.freeswitch.esl.helper;
  */
 public class CommandHelper {
 
-    private StringBuilder builder = new StringBuilder();
+    private final StringBuilder builder = new StringBuilder();
 
     private CommandHelper(String cmd) {
         builder.append(cmd);
