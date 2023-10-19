@@ -6,114 +6,242 @@
 [![Maven Central](https://img.shields.io/maven-central/v/link.thingscloud/freeswitch-esl-all)](https://mvnrepository.com/artifact/link.thingscloud/freeswitch-esl-all)
 [![Gitter](https://badges.gitter.im/freeswitch-esl-all/community.svg)](https://gitter.im/freeswitch-esl-all/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-## 版本说明
+## Summary
 
-    1.x 版本, JDK 1.8, spring boot 2.x
-    2.x 版本, JDK 17,  spring boot 3.x
+    1.x under development, JDK 1.8, spring boot 2.x
+    2.x under development, JDK 17,  spring boot 3.x (v2.x-dev)
 
-## 特性
+    Netty used 4.1.x, 5.x is not supported
 
-    1、支持连接FreeSWITCH大规模集群
-    2、更易于集成使用
-    4、与spring boot 3.x深度整合，提供 starter
-    5、可动态配置
+## Features
 
-## 模块说明
+    1. Support to connect FreeSWITCH Cluster
+    2. Easy to integrate with FreeSWITCH ESL
+    3. Support spring boot starter
+    4. Support to dynamic add or remove remote server
 
-### 1.[freeswitch-esl](freeswitch-esl/README.md)
+## Maven
 
-    freeswitch esl 客户端(详细信息，移步至子模块）
+    <dependency>
+        <groupId>link.thingscloud</groupId>
+        <artifactId>freeswitch-esl</artifactId>
+        <version>${freeswitch-esl.version}</version>
+    </dependency>
 
-### 2.[freeswitch-esl-example](freeswitch-esl-example/README.md)
+## Quick Start
 
-    基于 freeswitch-esl 客户端示例(详细信息，移步至子模块）
+### freeswitch-esl-spring-boot-starter
 
-### 3.[freeswitch-esl-spring-boot-starter](freeswitch-esl-spring-boot-starter/README.md)
+[Maven Central](https://mvnrepository.com/artifact/link.thingscloud/freeswitch-esl-spring-boot-starter)
 
-    基于 Spring boot 3.x.x, freeswitch-esl 客户端(详细信息，移步至子模块）
-    
-    application.properties
-    
-        link.thingscloud.freeswitch.esl.inbound.servers[0].host=127.0.0.1
-        link.thingscloud.freeswitch.esl.inbound.servers[0].port=8021
-        link.thingscloud.freeswitch.esl.inbound.servers[0].timeout-seconds=5
-        link.thingscloud.freeswitch.esl.inbound.servers[0].password=ClueCon
-        link.thingscloud.freeswitch.esl.inbound.servers[2].host=127.0.0.2
-        link.thingscloud.freeswitch.esl.inbound.servers[2].port=8021
-        link.thingscloud.freeswitch.esl.inbound.servers[2].timeout-seconds=5
-        link.thingscloud.freeswitch.esl.inbound.events=CHANNEL_CREATE CHANNEL_DESTORY 
-        # 开启性能监控 - 事件驱动-业务逻辑处理时间
-        link.thingscloud.freeswitch.esl.inbound.performance=true 
-        link.thingscloud.freeswitch.esl.inbound.performanceCostTime=200 
-        # 开启事件性能监控 - fs产生事件与应用接收到事件时间差
-        link.thingscloud.freeswitch.esl.inbound.eventPerformance=false 
-        link.thingscloud.freeswitch.esl.inbound.eventPerformanceCostTime=200 
+```xml
+    <dependency>
+        <groupId>link.thingscloud</groupId>
+        <artifactId>freeswitch-esl-spring-boot-starter</artifactId>
+        <version>${freeswitch-esl.version}</version>
+    </dependency>
+```
 
-    
-    application.yml
-    
-        link:
-          thingscloud:
-            freeswitch:
-              esl:
-                inbound:
-                  defaultPassword: ClueCon
-                  performance: false
-                  performanceCostTime: 200
-                  #read-timeout-seconds: 0
-                  servers:
-                    - host: 127.0.0.1
-                      port: 8021
-                      timeoutSeconds: 5
-                    - host: 127.0.0.2
-                    - host: 127.0.0.3
-                  events:
-                    - CHANNEL_CREATE
-                    - CHANNEL_DESTORY
+application.properties
+```properties
+link.thingscloud.freeswitch.esl.inbound.servers[0].host=127.0.0.1
+link.thingscloud.freeswitch.esl.inbound.servers[0].port=8021
+link.thingscloud.freeswitch.esl.inbound.servers[0].timeout-seconds=5
+link.thingscloud.freeswitch.esl.inbound.servers[0].password=ClueCon
+link.thingscloud.freeswitch.esl.inbound.servers[2].host=127.0.0.2
+link.thingscloud.freeswitch.esl.inbound.servers[2].port=8021
+link.thingscloud.freeswitch.esl.inbound.servers[2].timeout-seconds=5
+link.thingscloud.freeswitch.esl.inbound.events=CHANNEL_CREATE CHANNEL_DESTORY 
+# performance monitor - event driven - business logic processing time
+link.thingscloud.freeswitch.esl.inbound.performance=true 
+link.thingscloud.freeswitch.esl.inbound.performanceCostTime=200 
+# event performance monitor - event driven - event generate time and event receive time
+link.thingscloud.freeswitch.esl.inbound.eventPerformance=false 
+link.thingscloud.freeswitch.esl.inbound.eventPerformanceCostTime=200
+```
 
-### 4.[freeswitch-esl-spring-boot-starter-example](freeswitch-esl-spring-boot-starter-example/README.md)
+application.yml
+```yaml
+link:
+  thingscloud:
+    freeswitch:
+      esl:
+        inbound:
+          defaultPassword: ClueCon
+          performance: false
+          performanceCostTime: 200
+          #read-timeout-seconds: 0
+          servers:
+            - host: 127.0.0.1
+              port: 8021
+              timeoutSeconds: 5
+            - host: 127.0.0.2
+            - host: 127.0.0.3
+          events:
+            - CHANNEL_CREATE
+            - CHANNEL_DESTORY
+```
 
-    基于 freeswitch-esl-spring-boot-starter 客户端示例(详细信息，移步至子模块）
+```java
+@Slf4j
+@Component
+public class ExampleInboundClient {
+    @Autowired
+    private InboundClient inboundClient;
 
-## 使用说明
+    @Autowired
+    private InboundClientBootstrap inboundClientBootstrap;
 
-    获取实例 
-        InboundClient.getInstance()
-        SpringBoot容器 : @Autowired InboundClient inboundClient
+    @PostConstruct
+    public void startup() {
+        System.out.println(inboundClientBootstrap);
+    }
 
-    获取FreeSWITCH API实例
-        InboundClient.getBootstrap()
-        SpringBoot容器 : @Autowired InboundClientBootstrap bootstrap
-    
-    可动态配置添加或删除远端地址
-        添加远端地址
-            a、inboundClient.option().addServerOption(new ServerOption(host, port));
-            b、InboundClient.getInstance().option().addServerOption(new ServerOption(host, port));
-        
-        删除远端地址
-            ServerOption serverOption = inboundClient.option().serverOptions().get(0);
-            
-            a、inboundClient.option().removeServerOption(serverOption);
-            b、InboundClient.getInstance().option().removeServerOption(serverOption);
-            
-    服务端连接监听器 ServerConnectionListener
-        inboundClient.option().serverConnectionListener(serverConnectionListenerImpl);
-            void onOpened(ServerOption serverOption);
-            void onClosed(ServerOption serverOption);
-    
-    配置动态获取或者删除  
-        1、实现接口 InboundClientOptionHandler
-        2、继承抽象类 AbstractInboundClientOptionHandler
+}
+```
 
-## 使用须知
+```java
+@Slf4j
+@Component
+public class InboundClientOptionHandlerExample extends AbstractInboundClientOptionHandler {
 
-    1、发送api建议采用异步操作，特别是originate命令
-    2、目前存在消息超时机制，应对服务端直接关机导致连接假死，设置readTimeoutSeconds参数值为0，可关闭此特性
-    3、为了提高性能，处理EslEvent时，使用Netty的Worker线程，如果处理逻辑涉及IO或者耗时操作，必须要将处理逻辑放在新线程里面处理，通过disablePublicExecutor参数设置
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void intercept(InboundClientOption inboundClientOption) {
+        List<ServerOption> serverOptions = inboundClientOption.serverOptions();
+        log.info("serverOptions before : {}", serverOptions);
+        serverOptions.clear();
+        serverOptions.add(new ServerOption("127.0.0.8", 8021));
+        log.info("serverOptions after  : {}", serverOptions);
+    }
+}
+```
 
-## 志同道合(微信) - 请备注来源
+```java
+@Slf4j
+@Component
+@EslEventName(EventNames.HEARTBEAT)
+public class HeartbeatEslEventHandler implements EslEventHandler {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void handle(String addr, EslEvent event) {
+        log.info("HeartbeatEslEventHandler handle addr[{}] EslEvent[{}].", addr, event);
+    }
+}
+```
 
-![微信](https://gitee.com/zhouhailin/images/raw/master/a0eb627b9b6bc1c6da8f19d3292ebce.jpg)
+```java
+@Slf4j
+@Service
+public class ServerConnectionListenerImpl implements ServerConnectionListener {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onOpened(ServerOption serverOption) {
+        log.info("onOpened serverOption : {}", serverOption);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onClosed(ServerOption serverOption) {
+        log.info("onClosed serverOption : {}", serverOption);
+    }
+}
+```
+
+### freeswitch-esl
+
+[Maven Central](https://mvnrepository.com/artifact/link.thingscloud/freeswitch-esl)
+```xml
+    <dependency>
+        <groupId>link.thingscloud</groupId>
+        <artifactId>freeswitch-esl</artifactId>
+        <version>${freeswitch-esl.version}</version>
+    </dependency>
+```
+
+```
+InboundClientOption option = new InboundClientOption();
+
+// set default esl password, if ServerOption not set password, use this default value
+option.defaultPassword("ClueCon")
+    .addServerOption(new ServerOption("127.0.0.1", 8021));
+
+// set esl subscribe events
+option.addEvents("all");
+
+// ESL event listener
+option.addListener(new IEslEventListener() {
+    @Override
+    public void eventReceived(String addr, EslEvent event) {
+        System.out.println(addr);
+        System.out.println(event);
+    }
+
+    @Override
+    public void backgroundJobResultReceived(String addr, EslEvent event) {
+        System.out.println(addr);
+        System.out.println(event);
+    }
+});
+
+option.serverConnectionListener(new ServerConnectionListener() {
+    @Override
+    public void onOpened(ServerOption serverOption) {
+        System.out.println("---onOpened--");
+    }
+
+    @Override
+    public void onClosed(ServerOption serverOption) {
+        System.out.println("---onClosed--");
+    }
+});
+
+InboundClient inboundClient = InboundClient.newInstance(option);
+
+// start client
+inboundClient.start();
+
+// shutdown client, after shutdown, can't start again, shutdown with JVM
+inboundClient.shutdown();
+```
+
+```
+// Get InboundClient Instance
+InboundClient inboundClient = InboundClient.getInstance();
+
+// Get InboundClient FreeSWITCH API
+InboundClient.getBootstrap()
+```
+
+```
+// add server option
+inboundClient.option().addServerOption(new ServerOption(host, port));
+// InboundClient.getInstance().option().addServerOption(new ServerOption(host, port));
+
+// remove server option
+ServerOption serverOption = inboundClient.option().serverOptions().get(0);
+inboundClient.option().removeServerOption(serverOption);
+// InboundClient.getInstance().option().removeServerOption(serverOption);
+
+```
+
+## Notice
+
+    1. Send api is recommended to use asynchronous operation, especially the originate command
+    2. There is a message timeout mechanism at present to deal with the false death of the connection caused by the direct shutdown of the server. Set the value of readTimeoutSeconds parameter to 0 to turn off this feature
+    3. In order to improve performance, when processing EslEvent, use Netty's worker thread. If the processing logic involves IO or time-consuming operation, the processing logic must be put in a new thread to process, and the disablePublicExecutor parameter is set
+
+## WeChat User Groups - Please note the source
+
+![WeChat](https://gitee.com/zhouhailin/images/raw/master/a0eb627b9b6bc1c6da8f19d3292ebce.jpg)
 
 ## LICENSE
 
