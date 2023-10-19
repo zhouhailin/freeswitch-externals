@@ -9,7 +9,7 @@
 ## 版本说明
 
     1.x 版本, JDK 1.8, spring boot 2.x
-    2.x 版本, JDK 17,  spring boot 3.x (v2.0-dev)
+    2.x 版本, JDK 17,  spring boot 3.x (v2.x-dev)
 
 ## 特性
 
@@ -79,7 +79,11 @@
 
     获取实例 
         InboundClient.getInstance()
-        SpringBoot容器 : @Autowired inboundClient
+        SpringBoot容器 : @Autowired InboundClient inboundClient
+
+    获取FreeSWITCH API实例
+        InboundClient.getBootstrap()
+        SpringBoot容器 : @Autowired InboundClientBootstrap bootstrap
     
     可动态配置添加或删除远端地址
         添加远端地址
