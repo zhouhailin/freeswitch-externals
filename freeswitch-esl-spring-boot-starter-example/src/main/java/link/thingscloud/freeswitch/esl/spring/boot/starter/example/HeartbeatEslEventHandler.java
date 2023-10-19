@@ -29,8 +29,8 @@ import org.springframework.stereotype.Component;
  * @version 1.0.0
  */
 @Slf4j
-@EslEventName(EventNames.HEARTBEAT)
 @Component
+@EslEventName(EventNames.HEARTBEAT)
 public class HeartbeatEslEventHandler implements EslEventHandler {
     /**
      * {@inheritDoc}
