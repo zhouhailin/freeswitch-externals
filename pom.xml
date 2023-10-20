@@ -34,6 +34,10 @@
         <module>freeswitch-esl-example</module>
         <module>freeswitch-esl-spring-boot-starter</module>
         <module>freeswitch-esl-spring-boot-starter-example</module>
+        <module>freeswitch-cdr</module>
+        <module>freeswitch-cdr-example</module>
+        <module>freeswitch-cdr-spring-boot-starter</module>
+        <module>freeswitch-cdr-spring-boot-starter-example</module>
     </modules>
 
     <properties>
@@ -80,18 +84,26 @@
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>freeswitch-example</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>freeswitch-esl-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>freeswitch-esl-spring-boot-starter-example</artifactId>
+                <artifactId>freeswitch-cdr</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>freeswitch-cdr-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
+            <dependency>
+                <groupId>org.dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>2.1.4</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies -->

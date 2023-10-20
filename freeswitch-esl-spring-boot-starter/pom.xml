@@ -32,7 +32,6 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>freeswitch-esl</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
