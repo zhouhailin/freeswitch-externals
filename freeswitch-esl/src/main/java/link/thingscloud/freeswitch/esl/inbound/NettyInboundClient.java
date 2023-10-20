@@ -17,6 +17,7 @@ package link.thingscloud.freeswitch.esl.inbound;
 
 import link.thingscloud.freeswitch.esl.InboundClient;
 import link.thingscloud.freeswitch.esl.constant.Constants;
+import link.thingscloud.freeswitch.esl.constant.EventNames;
 import link.thingscloud.freeswitch.esl.exception.InboundTimeoutExcetion;
 import link.thingscloud.freeswitch.esl.inbound.handler.InboundChannelHandler;
 import link.thingscloud.freeswitch.esl.inbound.option.InboundClientOption;
@@ -29,6 +30,9 @@ import link.thingscloud.freeswitch.esl.util.StringUtils;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
+import static link.thingscloud.freeswitch.esl.constant.EventNames.ALL;
+import static link.thingscloud.freeswitch.esl.constant.EventNames.BACKGROUND_JOB;
+
 
 /**
  * <p>NettyInboundClient class.</p>
@@ -38,6 +42,8 @@ import java.util.function.Consumer;
  */
 public class NettyInboundClient extends AbstractInboundClient {
 
+    private volatile boolean subscribeBackgroundJob = false;
+
     /**
      * <p>Constructor for NettyInboundClient.</p>
      *
@@ -45,6 +51,11 @@ public class NettyInboundClient extends AbstractInboundClient {
      */
     public NettyInboundClient(InboundClientOption option) {
         super(option);
+    }
+
+    @Override
+    public boolean subscribeBackgroundJob() {
+        return subscribeBackgroundJob;
     }
 
     /**
@@ -132,6 +143,11 @@ public class NettyInboundClient extends AbstractInboundClient {
         }
         InboundChannelHandler handler = getAuthedHandler(addr);
 
+
+        if (StringUtils.contains(events, EventNames.BACKGROUND_JOB) || StringUtils.contains(events, EventNames.ALL)) {
+            subscribeBackgroundJob = true;
+        }
+
         StringBuilder sb = new StringBuilder();
         sb.append("event ");
         sb.append(format);
@@ -150,6 +166,7 @@ public class NettyInboundClient extends AbstractInboundClient {
     public CommandResponse cancelEventSubscriptions(String addr) {
         InboundChannelHandler handler = getAuthedHandler(addr);
         EslMessage response = handler.sendSyncSingleLineCommand("noevents");
+        subscribeBackgroundJob = false;
         return new CommandResponse("noevents", response);
     }
 
