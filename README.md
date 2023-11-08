@@ -51,7 +51,7 @@ link.thingscloud.freeswitch.esl.inbound.servers[0].password=ClueCon
 link.thingscloud.freeswitch.esl.inbound.servers[2].host=127.0.0.2
 link.thingscloud.freeswitch.esl.inbound.servers[2].port=8021
 link.thingscloud.freeswitch.esl.inbound.servers[2].timeout-seconds=5
-link.thingscloud.freeswitch.esl.inbound.events=CHANNEL_CREATE CHANNEL_DESTORY 
+link.thingscloud.freeswitch.esl.inbound.events=CHANNEL_CREATE CHANNEL_DESTROY 
 # performance monitor - event driven - business logic processing time
 link.thingscloud.freeswitch.esl.inbound.performance=true 
 link.thingscloud.freeswitch.esl.inbound.performanceCostTime=200 
@@ -79,7 +79,7 @@ link:
             - host: 127.0.0.3
           events:
             - CHANNEL_CREATE
-            - CHANNEL_DESTORY
+            - CHANNEL_DESTROY
 ```
 
 ```java
