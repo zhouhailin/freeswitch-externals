@@ -232,6 +232,9 @@ inboundClient.option().removeServerOption(serverOption);
 // InboundClient.getInstance().option().removeServerOption(serverOption);
 
 ```
+## Star history
+
+[![Star History Chart](https://api.star-history.com/svg?repos=zhouhailin/freeswitch-externals&type=Date)](https://star-history.com/#zhouhailin/freeswitch-externals&Date)
 
 ## Notice
 
