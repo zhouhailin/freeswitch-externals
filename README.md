@@ -1,15 +1,14 @@
 # FreeSWITCH ESL ALL
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/23fb13f7487f4ccd985f09c96341dfab)](https://app.codacy.com/gh/zhouhailin/freeswitch-esl-all?utm_source=github.com&utm_medium=referral&utm_content=zhouhailin/freeswitch-esl-all&utm_campaign=Badge_Grade_Settings)
-[![Jdk Version](https://img.shields.io/badge/JDK-17-green.svg)](https://img.shields.io/badge/JDK-17-green.svg)
+[![Jdk Version](https://img.shields.io/badge/JDK-8-green.svg)](https://img.shields.io/badge/JDK-8-green.svg)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Maven Central](https://img.shields.io/maven-central/v/link.thingscloud/freeswitch-esl-all)](https://mvnrepository.com/artifact/link.thingscloud/freeswitch-esl-all)
 [![Gitter](https://badges.gitter.im/freeswitch-esl-all/community.svg)](https://gitter.im/freeswitch-esl-all/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Summary
 
-    1.x under development, JDK 1.8, spring boot 2.x
-    2.x under development, JDK 17,  spring boot 3.x (v2.x-dev)
+    JDK 1.8 +
 
     Netty used 4.1.x, 5.x is not supported
 
@@ -35,14 +34,16 @@
 [Maven Central](https://mvnrepository.com/artifact/link.thingscloud/freeswitch-esl-spring-boot-starter)
 
 ```xml
-    <dependency>
-        <groupId>link.thingscloud</groupId>
-        <artifactId>freeswitch-esl-spring-boot-starter</artifactId>
-        <version>${freeswitch-esl.version}</version>
-    </dependency>
+
+<dependency>
+    <groupId>link.thingscloud</groupId>
+    <artifactId>freeswitch-esl-spring-boot-starter</artifactId>
+    <version>${freeswitch-esl.version}</version>
+</dependency>
 ```
 
 application.properties
+
 ```properties
 link.thingscloud.freeswitch.esl.inbound.servers[0].host=127.0.0.1
 link.thingscloud.freeswitch.esl.inbound.servers[0].port=8021
@@ -61,6 +62,7 @@ link.thingscloud.freeswitch.esl.inbound.eventPerformanceCostTime=200
 ```
 
 application.yml
+
 ```yaml
 link:
   thingscloud:
@@ -83,6 +85,7 @@ link:
 ```
 
 ```java
+
 @Slf4j
 @Component
 public class ExampleInboundClient {
@@ -101,6 +104,7 @@ public class ExampleInboundClient {
 ```
 
 ```java
+
 @Slf4j
 @Component
 public class InboundClientOptionHandlerExample extends AbstractInboundClientOptionHandler {
@@ -120,6 +124,7 @@ public class InboundClientOptionHandlerExample extends AbstractInboundClientOpti
 ```
 
 ```java
+
 @Slf4j
 @Component
 @EslEventName(EventNames.HEARTBEAT)
@@ -135,6 +140,7 @@ public class HeartbeatEslEventHandler implements EslEventHandler {
 ```
 
 ```java
+
 @Slf4j
 @Service
 public class ServerConnectionListenerImpl implements ServerConnectionListener {
@@ -159,12 +165,14 @@ public class ServerConnectionListenerImpl implements ServerConnectionListener {
 ### freeswitch-esl
 
 [Maven Central](https://mvnrepository.com/artifact/link.thingscloud/freeswitch-esl)
+
 ```xml
-    <dependency>
-        <groupId>link.thingscloud</groupId>
-        <artifactId>freeswitch-esl</artifactId>
-        <version>${freeswitch-esl.version}</version>
-    </dependency>
+
+<dependency>
+    <groupId>link.thingscloud</groupId>
+    <artifactId>freeswitch-esl</artifactId>
+    <version>${freeswitch-esl.version}</version>
+</dependency>
 ```
 
 ```

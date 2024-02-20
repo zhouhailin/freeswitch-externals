@@ -78,6 +78,13 @@ public interface InboundClient extends InboundClientService {
     InboundClientOption option();
 
     /**
+     * Whether to subscribe the BACKGROUND_JOB event
+     *
+     * @return subscribe BACKGROUND_JOB
+     */
+    boolean subscribeBackgroundJob();
+
+    /**
      * Sends a FreeSWITCH API command to the server and blocks, waiting for an immediate response from the
      * server.
      * <p>

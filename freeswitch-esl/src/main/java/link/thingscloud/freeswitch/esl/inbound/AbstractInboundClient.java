@@ -191,7 +191,7 @@ abstract class AbstractInboundClient extends AbstractNettyInboundClient implemen
                 start = System.currentTimeMillis();
             }
             if (option().eventPerformance()) {
-                long cost = 0L;
+                long cost;
                 if (start > 0L) {
                     cost = start - (event.getEventDateTimestamp() / 1000);
                 } else {

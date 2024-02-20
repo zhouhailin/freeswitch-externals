@@ -24,6 +24,9 @@ import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * <p>InboundClientOption class.</p>
@@ -56,13 +59,13 @@ public class InboundClientOption {
 
     private ServerOptionListener serverOptionListener = null;
     private ServerConnectionListener serverConnectionListener = null;
-    private final List<ServerOption> serverOptions = new ArrayList<>();
+    private final List<ServerOption> serverOptions = new CopyOnWriteArrayList<>();
     private final ServerAddrOption serverAddrOption = new ServerAddrOption(serverOptions);
 
-    private final List<IEslEventListener> listeners = new ArrayList<>();
+    private final List<IEslEventListener> listeners = new CopyOnWriteArrayList<>();
 
     private EventListener eventListener = null;
-    private final List<String> events = new ArrayList<>();
+    private final Set<String> events = new CopyOnWriteArraySet<>();
 
     /**
      * <p>sndBufSize.</p>
@@ -521,7 +524,7 @@ public class InboundClientOption {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<String> events() {
+    public Set<String> events() {
         return events;
     }
 
