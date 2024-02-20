@@ -38,8 +38,8 @@ public class EslInboundClientExample {
     public static void main(String[] args) {
         InboundClientOption option = new InboundClientOption();
 
-        option.defaultPassword("NewVois001")
-                .addServerOption(new ServerOption("172.16.2.253", 8014));
+        option.defaultPassword("ClueCon")
+                .addServerOption(new ServerOption("172.16.44.246", 8021));
         option.addEvents("all");
 
         option.addListener(new IEslEventListener() {

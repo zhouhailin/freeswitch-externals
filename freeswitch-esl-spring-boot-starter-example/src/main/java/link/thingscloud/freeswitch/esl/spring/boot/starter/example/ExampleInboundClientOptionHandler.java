@@ -40,8 +40,8 @@ public class ExampleInboundClientOptionHandler extends AbstractInboundClientOpti
     protected void intercept(InboundClientOption inboundClientOption) {
         List<ServerOption> serverOptions = inboundClientOption.serverOptions();
         log.info("serverOptions before : {}", serverOptions);
-        serverOptions.clear();
-        serverOptions.add(new ServerOption("127.0.0.8", 8021));
-        log.info("serverOptions after  : {}", serverOptions);
+//        serverOptions.clear();
+//        serverOptions.add(new ServerOption("127.0.0.8", 8021));
+//        log.info("serverOptions after  : {}", serverOptions);
     }
 }
