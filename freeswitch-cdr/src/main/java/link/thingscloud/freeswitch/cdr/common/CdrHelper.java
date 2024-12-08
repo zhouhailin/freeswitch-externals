@@ -61,4 +61,15 @@ public class CdrHelper {
     }
 
 
+    /**
+     * <p>decode.</p>
+     *
+     * @param str a {@link String} object.
+     * @return a {@link String} object.
+     */
+    public static String decode2(String str) {
+        return CdrDecodeUtil.decode(str);
+    }
+
+
 }
