@@ -6,16 +6,13 @@ import lombok.experimental.Accessors;
 import java.util.List;
 
 /**
- * <p>Extension class.</p>
+ * <p>AppLog class.</p>
  *
  * @author : <a href="mailto:ant.zhou@aliyun.com">zhouhailin</a>
  * @version $Id: $Id
  */
 @Data
 @Accessors(chain = true)
-public class Extension {
-    private String name;
-    private String number;
+public class NewAppLog {
     private List<Application> applications;
-    private List<Application> applications2;
 }
