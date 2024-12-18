@@ -16,6 +16,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class ErrorLog {
     private List<ErrorPeriod> errorPeriods;
+    private List<ErrorPeriod> newErrorPeriods;
 
     /**
      * <p>addErrorPeriod.</p>
