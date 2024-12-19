@@ -50,6 +50,16 @@ public class StringUtils {
     }
 
     /**
+     * <p>contains.</p>
+     *
+     * @param str a {@link java.lang.String} object.
+     * @return a boolean.
+     */
+    public static boolean contains(final String str, String str0) {
+        return str != null && str.contains(str0);
+    }
+
+    /**
      * <p>isBlank.</p>
      *
      * @param cs a {@link java.lang.CharSequence} object.
