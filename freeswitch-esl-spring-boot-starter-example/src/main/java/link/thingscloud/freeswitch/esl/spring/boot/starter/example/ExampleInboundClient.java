@@ -15,10 +15,10 @@
 
 package link.thingscloud.freeswitch.esl.spring.boot.starter.example;
 
-import jakarta.annotation.PostConstruct;
 import link.thingscloud.freeswitch.esl.InboundClient;
 import link.thingscloud.freeswitch.esl.InboundClientBootstrap;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,15 +27,15 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class ExampleInboundClient {
+public class ExampleInboundClient implements InitializingBean {
     @Autowired
     private InboundClient inboundClient;
 
     @Autowired
     private InboundClientBootstrap inboundClientBootstrap;
 
-    @PostConstruct
-    public void startup() {
+    @Override
+    public void afterPropertiesSet() throws Exception {
         System.out.println(inboundClientBootstrap);
     }
 
