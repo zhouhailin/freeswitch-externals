@@ -14,6 +14,7 @@ import lombok.experimental.Accessors;
 public class OriginatorCallerProfile {
     private String username;
     private String dialplan;
+    private String dialplanXml;
     private String callerIdName;
     private String callerIdNumber;
     private String calleeIdName;
