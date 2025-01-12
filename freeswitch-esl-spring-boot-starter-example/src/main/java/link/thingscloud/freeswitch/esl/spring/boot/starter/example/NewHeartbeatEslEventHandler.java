@@ -38,5 +38,10 @@ public class NewHeartbeatEslEventHandler implements EslEventHandler {
     @Override
     public void handle(String addr, EslEvent event) {
         log.info("HeartbeatEslEventHandler handle addr[{}] EslEvent[{}].", addr, event);
+        todo(addr, event);
+    }
+
+    public void todo(String addr, EslEvent event) {
+
     }
 }
