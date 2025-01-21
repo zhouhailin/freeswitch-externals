@@ -28,13 +28,12 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class ServerConnectionListenerImpl implements ServerConnectionListener {
+public class ServerConnectionListenerImpl2 implements ServerConnectionListener {
     /**
      * {@inheritDoc}
      */
     @Override
     public void onOpened(ServerOption serverOption) {
-        log.info("onOpened serverOption : {}", serverOption);
         log.info("onOpened serverOption : {}", serverOption);
     }
 
@@ -43,7 +42,6 @@ public class ServerConnectionListenerImpl implements ServerConnectionListener {
      */
     @Override
     public void onClosed(ServerOption serverOption) {
-        log.info("onClosed serverOption : {}", serverOption);
         log.info("onClosed serverOption : {}", serverOption);
     }
 }
