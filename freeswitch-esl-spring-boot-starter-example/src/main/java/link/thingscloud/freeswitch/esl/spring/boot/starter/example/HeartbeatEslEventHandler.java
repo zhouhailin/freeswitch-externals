@@ -38,5 +38,6 @@ public class HeartbeatEslEventHandler implements EslEventHandler {
     @Override
     public void handle(String addr, EslEvent event) {
         log.info("HeartbeatEslEventHandler handle addr[{}] EslEvent[{}].", addr, event);
+        log.info("HeartbeatEslEventHandler2 handle addr[{}] EslEvent[{}].", addr, event);
     }
 }
