@@ -39,12 +39,12 @@ public class ExampleInboundClient implements InitializingBean {
         System.out.println(inboundClientBootstrap);
     }
 
-//    public void hold() {
-//        inboundClient.hold("", "");
-//    }
-//
-//    public void record() {
-//        inboundClient.record("", "", "", "", 1);
-//    }
+    public void hold() {
+        inboundClient.hold("", "");
+    }
+
+    public void record() {
+        inboundClient.record("", "", "", "", 1);
+    }
 
 }
