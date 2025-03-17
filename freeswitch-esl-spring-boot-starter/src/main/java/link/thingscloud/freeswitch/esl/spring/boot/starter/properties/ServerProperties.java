@@ -29,4 +29,5 @@ public class ServerProperties {
     private int port = 8021;
     private int timeoutSeconds;
     private String password;
+    private String password2;
 }
