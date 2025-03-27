@@ -10,6 +10,8 @@ link:
             - host: 172.16.44.246
               port: 8021
               timeoutSeconds: 5
+            - host: 127.0.0.1
+              port: 8021
           events:
             - all
 #logging:

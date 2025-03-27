@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+link.thingscloud.freeswitch.esl.spring.boot.starter.config.FreeswitchEslAutoConfiguration
