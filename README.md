@@ -8,7 +8,7 @@
 
 ## Summary
 
-    Support JDK 1.8 / 17+
+    JDK 1.8 +
 
     Netty used 4.1.x, 5.x is not supported
 
