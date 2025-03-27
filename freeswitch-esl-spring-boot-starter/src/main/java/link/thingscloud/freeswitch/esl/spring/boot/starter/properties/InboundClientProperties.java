@@ -41,6 +41,7 @@ public class InboundClientProperties {
     private int readTimeoutSeconds = 30;
     private int readerIdleTimeSeconds = 25;
     private String defaultPassword = "ClueCon";
+    private String defaultPassword2 = "NewClueCon";
     private boolean disablePublicExecutor = false;
     private boolean performance = false;
     private long performanceCostTime = 200;
