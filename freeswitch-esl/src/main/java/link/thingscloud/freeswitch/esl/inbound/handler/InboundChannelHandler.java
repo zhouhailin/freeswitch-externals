@@ -29,10 +29,14 @@ import link.thingscloud.freeswitch.esl.transport.message.EslMessage;
 import link.thingscloud.freeswitch.esl.util.RemotingUtil;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.locks.Lock;
@@ -50,6 +54,7 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
     private static final String MESSAGE_TERMINATOR = "\n\n";
     private static final String LINE_TERMINATOR = "\n";
 
+    private final ConcurrentMap<String, Set<Thread>> addrToThreads = new ConcurrentHashMap<>();
     private final Lock syncLock = new ReentrantLock();
     private final Queue<SyncCallback> syncCallbacks = new ConcurrentLinkedQueue<>();
     private final ChannelEventListener listener;
@@ -95,6 +100,14 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
         super.channelInactive(ctx);
         log.debug("channelInactive remoteAddr : {}", remoteAddr);
         listener.onChannelClosed(remoteAddr);
+		addrToThreads.compute(remoteAddr, (k, v) -> {
+			if (v != null) {
+				for (Thread t : v) {
+					t.interrupt();
+				}
+			}
+			return v;
+		});
     }
 
     /**
@@ -194,8 +207,23 @@ public class InboundChannelHandler extends SimpleChannelInboundHandler<EslMessag
             syncLock.unlock();
         }
 
+        addrToThreads.compute(this.remoteAddr, (k, v) -> {
+            if (v == null) {
+                v = new HashSet<>();
+            }
+            v.add(Thread.currentThread());
+            return v;
+        });
         //  Block until the response is available
-        return callback.get();
+        EslMessage eslMessage = callback.get();
+		addrToThreads.compute(this.remoteAddr, (k, v) -> {
+			if (v == null) {
+				return null;
+			}
+			v.remove(Thread.currentThread());
+			return v;
+		});
+        return eslMessage;
     }
 
     /**
